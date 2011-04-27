@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0-aplha
+Type=Application
+Name=War Edit
+Comment=Create and edit libwar files.
+TryExec=/usr/bin/waredit
+Exec=/usr/bin/waredit
+Icon=/home/xproject/Public/mushroom-cloud.gif

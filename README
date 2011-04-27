@@ -1,0 +1,12 @@
+To compile perform the following:
+
+    rm -rf build
+    mkdir build
+    cd build
+    cmake ..
+    make
+
+Currently, only Mingw is supported on Windows and the macro MINGW must be
+defined when compiling.
+
+For best results use KDevelop when working on the source code.
