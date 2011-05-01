@@ -73,6 +73,19 @@ Rule* RuleList::addRule(const Rule& rule)
     return getRule(rule.id());
 }
 
+Rule* RuleList::resetKey(const QString& oldId, const QString& newId)
+{
+    if(!hasRule(oldId) || hasRule(newId))
+        return 0;
+    
+    
+    Rule rule = m_rules.take(oldId);
+    rule.id(newId);
+    
+    return addRule(rule);
+}
+
+
 bool RuleList::removeRule(const Rule& rule)
 {
     bool ret = true;
@@ -181,6 +194,13 @@ QDomElement& RuleList::toXml(QDomDocument& doc, QDomElement& parent) const
     
     return parent;
 }
+
+const Rule* RuleList::resolveRuleReference(const QString& id)
+    throw(UnresolvedReferenceException)
+{
+    return getRule(id);
+}
+
 
 /*const IRule* RuleList::resolveRuleReference(const QString& id) const
 {

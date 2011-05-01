@@ -57,6 +57,7 @@ public:
      * false: rule already existed and was updated
      */
     Rule* addRule(const Rule& rule);
+    Rule* resetKey(const QString& oldId, const QString& newId);
     
     bool hasRule(const QString& id) const;
     
@@ -80,6 +81,9 @@ public:
      * Resolve rule references.
      */
     //virtual void resolveReferences() throw(UnresolvedReferenceException);
+    
+    virtual const Rule* resolveRuleReference(const QString& id)
+        throw(UnresolvedReferenceException);
     
 protected:
     
