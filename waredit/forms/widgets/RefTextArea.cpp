@@ -23,28 +23,19 @@
 #include "RefTextArea.moc"
 #include <QMessageBox>
 
-RefTextArea::RefTextArea(Game* game, QWidget* parent) : QTextBrowser(parent)
+RefTextArea::RefTextArea(QWidget* parent, WarPage *page) : QTextBrowser(parent)
 {
     setOpenLinks(false);
     setOpenExternalLinks(false);
-    m_game = game;
-    m_race = NULL;
-    connect(this, SIGNAL(anchorClicked(QUrl)), SLOT(linkClicked(QUrl)));
-}
-
-RefTextArea::RefTextArea(Race* race, QWidget* parent): QTextBrowser(parent)
-{
-    setOpenExternalLinks(false);
-    setOpenLinks(false);
-    m_race = race;
-    m_game = NULL;
+    m_page = page;
+    setHtml(m_page->toHtml());
     connect(this, SIGNAL(anchorClicked(QUrl)), SLOT(linkClicked(QUrl)));
 }
 
 
 RefTextArea::~RefTextArea()
 {
-
+    delete m_page;
 }
 
 
@@ -54,27 +45,32 @@ void RefTextArea::linkClicked(const QUrl& url)
     QString id = url.host();
     if(url.scheme() == "rule")
     {
-        const Rule *r;
-        if(m_game)
-            r = m_game->getRule(id);
-        else
-            r = m_race->resolveRuleReference(id);
-        
+        const Rule *r = m_page->ruleList()->resolveRuleReference(id);
         RuleRef ref(*r, name);
         
         emit ruleRefClicked(ref);
     }
     else if(url.scheme() == "wargear")
     {
-        Wargear *w = m_race->getWargear(id);
+        Wargear *w = m_page->race()->getWargear(id);
         WargearRef ref(*w, name);
         emit wargearRefClicked(ref);
     }
     else if(url.scheme() == "unit")
     {
-        Unit *u = m_race->getUnit(id);
+        Unit *u = m_page->race()->getUnit(id);
         emit unitRefClicked(*u);
     }
+}
+
+void RefTextArea::setHtml(const QString& txt)
+{
+    QTextBrowser::setHtml(txt);
+}
+
+void RefTextArea::setPlainText(const QString& txt)
+{
+    QTextBrowser::setPlainText(txt);
 }
 
 

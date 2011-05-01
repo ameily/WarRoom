@@ -25,15 +25,14 @@
 #include <QTextBrowser>
 #include "Game.h"
 #include "Race.h"
+#include <WarPage.h>
 
 class RefTextArea : public QTextBrowser
 {
-
-public:
     Q_OBJECT
     
-    RefTextArea(Game *game, QWidget *parent = 0);
-    RefTextArea(Race *race, QWidget *parent = 0);
+public:
+    RefTextArea(QWidget *parent, WarPage *page);
     virtual ~RefTextArea();
     
 signals:
@@ -46,8 +45,9 @@ private slots:
         
     
 private:
-    Game *m_game;
-    Race *m_race;
+    void setHtml(const QString& txt);
+    void setPlainText(const QString& txt);
+    WarPage *m_page;
 };
 
 #endif // REFTEXTAREA_H
