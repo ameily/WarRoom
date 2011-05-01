@@ -1,5 +1,6 @@
 <RCC>
   <qresource>
+    <file>icons/document-preview.png</file>
     <file>icons/edit-delete.png</file>
     <file>icons/edit-find.png</file>
     <file>icons/mushroom-cloud.gif</file>
