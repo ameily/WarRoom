@@ -1,25 +1,14 @@
-/*
-    This file is part of the War Edit application (waredit)
-    Url: https://github.com/ameily/WarRoom
-    Copyright (C) 2011  Adam Meily <meily.adam@gmail.com>
+/********************************************************************************
+** Form generated from reading UI file 'GameRaceEditME7532.ui'
+**
+** Created: Sun May 1 02:14:58 2011
+**      by: Qt User Interface Compiler version 4.7.0
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
-
-#ifndef GAMERACEEDITLZ2534_H
-#define GAMERACEEDITLZ2534_H
+#ifndef GAMERACEEDITME7532_H
+#define GAMERACEEDITME7532_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -56,6 +45,7 @@ public:
     QAction *actionNewRace;
     QAction *actionSaveGameAs;
     QAction *actionSaveRaceAs;
+    QAction *actionPreviewGame;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
     QTabWidget *gameRaceTabWidget;
@@ -262,6 +252,11 @@ public:
         actionSaveRaceAs = new QAction(MainWindow);
         actionSaveRaceAs->setObjectName(QString::fromUtf8("actionSaveRaceAs"));
         actionSaveRaceAs->setIcon(icon4);
+        actionPreviewGame = new QAction(MainWindow);
+        actionPreviewGame->setObjectName(QString::fromUtf8("actionPreviewGame"));
+        QIcon icon5;
+        icon5.addFile(QString::fromUtf8(":/icons/document-preview.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionPreviewGame->setIcon(icon5);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
@@ -458,17 +453,17 @@ public:
         game_ruleListActionsHBox->setObjectName(QString::fromUtf8("game_ruleListActionsHBox"));
         game_ruleNewButton = new QPushButton(game_rulesGroupBox);
         game_ruleNewButton->setObjectName(QString::fromUtf8("game_ruleNewButton"));
-        QIcon icon5;
-        icon5.addFile(QString::fromUtf8(":/icons/list-add.png"), QSize(), QIcon::Normal, QIcon::Off);
-        game_ruleNewButton->setIcon(icon5);
+        QIcon icon6;
+        icon6.addFile(QString::fromUtf8(":/icons/list-add.png"), QSize(), QIcon::Normal, QIcon::Off);
+        game_ruleNewButton->setIcon(icon6);
 
         game_ruleListActionsHBox->addWidget(game_ruleNewButton);
 
         game_ruleRemoveButton = new QPushButton(game_rulesGroupBox);
         game_ruleRemoveButton->setObjectName(QString::fromUtf8("game_ruleRemoveButton"));
-        QIcon icon6;
-        icon6.addFile(QString::fromUtf8(":/icons/list-remove.png"), QSize(), QIcon::Normal, QIcon::Off);
-        game_ruleRemoveButton->setIcon(icon6);
+        QIcon icon7;
+        icon7.addFile(QString::fromUtf8(":/icons/list-remove.png"), QSize(), QIcon::Normal, QIcon::Off);
+        game_ruleRemoveButton->setIcon(icon7);
 
         game_ruleListActionsHBox->addWidget(game_ruleRemoveButton);
 
@@ -648,13 +643,13 @@ public:
         race_ruleListActionBox->setObjectName(QString::fromUtf8("race_ruleListActionBox"));
         race_ruleNewButton = new QPushButton(race_rulesTab);
         race_ruleNewButton->setObjectName(QString::fromUtf8("race_ruleNewButton"));
-        race_ruleNewButton->setIcon(icon5);
+        race_ruleNewButton->setIcon(icon6);
 
         race_ruleListActionBox->addWidget(race_ruleNewButton);
 
         race_ruleRemoveButton = new QPushButton(race_rulesTab);
         race_ruleRemoveButton->setObjectName(QString::fromUtf8("race_ruleRemoveButton"));
-        race_ruleRemoveButton->setIcon(icon6);
+        race_ruleRemoveButton->setIcon(icon7);
 
         race_ruleListActionBox->addWidget(race_ruleRemoveButton);
 
@@ -736,21 +731,21 @@ public:
         race_wargear_profileActionBox->setObjectName(QString::fromUtf8("race_wargear_profileActionBox"));
         race_wargear_profileNewButton = new QPushButton(race_wargear_profilesGroup);
         race_wargear_profileNewButton->setObjectName(QString::fromUtf8("race_wargear_profileNewButton"));
-        race_wargear_profileNewButton->setIcon(icon5);
+        race_wargear_profileNewButton->setIcon(icon6);
 
         race_wargear_profileActionBox->addWidget(race_wargear_profileNewButton);
 
         race_wargear_profileEditButton = new QPushButton(race_wargear_profilesGroup);
         race_wargear_profileEditButton->setObjectName(QString::fromUtf8("race_wargear_profileEditButton"));
-        QIcon icon7;
-        icon7.addFile(QString::fromUtf8(":/icons/document-edit.png"), QSize(), QIcon::Normal, QIcon::Off);
-        race_wargear_profileEditButton->setIcon(icon7);
+        QIcon icon8;
+        icon8.addFile(QString::fromUtf8(":/icons/document-edit.png"), QSize(), QIcon::Normal, QIcon::Off);
+        race_wargear_profileEditButton->setIcon(icon8);
 
         race_wargear_profileActionBox->addWidget(race_wargear_profileEditButton);
 
         race_wargear_profileRemoveButton = new QPushButton(race_wargear_profilesGroup);
         race_wargear_profileRemoveButton->setObjectName(QString::fromUtf8("race_wargear_profileRemoveButton"));
-        race_wargear_profileRemoveButton->setIcon(icon6);
+        race_wargear_profileRemoveButton->setIcon(icon7);
 
         race_wargear_profileActionBox->addWidget(race_wargear_profileRemoveButton);
 
@@ -777,13 +772,13 @@ public:
         race_wargearListActionBox->setObjectName(QString::fromUtf8("race_wargearListActionBox"));
         race_wargearNewButton = new QPushButton(race_wargearsTab);
         race_wargearNewButton->setObjectName(QString::fromUtf8("race_wargearNewButton"));
-        race_wargearNewButton->setIcon(icon5);
+        race_wargearNewButton->setIcon(icon6);
 
         race_wargearListActionBox->addWidget(race_wargearNewButton);
 
         race_wargearRemoveButton = new QPushButton(race_wargearsTab);
         race_wargearRemoveButton->setObjectName(QString::fromUtf8("race_wargearRemoveButton"));
-        race_wargearRemoveButton->setIcon(icon6);
+        race_wargearRemoveButton->setIcon(icon7);
 
         race_wargearListActionBox->addWidget(race_wargearRemoveButton);
 
@@ -1012,19 +1007,19 @@ public:
         race_unit_wargearActionBox->setObjectName(QString::fromUtf8("race_unit_wargearActionBox"));
         race_unit_wargearAddButton = new QPushButton(race_unit_wargearGroup);
         race_unit_wargearAddButton->setObjectName(QString::fromUtf8("race_unit_wargearAddButton"));
-        race_unit_wargearAddButton->setIcon(icon5);
+        race_unit_wargearAddButton->setIcon(icon6);
 
         race_unit_wargearActionBox->addWidget(race_unit_wargearAddButton);
 
         race_unit_wargearEditButton = new QPushButton(race_unit_wargearGroup);
         race_unit_wargearEditButton->setObjectName(QString::fromUtf8("race_unit_wargearEditButton"));
-        race_unit_wargearEditButton->setIcon(icon7);
+        race_unit_wargearEditButton->setIcon(icon8);
 
         race_unit_wargearActionBox->addWidget(race_unit_wargearEditButton);
 
         race_unit_wargearRemoveButton = new QPushButton(race_unit_wargearGroup);
         race_unit_wargearRemoveButton->setObjectName(QString::fromUtf8("race_unit_wargearRemoveButton"));
-        race_unit_wargearRemoveButton->setIcon(icon6);
+        race_unit_wargearRemoveButton->setIcon(icon7);
 
         race_unit_wargearActionBox->addWidget(race_unit_wargearRemoveButton);
 
@@ -1047,19 +1042,19 @@ public:
         race_unit_rulesActionBox->setObjectName(QString::fromUtf8("race_unit_rulesActionBox"));
         race_unit_ruleAddButton = new QPushButton(race_unit_rulesGroup);
         race_unit_ruleAddButton->setObjectName(QString::fromUtf8("race_unit_ruleAddButton"));
-        race_unit_ruleAddButton->setIcon(icon5);
+        race_unit_ruleAddButton->setIcon(icon6);
 
         race_unit_rulesActionBox->addWidget(race_unit_ruleAddButton);
 
         race_unit_ruleEditButton = new QPushButton(race_unit_rulesGroup);
         race_unit_ruleEditButton->setObjectName(QString::fromUtf8("race_unit_ruleEditButton"));
-        race_unit_ruleEditButton->setIcon(icon7);
+        race_unit_ruleEditButton->setIcon(icon8);
 
         race_unit_rulesActionBox->addWidget(race_unit_ruleEditButton);
 
         race_unit_ruleRemoveButton = new QPushButton(race_unit_rulesGroup);
         race_unit_ruleRemoveButton->setObjectName(QString::fromUtf8("race_unit_ruleRemoveButton"));
-        race_unit_ruleRemoveButton->setIcon(icon6);
+        race_unit_ruleRemoveButton->setIcon(icon7);
 
         race_unit_rulesActionBox->addWidget(race_unit_ruleRemoveButton);
 
@@ -1087,13 +1082,13 @@ public:
         race_unitsActionBox->setObjectName(QString::fromUtf8("race_unitsActionBox"));
         race_unitNewButton = new QPushButton(race_unitsTab);
         race_unitNewButton->setObjectName(QString::fromUtf8("race_unitNewButton"));
-        race_unitNewButton->setIcon(icon5);
+        race_unitNewButton->setIcon(icon6);
 
         race_unitsActionBox->addWidget(race_unitNewButton);
 
         race_unitRemoveButton = new QPushButton(race_unitsTab);
         race_unitRemoveButton->setObjectName(QString::fromUtf8("race_unitRemoveButton"));
-        race_unitRemoveButton->setIcon(icon6);
+        race_unitRemoveButton->setIcon(icon7);
 
         race_unitsActionBox->addWidget(race_unitRemoveButton);
 
@@ -1198,6 +1193,7 @@ public:
         menuGame->addAction(actionNewGame);
         menuGame->addAction(actionSaveGame);
         menuGame->addAction(actionSaveGameAs);
+        menuGame->addAction(actionPreviewGame);
         menuRace->addAction(actionOpenRace);
         menuRace->addAction(actionNewRace);
         menuRace->addAction(actionSaveRace);
@@ -1222,6 +1218,7 @@ public:
         actionNewRace->setText(QApplication::translate("MainWindow", "New Race", 0, QApplication::UnicodeUTF8));
         actionSaveGameAs->setText(QApplication::translate("MainWindow", "Save Game As", 0, QApplication::UnicodeUTF8));
         actionSaveRaceAs->setText(QApplication::translate("MainWindow", "Save Race As", 0, QApplication::UnicodeUTF8));
+        actionPreviewGame->setText(QApplication::translate("MainWindow", "Preview Game", 0, QApplication::UnicodeUTF8));
         game_idLabel->setText(QApplication::translate("MainWindow", "ID*", 0, QApplication::UnicodeUTF8));
         game_nameLabel->setText(QApplication::translate("MainWindow", "Name*", 0, QApplication::UnicodeUTF8));
         game_bookLabel->setText(QApplication::translate("MainWindow", "Book*", 0, QApplication::UnicodeUTF8));
@@ -1360,4 +1357,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // GAMERACEEDITLZ2534_H
+#endif // GAMERACEEDITME7532_H
