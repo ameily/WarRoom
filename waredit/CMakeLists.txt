@@ -1,7 +1,7 @@
 
 include_directories(../libwar forms/widgets ${QT_INCLUDES} ${CMAKE_CURRENT_BINARY_DIR})
 
-set(waredit_srcs forms/WargearProfileEditDialog.cpp forms/widgets/RefPlainTextEdit.cpp forms/widgets/SearchLineEdit.cpp forms/ReferenceEditDialog.cpp forms/WarEditWindow.cpp forms/widgets/RefTextArea.cpp forms/WEW_Game.cpp forms/WEW_Race.cpp ListSearch.cpp main.cpp)
+set(waredit_srcs forms/widgets/WarPageViewer.cpp forms/WarPageViewerDialog.cpp forms/WargearProfileEditDialog.cpp forms/widgets/RefPlainTextEdit.cpp forms/widgets/SearchLineEdit.cpp forms/ReferenceEditDialog.cpp forms/WarEditWindow.cpp forms/widgets/RefTextArea.cpp forms/WEW_Game.cpp forms/WEW_Race.cpp ListSearch.cpp main.cpp)
 
 if(MINGW)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -mwindows")
