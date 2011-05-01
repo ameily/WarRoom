@@ -27,6 +27,7 @@
 SearchLineEdit::SearchLineEdit(QWidget* parent): QLineEdit(parent)
 {
     m_clearButton = new QToolButton(this);
+    setPlaceholderText("Search");
     QIcon icon;
     icon.addFile(QString::fromUtf8(":/icons/edit-delete.png"), QSize(), QIcon::Normal, QIcon::Off);
     m_clearButton->setIcon(icon);
