@@ -110,4 +110,6 @@ private:
     const Rule *m_rule;
 };
 
+bool compareRule(Rule* const& r1, Rule* const& r2);
+
 #endif // RULE_H

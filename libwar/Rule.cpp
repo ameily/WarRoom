@@ -20,7 +20,7 @@
 
 
 #include "Rule.h"
-#include "TextFormatter.h"
+#include "WarPage.h"
 
 Rule::Rule() : m_brief(), m_description(), m_page(), m_id(), m_name()
 {
@@ -39,7 +39,6 @@ Rule::Rule(const QDomElement& ele) throw(XmlParseException)
     int len = list.length();
     QDomElement current;
     QDomNode node;
-    TextFormatter& formatter = TextFormatter::instance();
     
     for(int i = 0; i < len; i++)
     {
@@ -55,7 +54,7 @@ Rule::Rule(const QDomElement& ele) throw(XmlParseException)
             else if(current.nodeName() == "page")
                 m_page = current.text().simplified();
             else if(current.nodeName() == "description")
-                m_description = formatter.fromXml(current);
+                m_description = WarPage::wrapWhiteSpaceTags(current);
             else
                 throw XmlParseException("invalid node", current);
         }
@@ -186,6 +185,12 @@ bool Rule::isNull() const
 {
     return m_brief.isEmpty() && m_description.isEmpty() && m_id.isEmpty() &&
         m_name.isEmpty() && m_page.isEmpty();
+}
+
+bool compareRule(Rule*const& r1, Rule*const& r2)
+{
+    return QString::localeAwareCompare(r1->name().toLower(),
+                                       r2->name().toLower()) < 0;
 }
 
 
