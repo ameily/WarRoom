@@ -21,7 +21,7 @@
 
 #include "Wargear.h"
 #include "Race.h"
-#include "TextFormatter.h"
+#include "WarPage.h"
 
 Wargear::Wargear(const Race& race) : m_profiles(), m_brief(), m_description(),
     m_name(), m_id()
@@ -64,7 +64,6 @@ Wargear::Wargear(const QDomElement& ele, const Race& race)
     QDomNodeList list = ele.childNodes();
     int len = list.length();
     QDomElement current;
-    TextFormatter& formatter = TextFormatter::instance();
     
     for(int i = 0; i < len; i++)
     {
@@ -74,7 +73,7 @@ Wargear::Wargear(const QDomElement& ele, const Race& race)
             if(current.nodeName() == "brief")
                 m_brief = current.text().simplified();
             else if(current.nodeName() == "description")
-                m_description = formatter.fromXml(current);
+                m_description = WarPage::wrapWhiteSpaceTags(current);
             else if(current.nodeName() == "name")
                 m_name = current.text().simplified();
             else if(current.nodeName() == "id")
