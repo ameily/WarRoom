@@ -23,7 +23,6 @@
 #include <QApplication>
 #include <QDesktopServices>
 #include <QMessageBox>
-#include <TextFormatter.h>
 
 int main(int argc, char **argv)
 {
@@ -59,7 +58,6 @@ int main(int argc, char **argv)
     
     window.show();
     int status = app.exec();
-    TextFormatter::destroy();
     
     return status;
 }
