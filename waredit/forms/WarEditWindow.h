@@ -56,6 +56,7 @@ private slots:
     void onMenuSaveGameClicked();
     void onMenuSaveGameAsClicked();
     void onMenuOpenGameClicked();
+    void onMenuPreviewGameClicked();
     void doNewGameRule();
     void doRemoveGameRule();
     void onGameRuleSelected(int index);
@@ -182,7 +183,6 @@ private:
     QDir m_pwd;
 };
 
-bool compareRule(Rule* const& r1, Rule* const& r2);
 bool compareUnit(Unit* const& u1, Unit* const& u2);
 bool compareWargear(Wargear* const& w1, Wargear* const& w2);
 

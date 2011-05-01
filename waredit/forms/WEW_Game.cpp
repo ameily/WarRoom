@@ -22,7 +22,8 @@
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QDebug>
-#include <TextFormatter.h>
+#include <WarPage.h>
+#include "WarPageViewerDialog.h"
 
 void WarEditWindow::onGameChanged()
 {
@@ -246,6 +247,14 @@ void WarEditWindow::onMenuOpenGameClicked()
         populateGameRuleList();
         onGameRuleSelected(-1);
         gameSaveBox->setEnabled(false);
+        
+        //remove me
+        /*
+        WarPage page(*m_game);
+        game_rule_fullEdit->setEnabled(true);
+        game_rule_fullEdit->setPlainText(page.toHtml());
+        */
+        
     }
     else if(status == ActionFailed)
     {
@@ -364,6 +373,14 @@ bool WarEditWindow::canSaveGame()
     return true;
 }
 
+void WarEditWindow::onMenuPreviewGameClicked()
+{
+    WarPage *page = new WarPage(*m_game);
+    WarPageViewerDialog *dia = new WarPageViewerDialog(this, page);
+    dia->exec();
+    delete dia;
+}
+
 void WarEditWindow::onMenuSaveGameClicked()
 {
     doSaveGame(false);
@@ -453,7 +470,13 @@ void WarEditWindow::doCommitOrRollbackGameRule(QAbstractButton* button)
         if(validateGameRule())
         {
             Rule *r = m_game_rules[game_ruleList->currentRow()];
-            r->id(game_rule_idEdit->text());
+            if(r->id() != game_rule_idEdit->text())
+            {
+                QString oldId = r->id(), newId = game_rule_idEdit->text();
+                r = m_game->resetKey(oldId, newId);
+                m_game_rules[game_ruleList->currentRow()] = r;
+            }
+            //r->id(game_rule_idEdit->text());
             r->name(game_rule_nameEdit->text());
             r->page(game_rule_pageEdit->text());
             r->brief(game_rule_briefEdit->text());

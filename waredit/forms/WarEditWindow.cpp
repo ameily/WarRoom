@@ -148,6 +148,7 @@ void WarEditWindow::enableActiveWidgets()
     {
         actionSaveGame->setEnabled(true);
         actionSaveGameAs->setEnabled(true);
+        actionPreviewGame->setEnabled(true);
         gameTab->setEnabled(true);
         
         actionSaveRace->setEnabled(false);
@@ -161,6 +162,7 @@ void WarEditWindow::enableActiveWidgets()
     {
         actionSaveGame->setEnabled(false);
         actionSaveGameAs->setEnabled(false);
+        actionPreviewGame->setEnabled(true);
         gameTab->setEnabled(true);
         gameSaveBox->setEnabled(false);
         
@@ -177,6 +179,7 @@ void WarEditWindow::enableActiveWidgets()
     {
         actionSaveGame->setEnabled(false);
         actionSaveGameAs->setEnabled(false);
+        actionPreviewGame->setEnabled(false);
         gameTab->setEnabled(false);
         
         actionSaveRace->setEnabled(false);
@@ -266,6 +269,7 @@ void WarEditWindow::setupConnections()
     connect(actionSaveGame, SIGNAL(triggered(bool)), SLOT(onMenuSaveGameClicked()));
     connect(actionSaveGameAs, SIGNAL(triggered(bool)), SLOT(onMenuSaveGameAsClicked()));
     connect(actionOpenGame, SIGNAL(triggered(bool)), SLOT(onMenuOpenGameClicked()));
+    connect(actionPreviewGame, SIGNAL(triggered(bool)), SLOT(onMenuPreviewGameClicked()));
     
     connect(game_ruleList, SIGNAL(currentRowChanged(int)),
             SLOT(onGameRuleSelected(int)));
@@ -373,12 +377,6 @@ void WarEditWindow::trim(QPlainTextEdit* box)
     m_isProgrammaticChange = true;
     box->setPlainText(box->toPlainText().trimmed());
     m_isProgrammaticChange = false;
-}
-
-bool compareRule(Rule*const& r1, Rule*const& r2)
-{
-    return QString::localeAwareCompare(r1->name().toLower(),
-                                       r2->name().toLower()) < 0;
 }
 
 bool compareUnit(Unit*const& u1, Unit*const& u2)
