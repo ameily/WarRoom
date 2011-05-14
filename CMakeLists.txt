@@ -13,3 +13,5 @@ set(CMAKE_INSTALL_PREFIX ${CMAKE_CURRENT_BINARY_DIR}/dist)
 
 add_subdirectory(libwar)
 add_subdirectory(waredit)
+
+add_subdirectory(armoury)
