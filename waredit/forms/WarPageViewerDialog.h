@@ -32,6 +32,7 @@ class WarPageViewerDialog : public QDialog, public Ui::WarPageViewerDialog
 public:
     WarPageViewerDialog(QWidget *parent, WarPage *page);
     virtual ~WarPageViewerDialog();
+    virtual void keyPressEvent(QKeyEvent* event);
 };
 
 #endif // WARPAGEVIEWERDIALOG_H

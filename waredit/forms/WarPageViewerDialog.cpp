@@ -21,14 +21,28 @@
 
 #include "WarPageViewerDialog.h"
 #include "WarPageViewerDialog.moc"
+#include <QKeyEvent>
 
 WarPageViewerDialog::WarPageViewerDialog(QWidget* parent, WarPage* page): QDialog(parent)
 {
         setupUi(this);
         tabWidget->setFirstPage(page);
+        
+        connect(buttonBox->button(QDialogButtonBox::Close), SIGNAL(clicked()), SLOT(accept()));
 }
 
 WarPageViewerDialog::~WarPageViewerDialog()
 {
 
 }
+
+void WarPageViewerDialog::keyPressEvent(QKeyEvent* event)
+{
+    if(buttonBox->hasFocus() ||
+        buttonBox->button(QDialogButtonBox::Close)->hasFocus() &&
+        event->key() == Qt::Key_Enter)
+    {
+        accept();
+    }
+}
+
