@@ -123,6 +123,16 @@ QList< Unit* > UnitList::units()
     return ret;
 }
 
+Unit* UnitList::resetUnitId(const QString& oldId, const QString& newId)
+{
+    if(hasUnit(oldId) || hasUnit(newId))
+        return 0;
+    
+    Unit unit = m_units.take(oldId);
+    unit.id(newId);
+    return addUnit(unit);
+}
+
 
 void UnitList::fromXml(const QDomElement& ele) throw(XmlParseException)
 {

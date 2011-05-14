@@ -45,6 +45,7 @@ public:
     Wargear* addWargear(const Wargear& wargear);
     bool removeWargear(const Wargear& wargear);
     bool hasWargear(const QString& id) const;
+    Wargear* resetWargearId(const QString& oldId, const QString& newId);
     
     virtual void resolveReferences() throw(UnresolvedReferenceException);
     virtual const Race& race() const = 0;

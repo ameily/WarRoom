@@ -119,6 +119,17 @@ Wargear* WargearList::getWargear(const QString& id)
     return ret;
 }
 
+Wargear* WargearList::resetWargearId(const QString& oldId, const QString& newId)
+{
+    if(hasWargear(oldId) || hasWargear(newId))
+        return 0;
+    
+    Wargear wargear = m_wargears.take(oldId);
+    wargear.id(newId);
+    return addWargear(wargear);
+}
+
+
 bool WargearList::operator==(const WargearList& other) const
 {
     return m_wargears == other.m_wargears &&

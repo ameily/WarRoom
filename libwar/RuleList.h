@@ -57,7 +57,7 @@ public:
      * false: rule already existed and was updated
      */
     Rule* addRule(const Rule& rule);
-    Rule* resetKey(const QString& oldId, const QString& newId);
+    Rule* resetRuleId(const QString& oldId, const QString& newId);
     
     bool hasRule(const QString& id) const;
     

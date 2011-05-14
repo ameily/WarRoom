@@ -73,7 +73,7 @@ Rule* RuleList::addRule(const Rule& rule)
     return getRule(rule.id());
 }
 
-Rule* RuleList::resetKey(const QString& oldId, const QString& newId)
+Rule* RuleList::resetRuleId(const QString& oldId, const QString& newId)
 {
     if(!hasRule(oldId) || hasRule(newId))
         return 0;

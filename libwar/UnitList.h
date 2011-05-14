@@ -48,6 +48,8 @@ public:
     bool hasUnit(const QString& id) const;
     bool removeUnit(const Unit& unit);
     
+    Unit* resetUnitId(const QString& oldId, const QString& newId);
+    
     virtual QDomElement& toXml(QDomDocument& doc, QDomElement& parent) const
         throw(ValidationException);
     virtual void resolveReferences() throw(UnresolvedReferenceException);
