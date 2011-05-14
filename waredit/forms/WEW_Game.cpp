@@ -473,7 +473,7 @@ void WarEditWindow::doCommitOrRollbackGameRule(QAbstractButton* button)
             if(r->id() != game_rule_idEdit->text())
             {
                 QString oldId = r->id(), newId = game_rule_idEdit->text();
-                r = m_game->resetKey(oldId, newId);
+                r = m_game->resetRuleId(oldId, newId);
                 m_game_rules[game_ruleList->currentRow()] = r;
             }
             //r->id(game_rule_idEdit->text());

@@ -526,7 +526,13 @@ void WarEditWindow::doCommitOrRollbackRaceUnit(QAbstractButton* button)
     {
         if(validateRaceUnit())
         {
-            m_race_unit->id(race_unit_idEdit->text());
+            if(m_race_unit->id() != race_unit_idEdit->text())
+            {
+                m_race_unit = m_race->resetUnitId(m_race_unit->id(),
+                                                  race_unit_idEdit->text());
+                m_race_units[race_unitList->currentRow()] = m_race_unit;
+            }
+            
             m_race_unit->name(race_unit_nameEdit->text());
             m_race_unit->profile().weaponSkill(race_unit_wsEdit->text());
             m_race_unit->profile().ballisticSkill(race_unit_bsEdit->text());
@@ -560,7 +566,13 @@ void WarEditWindow::doCommitOrRollbackRaceWargear(QAbstractButton* button)
     {
         if(validateRaceWargear())
         {
-            m_race_wargear->id(race_wargear_idEdit->text());
+            if(m_race_wargear->id() != race_wargear_idEdit->text())
+            {
+                m_race_wargear = m_race->resetWargearId(m_race_wargear->id(),
+                    race_wargear_idEdit->text());
+                m_race_wargears[race_wargearList->currentRow()] = m_race_wargear;
+            }
+            
             m_race_wargear->name(race_wargear_nameEdit->text());
             m_race_wargear->brief(race_wargear_briefEdit->text());
             m_race_wargear->description(race_wargear_fullEdit->toPlainText());
@@ -583,7 +595,12 @@ void WarEditWindow::doCommitOrRollbackRaceRule(QAbstractButton* button)
     {
         if(validateRaceRule())
         {
-            m_race_rule->id(race_rule_idEdit->text());
+            if(m_race_rule->id() != race_rule_idEdit->text())
+            {
+                m_race_rule = m_race->resetRuleId(m_race_rule->id(),
+                                                  race_rule_idEdit->text());
+                m_race_rules[race_ruleList->currentRow()] = m_race_rule;
+            }
             m_race_rule->name(race_rule_nameEdit->text());
             m_race_rule->page(race_rule_pageEdit->text());
             m_race_rule->brief(race_rule_briefEdit->text());
