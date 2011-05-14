@@ -11,5 +11,7 @@
     <file>icons/document-save.png</file>
     <file>icons/list-add.png</file>
     <file>icons/list-remove.png</file>
+    <file>icons/go-up-search.png</file>
+    <file>icons/go-down-search.png</file>
   </qresource>
 </RCC>
