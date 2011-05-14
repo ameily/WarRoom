@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'WarPageViewerDialogpb5883.ui'
+** Form generated from reading UI file 'WarPageViewerDialoguJ5662.ui'
 **
-** Created: Sat Apr 30 00:22:58 2011
+** Created: Fri May 13 03:45:55 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef WARPAGEVIEWERDIALOGPB5883_H
-#define WARPAGEVIEWERDIALOGPB5883_H
+#ifndef WARPAGEVIEWERDIALOGUJ5662_H
+#define WARPAGEVIEWERDIALOGUJ5662_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -43,7 +43,7 @@ public:
 
         buttonBox = new QDialogButtonBox(WarPageViewerDialog);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-        buttonBox->setStandardButtons(QDialogButtonBox::Ok);
+        buttonBox->setStandardButtons(QDialogButtonBox::Close);
 
         verticalLayout->addWidget(buttonBox);
 
@@ -67,4 +67,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // WARPAGEVIEWERDIALOGPB5883_H
+#endif // WARPAGEVIEWERDIALOGUJ5662_H
