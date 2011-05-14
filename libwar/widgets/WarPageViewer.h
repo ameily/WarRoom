@@ -35,6 +35,7 @@ public:
     WarPageViewer(QWidget* parent = 0, WarPage* page = 0);
     void setFirstPage(WarPage *page);
     virtual ~WarPageViewer();
+    void clear();
     
 private slots:
     void onRuleClicked(const RuleRef& ref);
@@ -59,6 +60,7 @@ private:
     QList<TabPage> m_tabs;
     Race *m_race;
     RuleList *m_rules;
+    bool m_doClear;
 };
 
 #endif // WARPAGEVIEWER_H

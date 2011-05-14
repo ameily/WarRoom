@@ -29,6 +29,7 @@
 WarPageViewer::WarPageViewer(QWidget* parent, WarPage *page) : QTabWidget(parent)
 {
     connect(this, SIGNAL(tabCloseRequested(int)), SLOT(onCloseTab(int)));
+    m_doClear = false;
     this->setTabsClosable(true);
     if(page)
     {
@@ -118,12 +119,21 @@ void WarPageViewer::onRuleClicked(const RuleRef& ref)
 
 void WarPageViewer::onCloseTab(int index)
 {
-    if(index > 0)
+    if(index > 0 || m_doClear)
     {
         m_tabs.removeAt(index);
         removeTab(index);
     }
 }
+
+void WarPageViewer::clear()
+{
+    m_doClear = true;
+    QTabWidget::clear();
+    m_tabs.clear();
+    m_doClear = false;
+}
+
 
 int WarPageViewer::indexOf(const QString& id) const
 {
