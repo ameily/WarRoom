@@ -18,4 +18,4 @@ qt4_add_resources(waredit_rcs forms/designer/images.qrc)
 add_executable(waredit ${waredit_srcs} ${waredit_rcs})
 target_link_libraries(waredit war ${QT_QTGUI_LIBRARY}) #${QT_QTCORE_LIBRARY}  ${QT_QTXML_LIBRARY})
 
-install(TARGETS waredit RUNTIME DESTINATION bin)
+install(TARGETS waredit RUNTIME DESTINATION ${DIST_BINDIR})
