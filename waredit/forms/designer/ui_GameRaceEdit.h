@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'GameRaceEditbx6118.ui'
+** Form generated from reading UI file 'GameRaceEditgR1858.ui'
 **
-** Created: Sat May 14 03:14:04 2011
+** Created: Sat May 14 13:54:24 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef GAMERACEEDITBX6118_H
-#define GAMERACEEDITBX6118_H
+#ifndef GAMERACEEDITGR1858_H
+#define GAMERACEEDITGR1858_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -30,7 +30,7 @@
 #include <QtGui/QTabWidget>
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
-#include "widgets/RefPlainTextEdit.h"
+#include <widgets/RefPlainTextEdit.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -1357,4 +1357,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // GAMERACEEDITBX6118_H
+#endif // GAMERACEEDITGR1858_H

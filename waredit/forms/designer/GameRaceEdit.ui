@@ -1313,7 +1313,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>RefPlainTextEdit</class>
    <extends>QPlainTextEdit</extends>
-   <header>widgets/RefPlainTextEdit.h</header>
+   <header location="global">widgets/RefPlainTextEdit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>

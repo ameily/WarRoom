@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'RefEditDialogOX6118.ui'
+** Form generated from reading UI file 'RefEditDialogtX1858.ui'
 **
-** Created: Sat May 14 03:03:11 2011
+** Created: Sat May 14 13:55:40 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef REFEDITDIALOGOX6118_H
-#define REFEDITDIALOGOX6118_H
+#ifndef REFEDITDIALOGTX1858_H
+#define REFEDITDIALOGTX1858_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -23,7 +23,7 @@
 #include <QtGui/QListWidget>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
-#include "widgets/SearchLineEdit.h"
+#include <widgets/SearchLineEdit.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -114,4 +114,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // REFEDITDIALOGOX6118_H
+#endif // REFEDITDIALOGTX1858_H
