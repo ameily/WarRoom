@@ -23,7 +23,7 @@
 #define WARPAGEVIEWER_H
 #include <QTabWidget>
 #include <QPushButton>
-#include <WarPage.h>
+#include "../WarPage.h"
 #include "RefTextArea.h"
 #include "SearchLineEdit.h"
 

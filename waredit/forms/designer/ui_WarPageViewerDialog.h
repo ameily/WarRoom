@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'WarPageViewerDialoguJ5662.ui'
+** Form generated from reading UI file 'WarPageViewerDialogBF6118.ui'
 **
-** Created: Fri May 13 03:45:55 2011
+** Created: Sat May 14 03:03:56 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef WARPAGEVIEWERDIALOGUJ5662_H
-#define WARPAGEVIEWERDIALOGUJ5662_H
+#ifndef WARPAGEVIEWERDIALOGBF6118_H
+#define WARPAGEVIEWERDIALOGBF6118_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -18,7 +18,7 @@
 #include <QtGui/QDialogButtonBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QVBoxLayout>
-#include "WarPageViewer.h"
+#include "widgets/WarPageViewer.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -67,4 +67,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // WARPAGEVIEWERDIALOGUJ5662_H
+#endif // WARPAGEVIEWERDIALOGBF6118_H

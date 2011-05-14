@@ -32,7 +32,7 @@
         <string>Search</string>
        </property>
        <property name="icon">
-        <iconset resource="images.qrc">
+        <iconset resource="../../../libwar/resources/images.qrc">
          <normaloff>:/icons/edit-find.png</normaloff>:/icons/edit-find.png</iconset>
        </property>
       </widget>
@@ -69,11 +69,11 @@
   <customwidget>
    <class>SearchLineEdit</class>
    <extends>QLineEdit</extends>
-   <header>SearchLineEdit.h</header>
+   <header>widgets/SearchLineEdit.h</header>
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="images.qrc"/>
+  <include location="../../../libwar/resources/images.qrc"/>
  </resources>
  <connections/>
 </ui>

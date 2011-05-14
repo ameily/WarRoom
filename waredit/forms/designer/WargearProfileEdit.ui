@@ -92,7 +92,7 @@
            <string>Add</string>
           </property>
           <property name="icon">
-           <iconset resource="images.qrc">
+           <iconset resource="../../../libwar/resources/images.qrc">
             <normaloff>:/icons/list-add.png</normaloff>:/icons/list-add.png</iconset>
           </property>
          </widget>
@@ -103,7 +103,7 @@
            <string>Edit</string>
           </property>
           <property name="icon">
-           <iconset resource="images.qrc">
+           <iconset resource="../../../libwar/resources/images.qrc">
             <normaloff>:/icons/document-edit.png</normaloff>:/icons/document-edit.png</iconset>
           </property>
          </widget>
@@ -114,7 +114,7 @@
            <string>Remove</string>
           </property>
           <property name="icon">
-           <iconset resource="images.qrc">
+           <iconset resource="../../../libwar/resources/images.qrc">
             <normaloff>:/icons/list-remove.png</normaloff>:/icons/list-remove.png</iconset>
           </property>
          </widget>
@@ -134,7 +134,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="images.qrc"/>
+  <include location="../../../libwar/resources/images.qrc"/>
  </resources>
  <connections/>
 </ui>

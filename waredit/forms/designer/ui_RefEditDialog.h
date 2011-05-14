@@ -1,25 +1,14 @@
-/*
-    This file is part of the War Edit application (waredit)
-    Url: https://github.com/ameily/WarRoom
-    Copyright (C) 2011  Adam Meily <meily.adam@gmail.com>
+/********************************************************************************
+** Form generated from reading UI file 'RefEditDialogOX6118.ui'
+**
+** Created: Sat May 14 03:03:11 2011
+**      by: Qt User Interface Compiler version 4.7.0
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
-
-#ifndef REFEDITDIALOGDW2288_H
-#define REFEDITDIALOGDW2288_H
+#ifndef REFEDITDIALOGOX6118_H
+#define REFEDITDIALOGOX6118_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -34,7 +23,7 @@
 #include <QtGui/QListWidget>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
-#include "SearchLineEdit.h"
+#include "widgets/SearchLineEdit.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -125,4 +114,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // REFEDITDIALOGDW2288_H
+#endif // REFEDITDIALOGOX6118_H

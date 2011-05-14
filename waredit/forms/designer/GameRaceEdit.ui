@@ -27,7 +27,7 @@
    <string notr="true"/>
   </property>
   <property name="windowIcon">
-   <iconset resource="images.qrc">
+   <iconset resource="../../../libwar/resources/images.qrc">
     <normaloff>:/icons/mushroom-cloud.gif</normaloff>:/icons/mushroom-cloud.gif</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
@@ -299,7 +299,7 @@
                       <string>New</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/list-add.png</normaloff>:/icons/list-add.png</iconset>
                      </property>
                     </widget>
@@ -310,7 +310,7 @@
                       <string>Remove</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/list-remove.png</normaloff>:/icons/list-remove.png</iconset>
                      </property>
                     </widget>
@@ -514,7 +514,7 @@
                    <string>New</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset resource="../../../libwar/resources/images.qrc">
                     <normaloff>:/icons/list-add.png</normaloff>:/icons/list-add.png</iconset>
                   </property>
                  </widget>
@@ -525,7 +525,7 @@
                    <string>Remove</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset resource="../../../libwar/resources/images.qrc">
                     <normaloff>:/icons/list-remove.png</normaloff>:/icons/list-remove.png</iconset>
                   </property>
                  </widget>
@@ -614,7 +614,7 @@
                       <string>New</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/list-add.png</normaloff>:/icons/list-add.png</iconset>
                      </property>
                     </widget>
@@ -625,7 +625,7 @@
                       <string>Edit</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/document-edit.png</normaloff>:/icons/document-edit.png</iconset>
                      </property>
                     </widget>
@@ -636,7 +636,7 @@
                       <string>Remove</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/list-remove.png</normaloff>:/icons/list-remove.png</iconset>
                      </property>
                     </widget>
@@ -674,7 +674,7 @@
                    <string>Add</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset resource="../../../libwar/resources/images.qrc">
                     <normaloff>:/icons/list-add.png</normaloff>:/icons/list-add.png</iconset>
                   </property>
                  </widget>
@@ -685,7 +685,7 @@
                    <string>Remove</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset resource="../../../libwar/resources/images.qrc">
                     <normaloff>:/icons/list-remove.png</normaloff>:/icons/list-remove.png</iconset>
                   </property>
                  </widget>
@@ -1051,7 +1051,7 @@ p, li { white-space: pre-wrap; }
                       <string>Add</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/list-add.png</normaloff>:/icons/list-add.png</iconset>
                      </property>
                     </widget>
@@ -1062,7 +1062,7 @@ p, li { white-space: pre-wrap; }
                       <string>Edit</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/document-edit.png</normaloff>:/icons/document-edit.png</iconset>
                      </property>
                     </widget>
@@ -1073,7 +1073,7 @@ p, li { white-space: pre-wrap; }
                       <string>Remove</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/list-remove.png</normaloff>:/icons/list-remove.png</iconset>
                      </property>
                     </widget>
@@ -1100,7 +1100,7 @@ p, li { white-space: pre-wrap; }
                       <string>Add</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/list-add.png</normaloff>:/icons/list-add.png</iconset>
                      </property>
                     </widget>
@@ -1111,7 +1111,7 @@ p, li { white-space: pre-wrap; }
                       <string>Edit</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/document-edit.png</normaloff>:/icons/document-edit.png</iconset>
                      </property>
                     </widget>
@@ -1122,7 +1122,7 @@ p, li { white-space: pre-wrap; }
                       <string>Remove</string>
                      </property>
                      <property name="icon">
-                      <iconset resource="images.qrc">
+                      <iconset resource="../../../libwar/resources/images.qrc">
                        <normaloff>:/icons/list-remove.png</normaloff>:/icons/list-remove.png</iconset>
                      </property>
                     </widget>
@@ -1166,7 +1166,7 @@ p, li { white-space: pre-wrap; }
                    <string>New</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset resource="../../../libwar/resources/images.qrc">
                     <normaloff>:/icons/list-add.png</normaloff>:/icons/list-add.png</iconset>
                   </property>
                  </widget>
@@ -1177,7 +1177,7 @@ p, li { white-space: pre-wrap; }
                    <string>Remove</string>
                   </property>
                   <property name="icon">
-                   <iconset resource="images.qrc">
+                   <iconset resource="../../../libwar/resources/images.qrc">
                     <normaloff>:/icons/list-remove.png</normaloff>:/icons/list-remove.png</iconset>
                   </property>
                  </widget>
@@ -1213,6 +1213,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionNewGame"/>
     <addaction name="actionSaveGame"/>
     <addaction name="actionSaveGameAs"/>
+    <addaction name="actionPreviewGame"/>
    </widget>
    <widget class="QMenu" name="menuRace">
     <property name="title">
@@ -1228,7 +1229,7 @@ p, li { white-space: pre-wrap; }
   </widget>
   <action name="actionOpenGame">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../../libwar/resources/images.qrc">
      <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
    </property>
    <property name="text">
@@ -1237,7 +1238,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSaveGame">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../../libwar/resources/images.qrc">
      <normaloff>:/icons/document-save.png</normaloff>:/icons/document-save.png</iconset>
    </property>
    <property name="text">
@@ -1246,7 +1247,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionNewGame">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../../libwar/resources/images.qrc">
      <normaloff>:/icons/document-new.png</normaloff>:/icons/document-new.png</iconset>
    </property>
    <property name="text">
@@ -1255,7 +1256,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionOpenRace">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../../libwar/resources/images.qrc">
      <normaloff>:/icons/document-open.png</normaloff>:/icons/document-open.png</iconset>
    </property>
    <property name="text">
@@ -1264,7 +1265,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSaveRace">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../../libwar/resources/images.qrc">
      <normaloff>:/icons/document-save.png</normaloff>:/icons/document-save.png</iconset>
    </property>
    <property name="text">
@@ -1273,7 +1274,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionNewRace">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../../libwar/resources/images.qrc">
      <normaloff>:/icons/document-new.png</normaloff>:/icons/document-new.png</iconset>
    </property>
    <property name="text">
@@ -1282,7 +1283,7 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSaveGameAs">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../../libwar/resources/images.qrc">
      <normaloff>:/icons/document-save-as.png</normaloff>:/icons/document-save-as.png</iconset>
    </property>
    <property name="text">
@@ -1291,11 +1292,20 @@ p, li { white-space: pre-wrap; }
   </action>
   <action name="actionSaveRaceAs">
    <property name="icon">
-    <iconset resource="images.qrc">
+    <iconset resource="../../../libwar/resources/images.qrc">
      <normaloff>:/icons/document-save-as.png</normaloff>:/icons/document-save-as.png</iconset>
    </property>
    <property name="text">
     <string>Save Race As</string>
+   </property>
+  </action>
+  <action name="actionPreviewGame">
+   <property name="icon">
+    <iconset resource="../../../libwar/resources/images.qrc">
+     <normaloff>:/icons/document-preview.png</normaloff>:/icons/document-preview.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preview Game</string>
    </property>
   </action>
  </widget>
@@ -1303,7 +1313,7 @@ p, li { white-space: pre-wrap; }
   <customwidget>
    <class>RefPlainTextEdit</class>
    <extends>QPlainTextEdit</extends>
-   <header>RefPlainTextEdit.h</header>
+   <header>widgets/RefPlainTextEdit.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -1381,7 +1391,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>race_unitRemoveButton</tabstop>
  </tabstops>
  <resources>
-  <include location="images.qrc"/>
+  <include location="../../../libwar/resources/images.qrc"/>
  </resources>
  <connections/>
 </ui>

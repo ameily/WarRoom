@@ -23,9 +23,9 @@
 #define REFTEXTAREA_H
 
 #include <QTextBrowser>
-#include "Game.h"
-#include "Race.h"
-#include <WarPage.h>
+#include "../Game.h"
+#include "../Race.h"
+#include "../WarPage.h"
 
 class RefTextArea : public QTextBrowser
 {
