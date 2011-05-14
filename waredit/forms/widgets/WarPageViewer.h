@@ -22,7 +22,10 @@
 #ifndef WARPAGEVIEWER_H
 #define WARPAGEVIEWER_H
 #include <QTabWidget>
+#include <QPushButton>
 #include <WarPage.h>
+#include "RefTextArea.h"
+#include "SearchLineEdit.h"
 
 class WarPageViewer : public QTabWidget
 {
@@ -36,10 +39,24 @@ public:
 private slots:
     void onRuleClicked(const RuleRef& ref);
     void onCloseTab(int index);
+    void doSearchNext();
+    void doSearchPrevious();
+    void onSearchTextChanged(const QString& txt);
     
 private:
+    struct TabPage
+    {
+        RefTextArea *text;
+        SearchLineEdit *search;
+        QPushButton *doSearch[2];
+        QString id;
+    };
+    
     void appendPage(WarPage* page);
-    QList<QString> m_tabIds;
+    int indexOf(const QString& id) const;
+    void setSearchBgColor(TabPage& tab, int found);
+    TabPage& currentTabPage();
+    QList<TabPage> m_tabs;
     Race *m_race;
     RuleList *m_rules;
 };
