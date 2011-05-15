@@ -14,5 +14,6 @@
     <file>icons/go-up-search.png</file>
     <file>icons/go-down-search.png</file>
     <file>icons/application-exit.png</file>
+    <file>icons/sword-preview.png</file>
   </qresource>
 </RCC>
