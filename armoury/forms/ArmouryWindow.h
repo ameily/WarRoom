@@ -45,7 +45,6 @@ private:
     bool openXml(QDomDocument& doc, QFile* file);
     bool m_viewingFile;
     Game *m_game;
-    WarPage *m_page;
     //Race *m_race;
 };
 

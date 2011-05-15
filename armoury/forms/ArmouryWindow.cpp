@@ -31,7 +31,6 @@ ArmouryWindow::ArmouryWindow(QWidget* parent) : QMainWindow(parent),
     m_viewingFile = false;
     setWindowFilePath("No File");
     m_game = 0;
-    m_page = 0;
     connect(actionOpenFile, SIGNAL(triggered()), SLOT(onMenuOpenFile()));
     connect(actionQuit, SIGNAL(triggered()), SLOT(close()));
 }
@@ -66,8 +65,8 @@ void ArmouryWindow::onMenuOpenFile()
             if(root == "game")
             {
                 m_game = new Game(doc);
-                m_page = new WarPage(*m_game);
-                pageViewer->setFirstPage(m_page);
+                WarPage page(*m_game);
+                pageViewer->setFirstPage(page);
             }
         }
         catch(XmlParseException e)
@@ -106,11 +105,7 @@ void ArmouryWindow::cleanup()
     if(m_game)
         delete m_game;
     
-    if(m_page)
-        delete m_page;
-    
     m_game = 0;
-    m_page = 0;
 }
 
 void ArmouryWindow::closeOpenFile()
