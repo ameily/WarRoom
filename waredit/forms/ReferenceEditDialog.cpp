@@ -87,15 +87,15 @@ void ReferenceEditDialog::populateList()
 
 void ReferenceEditDialog::selectionChanged(int index)
 {
-    m_selectedIndex = index;
     QString name;
+    m_selectedIndex = index;
     if(index >= 0)
     {
         saveBox->button(QDialogButtonBox::Ok)->setEnabled(true);
         if(m_opMode == RuleMode)
-            name = m_rules[index]->name();
+            name = m_rules[m_map[index]]->name();
         else
-            name = m_wargears[index]->name();
+            name = m_wargears[m_map[index]]->name();
         
         nameEdit->setEnabled(true);
     }
