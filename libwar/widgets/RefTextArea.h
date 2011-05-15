@@ -32,7 +32,7 @@ class RefTextArea : public QTextBrowser
     Q_OBJECT
     
 public:
-    RefTextArea(QWidget *parent, WarPage *page);
+    RefTextArea(QWidget* parent, const WarPage& page);
     virtual ~RefTextArea();
     
 signals:
@@ -47,7 +47,7 @@ private slots:
 private:
     void setHtml(const QString& txt);
     void setPlainText(const QString& txt);
-    WarPage *m_page;
+    WarPage m_page;
 };
 
 #endif // REFTEXTAREA_H

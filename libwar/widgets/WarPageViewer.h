@@ -33,7 +33,7 @@ class WarPageViewer : public QTabWidget
     
 public:
     WarPageViewer(QWidget* parent = 0, WarPage* page = 0);
-    void setFirstPage(WarPage *page);
+    void setFirstPage(WarPage& page);
     virtual ~WarPageViewer();
     void clear();
     
@@ -53,7 +53,7 @@ private:
         QString id;
     };
     
-    void appendPage(WarPage* page);
+    void appendPage(const WarPage& page);
     int indexOf(const QString& id) const;
     void setSearchBgColor(TabPage& tab, int found);
     TabPage& currentTabPage();

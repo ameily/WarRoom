@@ -35,7 +35,7 @@ WarPageViewer::WarPageViewer(QWidget* parent, WarPage *page) : QTabWidget(parent
     {
         m_race = page->race();
         m_rules = page->ruleList();
-        appendPage(page);
+        appendPage(*page);
     }
 }
 
@@ -44,15 +44,15 @@ WarPageViewer::~WarPageViewer()
 
 }
 
-void WarPageViewer::setFirstPage(WarPage* page)
+void WarPageViewer::setFirstPage(WarPage& page)
 {
-    m_race = page->race();
-    m_rules = page->ruleList();
+    m_race = page.race();
+    m_rules = page.ruleList();
     appendPage(page);
 }
 
 
-void WarPageViewer::appendPage(WarPage *page)
+void WarPageViewer::appendPage(const WarPage& page)
 {
     qDebug() << "begin appendPage()";
     QWidget *tab = new QWidget(this);
@@ -86,14 +86,14 @@ void WarPageViewer::appendPage(WarPage *page)
     connect(searchNext, SIGNAL(clicked()), SLOT(doSearchNext()));
     connect(searchPrevious, SIGNAL(clicked()), SLOT(doSearchPrevious()));
     
-    addTab(tab, page->name());
+    addTab(tab, page.name());
     
     TabPage tp;
     tp.doSearch[0] = searchNext;
     tp.doSearch[1] = searchPrevious;
     tp.search = search;
     tp.text = area;
-    tp.id = page->id();
+    tp.id = page.id();
     m_tabs.append(tp);
     
     setCurrentIndex(m_tabs.length() - 1);
@@ -111,7 +111,7 @@ void WarPageViewer::onRuleClicked(const RuleRef& ref)
         setCurrentIndex(index);
     else
     {
-        WarPage *page = new WarPage(ref, *m_rules, m_race);
+        WarPage page(ref, *m_rules, m_race);
         appendPage(page);
     }
     qDebug() << "end onRuleClicked()";
