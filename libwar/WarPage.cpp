@@ -99,6 +99,23 @@ WarPage::WarPage(const IRule& rule, RuleList& list, Race *race) : m_id(rule.id()
     m_root.append(body);
 }
 
+WarPage::WarPage(const WarPage& other) : m_root(other.m_root),
+    m_name(other.m_name), m_id(other.m_id)
+{
+    m_race = other.m_race;
+    m_rules = other.m_rules;
+}
+
+WarPage& WarPage::operator=(const WarPage& other)
+{
+    m_root = other.m_root;
+    m_id = other.m_id;
+    m_name = other.m_name;
+    m_race = other.m_race;
+    m_rules = other.m_rules;
+}
+
+
 Race* WarPage::race()
 {
     return m_race;

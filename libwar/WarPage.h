@@ -74,9 +74,11 @@ public:
     
     WarPage(Game& game);
     WarPage(const IRule& rule, RuleList& list, Race *race);
+    WarPage(const WarPage& other);
     /*WarPage(Race& race);
     WarPage(Unit& unit);
     WarPage(Wargear& wargear);*/
+    virtual WarPage& operator=(const WarPage& other);
     
     Race* race();
     RuleList* ruleList();
