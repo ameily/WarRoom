@@ -1,6 +1,6 @@
 /*
-    This file is part of the War Edit application (waredit)
-    Url: https://github.com/ameily/WarRoom
+    This file is part of the War Room project
+    https://github.com/ameily/WarRoom
     Copyright (C) 2011  Adam Meily <meily.adam@gmail.com>
 
     This program is free software; you can redistribute it and/or modify
