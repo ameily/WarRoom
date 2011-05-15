@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string/>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../../../libwar/resources/images.qrc">
+    <normaloff>:/icons/sword-preview.png</normaloff>:/icons/sword-preview.png</iconset>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QVBoxLayout" name="verticalLayout">
     <item>

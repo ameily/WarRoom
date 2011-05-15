@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'ArmouryWindowvn2089.ui'
+** Form generated from reading UI file 'ArmouryWindowfp5056.ui'
 **
-** Created: Sat May 14 14:06:52 2011
+** Created: Sat May 14 23:27:34 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef ARMOURYWINDOWVN2089_H
-#define ARMOURYWINDOWVN2089_H
+#ifndef ARMOURYWINDOWFP5056_H
+#define ARMOURYWINDOWFP5056_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -40,22 +40,26 @@ public:
         if (MainArmouryWindow->objectName().isEmpty())
             MainArmouryWindow->setObjectName(QString::fromUtf8("MainArmouryWindow"));
         MainArmouryWindow->resize(631, 545);
+        QIcon icon;
+        icon.addFile(QString::fromUtf8(":/icons/sword-preview.png"), QSize(), QIcon::Normal, QIcon::Off);
+        MainArmouryWindow->setWindowIcon(icon);
         actionOpenFile = new QAction(MainArmouryWindow);
         actionOpenFile->setObjectName(QString::fromUtf8("actionOpenFile"));
-        QIcon icon;
-        icon.addFile(QString::fromUtf8(":/icons/document-open.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionOpenFile->setIcon(icon);
+        QIcon icon1;
+        icon1.addFile(QString::fromUtf8(":/icons/document-open.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionOpenFile->setIcon(icon1);
         actionQuit = new QAction(MainArmouryWindow);
         actionQuit->setObjectName(QString::fromUtf8("actionQuit"));
-        QIcon icon1;
-        icon1.addFile(QString::fromUtf8(":/icons/application-exit.png"), QSize(), QIcon::Normal, QIcon::Off);
-        actionQuit->setIcon(icon1);
+        QIcon icon2;
+        icon2.addFile(QString::fromUtf8(":/icons/application-exit.png"), QSize(), QIcon::Normal, QIcon::Off);
+        actionQuit->setIcon(icon2);
         centralwidget = new QWidget(MainArmouryWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout = new QVBoxLayout(centralwidget);
         verticalLayout->setObjectName(QString::fromUtf8("verticalLayout"));
         pageViewer = new WarPageViewer(centralwidget);
         pageViewer->setObjectName(QString::fromUtf8("pageViewer"));
+
         verticalLayout->addWidget(pageViewer);
 
         MainArmouryWindow->setCentralWidget(centralwidget);
@@ -91,4 +95,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // ARMOURYWINDOWVN2089_H
+#endif // ARMOURYWINDOWFP5056_H
