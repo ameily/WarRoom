@@ -23,7 +23,7 @@
 #include "WarPageViewerDialog.moc"
 #include <QKeyEvent>
 
-WarPageViewerDialog::WarPageViewerDialog(QWidget* parent, WarPage* page): QDialog(parent)
+WarPageViewerDialog::WarPageViewerDialog(QWidget* parent, WarPage& page): QDialog(parent)
 {
         setupUi(this);
         tabWidget->setFirstPage(page);

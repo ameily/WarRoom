@@ -375,7 +375,7 @@ bool WarEditWindow::canSaveGame()
 
 void WarEditWindow::onMenuPreviewGameClicked()
 {
-    WarPage *page = new WarPage(*m_game);
+    WarPage page(*m_game);
     WarPageViewerDialog *dia = new WarPageViewerDialog(this, page);
     dia->exec();
     delete dia;
