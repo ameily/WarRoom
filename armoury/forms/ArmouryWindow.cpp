@@ -38,7 +38,7 @@ ArmouryWindow::ArmouryWindow(QWidget* parent) : QMainWindow(parent),
 
 void ArmouryWindow::onMenuOpenFile()
 {
-    closeFile();
+    closeOpenFile();
     
     QString filter = "War Files (*.game *.race)";
     QString path = QFileDialog::getOpenFileName(this, "Open File",
@@ -76,7 +76,7 @@ void ArmouryWindow::onMenuOpenFile()
                 fp.fileName() + ".\n[" + e.elementName() + "@" +
                 QString::number(e.line()) + "]: " + e.description());
             
-            closeFile();
+            closeOpenFile();
         }
         
         setWindowFilePath(fp.fileName());
@@ -101,11 +101,8 @@ bool ArmouryWindow::openXml(QDomDocument& doc, QFile* file)
     return true;
 }
 
-void ArmouryWindow::closeFile()
+void ArmouryWindow::cleanup()
 {
-    m_viewingFile = false;
-    pageViewer->clear();
-    setWindowFilePath("No File");
     if(m_game)
         delete m_game;
     
@@ -114,6 +111,14 @@ void ArmouryWindow::closeFile()
     
     m_game = 0;
     m_page = 0;
+}
+
+void ArmouryWindow::closeOpenFile()
+{
+    cleanup();
+    m_viewingFile = false;
+    pageViewer->clear();
+    setWindowFilePath("No File");
 }
 
 void ArmouryWindow::setPwd(const QString& dir)
@@ -125,6 +130,6 @@ void ArmouryWindow::setPwd(const QString& dir)
 
 ArmouryWindow::~ArmouryWindow()
 {
-    closeFile();
+    cleanup();
 }
 

@@ -40,7 +40,8 @@ private slots:
     
 private:
     QString m_pwd;
-    void closeFile();
+    void cleanup();
+    void closeOpenFile();
     bool openXml(QDomDocument& doc, QFile* file);
     bool m_viewingFile;
     Game *m_game;
