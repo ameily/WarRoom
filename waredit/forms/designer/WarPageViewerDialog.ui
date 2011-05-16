@@ -18,7 +18,7 @@
     <widget class="WarPageViewer" name="tabWidget"/>
    </item>
    <item>
-    <widget class="QDialogButtonBox" name="buttonBox">
+    <widget class="WarButtonBox" name="buttonBox">
      <property name="standardButtons">
       <set>QDialogButtonBox::Close</set>
      </property>
@@ -32,6 +32,11 @@
    <extends>QTabWidget</extends>
    <header location="global">widgets/WarPageViewer.h</header>
    <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>WarButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header location="global">widgets/WarButtonBox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

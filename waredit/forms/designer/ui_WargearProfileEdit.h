@@ -1,32 +1,20 @@
-/*
-    This file is part of the War Edit application (waredit)
-    Url: https://github.com/ameily/WarRoom
-    Copyright (C) 2011  Adam Meily <meily.adam@gmail.com>
+/********************************************************************************
+** Form generated from reading UI file 'WargearProfileEdityX2475.ui'
+**
+** Created: Mon May 16 16:50:38 2011
+**      by: Qt User Interface Compiler version 4.7.0
+**
+** WARNING! All changes made in this file will be lost when recompiling UI file!
+********************************************************************************/
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License along
-    with this program; if not, write to the Free Software Foundation, Inc.,
-    51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
-*/
-
-#ifndef WARGEARPROFILEEDITMY2288_H
-#define WARGEARPROFILEEDITMY2288_H
+#ifndef WARGEARPROFILEEDITYX2475_H
+#define WARGEARPROFILEEDITYX2475_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDialog>
-#include <QtGui/QDialogButtonBox>
 #include <QtGui/QFormLayout>
 #include <QtGui/QGroupBox>
 #include <QtGui/QHBoxLayout>
@@ -36,6 +24,7 @@
 #include <QtGui/QListWidget>
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
+#include <widgets/WarButtonBox.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -61,7 +50,7 @@ public:
     QPushButton *addButton;
     QPushButton *editButton;
     QPushButton *removeButton;
-    QDialogButtonBox *saveBox;
+    WarButtonBox *saveBox;
 
     void setupUi(QDialog *WargearProfileEditDialog)
     {
@@ -165,7 +154,7 @@ public:
 
         verticalLayout_3->addLayout(horizontalLayout);
 
-        saveBox = new QDialogButtonBox(rulesGroup);
+        saveBox = new WarButtonBox(rulesGroup);
         saveBox->setObjectName(QString::fromUtf8("saveBox"));
         saveBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
@@ -202,4 +191,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // WARGEARPROFILEEDITMY2288_H
+#endif // WARGEARPROFILEEDITYX2475_H

@@ -1,21 +1,20 @@
 /********************************************************************************
-** Form generated from reading UI file 'RefEditDialogtX1858.ui'
+** Form generated from reading UI file 'RefEditDialogEf2475.ui'
 **
-** Created: Sat May 14 13:55:40 2011
+** Created: Mon May 16 16:48:29 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef REFEDITDIALOGTX1858_H
-#define REFEDITDIALOGTX1858_H
+#ifndef REFEDITDIALOGEF2475_H
+#define REFEDITDIALOGEF2475_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDialog>
-#include <QtGui/QDialogButtonBox>
 #include <QtGui/QHBoxLayout>
 #include <QtGui/QHeaderView>
 #include <QtGui/QLabel>
@@ -24,6 +23,7 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QVBoxLayout>
 #include <widgets/SearchLineEdit.h>
+#include <widgets/WarButtonBox.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -38,7 +38,7 @@ public:
     QHBoxLayout *nameHBox;
     QLabel *nameLabel;
     QLineEdit *nameEdit;
-    QDialogButtonBox *saveBox;
+    WarButtonBox *saveBox;
 
     void setupUi(QDialog *RefEditDialog)
     {
@@ -86,7 +86,7 @@ public:
 
         verticalLayout->addLayout(nameHBox);
 
-        saveBox = new QDialogButtonBox(RefEditDialog);
+        saveBox = new WarButtonBox(RefEditDialog);
         saveBox->setObjectName(QString::fromUtf8("saveBox"));
         saveBox->setStandardButtons(QDialogButtonBox::Cancel|QDialogButtonBox::Ok);
 
@@ -114,4 +114,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // REFEDITDIALOGTX1858_H
+#endif // REFEDITDIALOGEF2475_H

@@ -122,7 +122,7 @@
        </layout>
       </item>
       <item>
-       <widget class="QDialogButtonBox" name="saveBox">
+       <widget class="WarButtonBox" name="saveBox">
         <property name="standardButtons">
          <set>QDialogButtonBox::Cancel|QDialogButtonBox::Ok</set>
         </property>
@@ -133,6 +133,13 @@
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>WarButtonBox</class>
+   <extends>QDialogButtonBox</extends>
+   <header location="global">widgets/WarButtonBox.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="../../../libwar/resources/images.qrc"/>
  </resources>

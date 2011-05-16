@@ -1,23 +1,23 @@
 /********************************************************************************
-** Form generated from reading UI file 'WarPageViewerDialogxZ1858.ui'
+** Form generated from reading UI file 'WarPageViewerDialogAe2475.ui'
 **
-** Created: Sat May 14 13:55:13 2011
+** Created: Mon May 16 16:47:26 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef WARPAGEVIEWERDIALOGXZ1858_H
-#define WARPAGEVIEWERDIALOGXZ1858_H
+#ifndef WARPAGEVIEWERDIALOGAE2475_H
+#define WARPAGEVIEWERDIALOGAE2475_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
 #include <QtGui/QDialog>
-#include <QtGui/QDialogButtonBox>
 #include <QtGui/QHeaderView>
 #include <QtGui/QVBoxLayout>
+#include <widgets/WarButtonBox.h>
 #include <widgets/WarPageViewer.h>
 
 QT_BEGIN_NAMESPACE
@@ -27,7 +27,7 @@ class Ui_WarPageViewerDialog
 public:
     QVBoxLayout *verticalLayout;
     WarPageViewer *tabWidget;
-    QDialogButtonBox *buttonBox;
+    WarButtonBox *buttonBox;
 
     void setupUi(QDialog *WarPageViewerDialog)
     {
@@ -41,7 +41,7 @@ public:
 
         verticalLayout->addWidget(tabWidget);
 
-        buttonBox = new QDialogButtonBox(WarPageViewerDialog);
+        buttonBox = new WarButtonBox(WarPageViewerDialog);
         buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
         buttonBox->setStandardButtons(QDialogButtonBox::Close);
 
@@ -67,4 +67,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // WARPAGEVIEWERDIALOGXZ1858_H
+#endif // WARPAGEVIEWERDIALOGAE2475_H

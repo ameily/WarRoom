@@ -1,20 +1,19 @@
 /********************************************************************************
-** Form generated from reading UI file 'GameRaceEditgR1858.ui'
+** Form generated from reading UI file 'GameRaceEditjC2475.ui'
 **
-** Created: Sat May 14 13:54:24 2011
+** Created: Mon May 16 16:49:31 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef GAMERACEEDITGR1858_H
-#define GAMERACEEDITGR1858_H
+#ifndef GAMERACEEDITJC2475_H
+#define GAMERACEEDITJC2475_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
-#include <QtGui/QDialogButtonBox>
 #include <QtGui/QFormLayout>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
@@ -31,6 +30,7 @@
 #include <QtGui/QVBoxLayout>
 #include <QtGui/QWidget>
 #include <widgets/RefPlainTextEdit.h>
+#include <widgets/WarButtonBox.h>
 
 QT_BEGIN_NAMESPACE
 
@@ -63,7 +63,7 @@ public:
     QLineEdit *game_editionEdit;
     QLabel *game_versionLabel;
     QLineEdit *game_versionEdit;
-    QDialogButtonBox *gameSaveBox;
+    WarButtonBox *gameSaveBox;
     QGroupBox *game_rulesGroupBox;
     QVBoxLayout *rulesVBox;
     QHBoxLayout *game_rulesHBox;
@@ -77,7 +77,7 @@ public:
     QLabel *game_rule_briefLabel;
     QLineEdit *game_rule_briefEdit;
     QLabel *game_rule_fullLabel;
-    QDialogButtonBox *game_ruleSaveBox;
+    WarButtonBox *game_ruleSaveBox;
     RefPlainTextEdit *game_rule_fullEdit;
     QVBoxLayout *game_ruleListVBox;
     QListWidget *game_ruleList;
@@ -99,7 +99,7 @@ public:
     QLineEdit *race_versionEdit;
     QLabel *race_gameLabel;
     QLineEdit *race_gameEdit;
-    QDialogButtonBox *raceSaveBox;
+    WarButtonBox *raceSaveBox;
     QTabWidget *race_tabWidget;
     QWidget *race_rulesTab;
     QHBoxLayout *horizontalLayout_2;
@@ -114,7 +114,7 @@ public:
     QLineEdit *race_rule_briefEdit;
     QLabel *race_rule_fullLabel;
     RefPlainTextEdit *race_rule_fullEdit;
-    QDialogButtonBox *race_ruleSaveBox;
+    WarButtonBox *race_ruleSaveBox;
     QVBoxLayout *race_rulesVBox;
     QListWidget *race_ruleList;
     QHBoxLayout *race_ruleListActionBox;
@@ -132,7 +132,7 @@ public:
     QLineEdit *race_wargear_briefEdit;
     QLabel *race_wargear_fullLabel;
     RefPlainTextEdit *race_wargear_fullEdit;
-    QDialogButtonBox *race_wargearSaveBox;
+    WarButtonBox *race_wargearSaveBox;
     QGroupBox *race_wargear_profilesGroup;
     QVBoxLayout *race_wargear_profileVBox;
     QListWidget *race_wargear_profileList;
@@ -181,7 +181,7 @@ public:
     QLineEdit *race_unit_afEdit;
     QLineEdit *race_unit_asEdit;
     QLineEdit *race_unit_arEdit;
-    QDialogButtonBox *race_unitSaveBox;
+    WarButtonBox *race_unitSaveBox;
     QGroupBox *race_unit_wargearGroup;
     QVBoxLayout *race_unit_wargearVBox;
     QListWidget *race_unit_wargearList;
@@ -354,7 +354,7 @@ public:
 
         gameVBox->addLayout(gameForm);
 
-        gameSaveBox = new QDialogButtonBox(gameTab);
+        gameSaveBox = new WarButtonBox(gameTab);
         gameSaveBox->setObjectName(QString::fromUtf8("gameSaveBox"));
         gameSaveBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Discard);
 
@@ -421,7 +421,7 @@ public:
 
         game_ruleForm->setWidget(4, QFormLayout::LabelRole, game_rule_fullLabel);
 
-        game_ruleSaveBox = new QDialogButtonBox(game_rulesGroupBox);
+        game_ruleSaveBox = new WarButtonBox(game_rulesGroupBox);
         game_ruleSaveBox->setObjectName(QString::fromUtf8("game_ruleSaveBox"));
         game_ruleSaveBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Discard);
         game_ruleSaveBox->setCenterButtons(false);
@@ -555,7 +555,7 @@ public:
 
         verticalLayout->addLayout(raceForm);
 
-        raceSaveBox = new QDialogButtonBox(raceTab);
+        raceSaveBox = new WarButtonBox(raceTab);
         raceSaveBox->setObjectName(QString::fromUtf8("raceSaveBox"));
         raceSaveBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Discard);
 
@@ -620,7 +620,7 @@ public:
 
         race_ruleForm->setWidget(4, QFormLayout::FieldRole, race_rule_fullEdit);
 
-        race_ruleSaveBox = new QDialogButtonBox(race_rulesTab);
+        race_ruleSaveBox = new WarButtonBox(race_rulesTab);
         race_ruleSaveBox->setObjectName(QString::fromUtf8("race_ruleSaveBox"));
         race_ruleSaveBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Discard);
 
@@ -712,7 +712,7 @@ public:
 
         verticalLayout_7->addLayout(race_wargearForm);
 
-        race_wargearSaveBox = new QDialogButtonBox(race_wargearsTab);
+        race_wargearSaveBox = new WarButtonBox(race_wargearsTab);
         race_wargearSaveBox->setObjectName(QString::fromUtf8("race_wargearSaveBox"));
         race_wargearSaveBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Discard);
 
@@ -988,7 +988,7 @@ public:
 
         verticalLayout_5->addLayout(race_unit_profileGrid);
 
-        race_unitSaveBox = new QDialogButtonBox(race_unitsTab);
+        race_unitSaveBox = new WarButtonBox(race_unitsTab);
         race_unitSaveBox->setObjectName(QString::fromUtf8("race_unitSaveBox"));
         race_unitSaveBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Discard);
 
@@ -1357,4 +1357,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // GAMERACEEDITGR1858_H
+#endif // GAMERACEEDITJC2475_H
