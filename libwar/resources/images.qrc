@@ -15,5 +15,8 @@
     <file>icons/go-down-search.png</file>
     <file>icons/application-exit.png</file>
     <file>icons/sword-preview.png</file>
+    <file>icons/window-close.png</file>
+    <file>icons/dialog-ok-apply.png</file>
+    <file>icons/dialog-cancel.png</file>
   </qresource>
 </RCC>
