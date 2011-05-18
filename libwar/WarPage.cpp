@@ -25,63 +25,28 @@
 #include <QRegExp>
 #include <QStringList>
 #include <QDebug>
+#include <qtextdocument.h>
 
 
-WarPage::WarPage(Game& game) : m_root(), m_id(game.id()), m_name(game.name())
+WarPage::WarPage(Game& game) : m_id(game.id()), m_name(game.name()), m_root()
 {
     m_rules = &game;
     m_race = 0;
+    
+    initPage(game.name());
     
     QList<Rule*> rules = game.rules();
     int len = rules.length();
     qSort(rules.begin(), rules.end(), compareRule);
     
-    initPage(game.name());
     HtmlNode body("body");
     body.append(wrapTitle(game.name(), Page));
-    /*
-    HtmlNode toc("ul");
-    toc.style("border: 1px solid #000000; padding-top: 10px; padding-bottom: 10px; padding-right: 10px");
-    for(int i = 0; i < len; i++)
-    {
-        toc.append(
-            HtmlNode("li").append(
-                HtmlNode("a", rules[i]->name()).href("#" + rules[i]->id())
-            )
-        );
-    }
-    */
-    /*body.append(
-        HtmlNode("div").append(
-            HtmlNode("h1", game.name())
-        ).append(
-            HtmlNode("div").append(
-                game.id(), true
-            ).append(
-                HtmlNode("br")
-            ).append(
-                game.book(), true
-            ).append(
-                HtmlNode("br")
-            ).append(
-                game.edition() + " Edition", true
-            ).append(
-                HtmlNode("br")
-            ).append(
-                game.version(), true
-            )
-        )
-    );*/
     
     HtmlNode ruleList("div");
-    //ruleList.append(HtmlNode("h2", "Rule List"));
-    //ruleList.style("margin-left: 20px");
-    
-    
     for(int i = 0; i < len; i++)
     {
-        ruleList.append(convertToHtmlNode(*rules[i], Section));//.style("margin-bottom: 40px"));
-        ruleList.append(HtmlNode("br"));
+        ruleList.append(convertToHtmlNode(*rules[i], Section));
+        //ruleList.append(HtmlNode("br"));
     }
     
     body.append(ruleList);
@@ -115,6 +80,16 @@ WarPage& WarPage::operator=(const WarPage& other)
     m_rules = other.m_rules;
 }
 
+QString WarPage::defaultStyleSheet() const
+{
+    return  "h1 { margin-bottom: 20px; }\n"
+            "h2 { margin-bottom: 15px; }\n"
+            "h3 { margin-bottom: 10px; }\n"
+            //"p { text-indent: 15px; }\n"
+            "a { text-decoration: none; }";
+}
+
+
 
 Race* WarPage::race()
 {
@@ -134,6 +109,11 @@ const QString& WarPage::id() const
 const QString& WarPage::name() const
 {
     return m_name;
+}
+
+int WarPage::maxDescriptionLength() const
+{
+    return 512;
 }
 
 
@@ -156,36 +136,53 @@ WarPage::HtmlNode WarPage::convertToHtmlNode(const IRule& rule, int level)
     if(desc.isEmpty())
         desc = Qt::escape(rule.brief());
     
-    if(level != Inline && level != Page && desc.length() > maxDescLength)
-    {
-        int cutoff;
-        for(cutoff = maxDescLength; cutoff > 0 && !desc[cutoff].isSpace(); cutoff--);
-        
-        cutoff++;
-        
-        HtmlNode more("a", "more...");
-        more.href("rule://" + rule.id() + "?name=" + rule.name());
-        desc = desc.left(cutoff) + more.toHtml();
-    }
+    cutOff(level, RulePrefix, rule.id(), rule.name(), desc);
     
-    convertToHtml(desc);
-    ret.append(desc, false);
-    
+    convertToHtml(desc, ret);
     return ret;
 }
 
-void WarPage::convertToHtml(QString& out)
+void WarPage::cutOff(int level, int prefix, const QString& id,
+    const QString& name, QString& out)
+{
+    if(level != Inline && level != Page && out.length() > maxDescriptionLength())
+    {
+        ReferenceString ref;
+        ref.prefix = prefix;
+        ref.id = id;
+        ref.name = name;
+        ref.title = "";
+        
+        int cutoff;
+        for(cutoff = maxDescriptionLength(); cutoff > 0 && !out[cutoff].isSpace(); cutoff--);
+        
+        cutoff++;
+        
+        HtmlNode more("a");
+        more.append("[more &rarr;]", false);
+        more.href(ref.prefix + "://" + ref.id + "?name=" + ref.name);
+        out = out.left(cutoff) + more.toHtml();
+    }
+}
+
+
+void WarPage::convertToHtml(QString& out, WarPage::HtmlNode& parent)
 {
     out.replace("[lb]", "<br/>");
-    out.replace("[p]", "<br/><br/>");
+    //out.replace("[p]", "");
     
-    out.replace("[b]", "<strong>");
-    out.replace("[/b]", "</strong>");
+    out.replace("[b]", "<b>");
+    out.replace("[/b]", "</b>");
     
-    out.replace("[i]", "<em>");
-    out.replace("[/i]", "</em>");
+    out.replace("[i]", "<i>");
+    out.replace("[/i]", "</i>");
     
     convertReferences(out);
+    
+    QStringList paras = out.split("[p]");
+    int len = paras.length();
+    for(int i = 0; i < len; i++)
+        parent.append(HtmlNode("p").append(paras[i], false));
 }
 
 void WarPage::convertReferences(QString& out)
@@ -196,6 +193,9 @@ void WarPage::convertReferences(QString& out)
     while((pos = re.indexIn(out, pos)) >= 0)
     {
         ReferenceString r;
+        r.prefix = NullPrefix;
+        r.title = "";
+        
         if(!re.cap(2).trimmed().isEmpty())
         {
             r.id = re.cap(1).trimmed();
@@ -207,9 +207,6 @@ void WarPage::convertReferences(QString& out)
             //qDebug() << "matched id: " << r.id;
             r.name = "";
         }
-        
-        r.prefix = "";
-        r.title = "";
         
         HtmlNode refnode = resolveReference(r);
         QString replace = refnode.toHtml();
@@ -231,19 +228,19 @@ WarPage::HtmlNode WarPage::resolveReference(WarPage::ReferenceString& ref)
             Unit *unit  = m_race->getUnit(ref.id);
             if(unit)
             {
-                ref.prefix = "unit";
+                ref.prefix = UnitPrefix;
                 name = unit->name();
             }
         }
         else
         {
-            ref.prefix = "wargear";
+            ref.prefix = WargearPrefix;
             name = wargear->name();
         }
     }
     else if(rule)
     {
-        ref.prefix = "rule";
+        ref.prefix = RulePrefix;
         name = rule->name();
         ref.title = rule->brief();
     }
@@ -255,24 +252,17 @@ WarPage::HtmlNode WarPage::resolveReference(WarPage::ReferenceString& ref)
     else if(ref.name == "plural")
         ref.name = (name[name.length() - 1] == 's' ? name : name + "s");
     
-    if(!ref.prefix.isEmpty())
+    if(ref.prefix != NullPrefix)
     {
-        ret = HtmlNode("a", ref.name);
+        ret = HtmlNode(ref);
+        
         ret.href(ref.prefix + "://" + ref.id + "?name=" + ref.name);
         if(!ref.title.isEmpty())
             ret.title(ref.title);
     }
     else
     {
-        qDebug() << "ref lookup failed: " << ref.id;
-        qDebug() << (m_rules->resolveRuleReference(ref.id) == 0);
-        qDebug() << (m_rules->getRule(ref.id) == 0);
-        ret = HtmlNode("span");
-        ret.style("color: #ff0000; text-decoration: underline");
-        if(ref.name.isEmpty())
-            ret.append(ref.id, true);
-        else
-            ret.append(ref.name, true);
+        
     }
     
     return ret;
@@ -291,12 +281,9 @@ WarPage::HtmlNode WarPage::wrapTitle(const QString& title, int level) const
     else if(level == SubSection)
         tag = "h3";
     else if(level == Inline)
-        tag = "strong";
+        tag = "b";
     
     HtmlNode node(tag, title);
-    if(level == SubSection || level == Section)
-        node.style("margin-bottom:0px; padding-bottom:0px");
-    
     
     return node;
 }
@@ -340,6 +327,40 @@ WarPage::HtmlNode::HtmlNode(const WarPage::HtmlNode& other) :
 {
 
 }
+
+WarPage::HtmlNode::HtmlNode(const WarPage::ReferenceString& ref,
+    const QString& name) : m_body(), m_tag(), m_id(), m_href(), m_style(),
+    m_title()
+{
+    QString finalName;
+    if(name.isEmpty() && ref.name.isEmpty())
+        finalName = ref.id;
+    else if(name.isEmpty())
+        finalName = ref.name;
+    else
+        finalName = name;
+    
+    if(ref.prefix == WarPage::NullPrefix)
+    {
+        m_tag = "span";
+        m_style = "color: #ff0000;";
+        append(finalName, true);
+    }
+    else
+    {
+        m_tag = "a";
+        QString prefix;
+        if(ref.prefix == WarPage::RulePrefix)
+            prefix = "rule";
+        else if(ref.prefix == WarPage::WargearPrefix)
+            prefix = "wargear";
+        else
+            prefix = "unit";
+        
+        m_href = prefix + "://" + ref.id + "?name=" + finalName;
+    }
+}
+
 
 WarPage::HtmlNode::HtmlNode() : m_body(), m_tag(), m_id(), m_href(), m_style(),
     m_title()

@@ -30,11 +30,37 @@
 class WarPage
 {
 public:
+    struct ReferenceString
+    {
+        int prefix;
+        QString name;
+        QString id;
+        QString title;
+    };
+    
+    enum NodeLevel
+    {
+        Page,
+        Section,
+        SubSection,
+        Inline
+    };
+    
+    enum ReferencePrefix
+    {
+        NullPrefix,
+        RulePrefix,
+        UnitPrefix,
+        WargearPrefix
+    };
+    
     class HtmlNode
     {
     public:
         HtmlNode(const QString& tag, const QString& body = QString());
         HtmlNode(const HtmlNode& other);
+        HtmlNode(const WarPage::ReferenceString& ref,
+                 const QString& name = QString());
         HtmlNode();
         
         HtmlNode& operator=(const HtmlNode& other);
@@ -56,28 +82,9 @@ public:
         QString m_title;
     };
     
-    struct ReferenceString
-    {
-        QString prefix;
-        QString name;
-        QString id;
-        QString title;
-    };
-    
-    enum NodeLevel
-    {
-        Page,
-        Section,
-        SubSection,
-        Inline
-    };
-    
     WarPage(Game& game);
     WarPage(const IRule& rule, RuleList& list, Race *race);
     WarPage(const WarPage& other);
-    /*WarPage(Race& race);
-    WarPage(Unit& unit);
-    WarPage(Wargear& wargear);*/
     virtual WarPage& operator=(const WarPage& other);
     
     Race* race();
@@ -87,12 +94,16 @@ public:
     
     QString toHtml() const;
     static QString wrapWhiteSpaceTags(const QDomElement& ele);
+    QString defaultStyleSheet() const;
+    int maxDescriptionLength() const;
     
 private:
     HtmlNode convertToHtmlNode(const IRule& rule, int level);
     void initPage(const QString& title);
+    void cutOff(int level, int prefix, const QString& id, const QString& name,
+                QString& out);
     HtmlNode wrapTitle(const QString& title, int level) const;
-    void convertToHtml(QString& out);
+    void convertToHtml(QString& out, WarPage::HtmlNode& parent);
     void convertReferences(QString& out);
     HtmlNode resolveReference(ReferenceString& ref);
     
