@@ -47,6 +47,7 @@ private slots:
 private:
     void setHtml(const QString& txt);
     void setPlainText(const QString& txt);
+    QTextDocument *m_warDocument;
     WarPage m_page;
 };
 

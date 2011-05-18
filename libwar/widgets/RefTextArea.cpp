@@ -28,7 +28,12 @@ RefTextArea::RefTextArea(QWidget* parent, const WarPage& page) : m_page(page),
 {
     setOpenLinks(false);
     setOpenExternalLinks(false);
-    setHtml(m_page.toHtml());
+    
+    m_warDocument = new QTextDocument();
+    m_warDocument->setDefaultStyleSheet(m_page.defaultStyleSheet());
+    m_warDocument->setHtml(m_page.toHtml());
+    setDocument(m_warDocument);
+    
     connect(this, SIGNAL(anchorClicked(QUrl)), SLOT(linkClicked(QUrl)));
 }
 
@@ -36,6 +41,7 @@ RefTextArea::RefTextArea(QWidget* parent, const WarPage& page) : m_page(page),
 RefTextArea::~RefTextArea()
 {
     //delete m_page;
+    delete m_warDocument;
 }
 
 
