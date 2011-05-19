@@ -30,14 +30,6 @@
 class WarPage
 {
 public:
-    struct ReferenceString
-    {
-        int prefix;
-        QString name;
-        QString id;
-        QString title;
-    };
-    
     enum NodeLevel
     {
         Page,
@@ -54,6 +46,14 @@ public:
         WargearPrefix
     };
     
+    struct ReferenceString
+    {
+        ReferencePrefix prefix;
+        QString name;
+        QString id;
+        QString title;
+    };
+    
     class HtmlNode
     {
     public:
@@ -66,10 +66,12 @@ public:
         HtmlNode& operator=(const HtmlNode& other);
         HtmlNode& id(const QString& id);
         HtmlNode& href(const QString& href);
+        HtmlNode& href(const WarPage::ReferenceString& ref);
         HtmlNode& style(const QString& style);
         HtmlNode& title(const QString& title);
         HtmlNode& append(const HtmlNode& tag);
         HtmlNode& append(const QString& txt, bool escape);
+        static QString toString(ReferencePrefix prefix);
         
         QString toHtml() const;
         
@@ -98,9 +100,9 @@ public:
     int maxDescriptionLength() const;
     
 private:
-    HtmlNode convertToHtmlNode(const IRule& rule, int level);
+    HtmlNode convertToHtmlNode(const IRule& rule, WarPage::NodeLevel level);
     void initPage(const QString& title);
-    void cutOff(int level, int prefix, const QString& id, const QString& name,
+    void cutOff(NodeLevel level, ReferencePrefix prefix, const QString& id, const QString& name,
                 QString& out);
     HtmlNode wrapTitle(const QString& title, int level) const;
     void convertToHtml(QString& out, WarPage::HtmlNode& parent);

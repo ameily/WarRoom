@@ -118,7 +118,7 @@ int WarPage::maxDescriptionLength() const
 
 
 
-WarPage::HtmlNode WarPage::convertToHtmlNode(const IRule& rule, int level)
+WarPage::HtmlNode WarPage::convertToHtmlNode(const IRule& rule, NodeLevel level)
 {
     int maxDescLength = 512;
     HtmlNode ret("div");
@@ -142,7 +142,7 @@ WarPage::HtmlNode WarPage::convertToHtmlNode(const IRule& rule, int level)
     return ret;
 }
 
-void WarPage::cutOff(int level, int prefix, const QString& id,
+void WarPage::cutOff(NodeLevel level, ReferencePrefix prefix, const QString& id,
     const QString& name, QString& out)
 {
     if(level != Inline && level != Page && out.length() > maxDescriptionLength())
@@ -160,7 +160,7 @@ void WarPage::cutOff(int level, int prefix, const QString& id,
         
         HtmlNode more("a");
         more.append("[more &rarr;]", false);
-        more.href(ref.prefix + "://" + ref.id + "?name=" + ref.name);
+        more.href(ref);
         out = out.left(cutoff) + more.toHtml();
     }
 }
@@ -217,7 +217,6 @@ void WarPage::convertReferences(QString& out)
 
 WarPage::HtmlNode WarPage::resolveReference(WarPage::ReferenceString& ref)
 {
-    HtmlNode ret;
     QString name;
     const Rule *rule = m_rules->resolveRuleReference(ref.id);
     if(m_race && !rule)
@@ -252,20 +251,9 @@ WarPage::HtmlNode WarPage::resolveReference(WarPage::ReferenceString& ref)
     else if(ref.name == "plural")
         ref.name = (name[name.length() - 1] == 's' ? name : name + "s");
     
-    if(ref.prefix != NullPrefix)
-    {
-        ret = HtmlNode(ref);
-        
-        ret.href(ref.prefix + "://" + ref.id + "?name=" + ref.name);
-        if(!ref.title.isEmpty())
-            ret.title(ref.title);
-    }
-    else
-    {
-        
-    }
+    HtmlNode node(ref);
     
-    return ret;
+    return node;
 }
 
 
@@ -344,21 +332,17 @@ WarPage::HtmlNode::HtmlNode(const WarPage::ReferenceString& ref,
     {
         m_tag = "span";
         m_style = "color: #ff0000;";
-        append(finalName, true);
     }
     else
     {
         m_tag = "a";
-        QString prefix;
-        if(ref.prefix == WarPage::RulePrefix)
-            prefix = "rule";
-        else if(ref.prefix == WarPage::WargearPrefix)
-            prefix = "wargear";
-        else
-            prefix = "unit";
-        
-        m_href = prefix + "://" + ref.id + "?name=" + finalName;
+        href(toString(ref.prefix) + "://" + ref.id + "?name=" + finalName);
     }
+    
+    append(finalName, true);
+    
+    if(!ref.title.isEmpty())
+        m_title = Qt::escape(ref.title);
 }
 
 
@@ -367,6 +351,28 @@ WarPage::HtmlNode::HtmlNode() : m_body(), m_tag(), m_id(), m_href(), m_style(),
 {
 
 }
+
+QString WarPage::HtmlNode::toString(WarPage::ReferencePrefix prefix)
+{
+    QString str;
+    if(prefix == WarPage::RulePrefix)
+        str = "rule";
+    else if(prefix == WarPage::WargearPrefix)
+        str = "wargear";
+    else if(prefix == WarPage::UnitPrefix)
+        str = "unit";
+    else
+        str = "unresolved";
+    
+    return str;
+}
+
+WarPage::HtmlNode& WarPage::HtmlNode::href(const WarPage::ReferenceString& ref)
+{
+    href(toString(ref.prefix) + "://" + ref.id + "?name=" + ref.name);
+}
+
+
 
 WarPage::HtmlNode& WarPage::HtmlNode::operator=(const WarPage::HtmlNode& other)
 {
