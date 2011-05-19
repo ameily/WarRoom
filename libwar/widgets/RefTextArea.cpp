@@ -44,6 +44,12 @@ RefTextArea::~RefTextArea()
     delete m_warDocument;
 }
 
+void RefTextArea::clearSelection()
+{
+    QTextCursor cursor(this->document());
+    cursor.clearSelection();
+}
+
 
 void RefTextArea::linkClicked(const QUrl& url)
 {

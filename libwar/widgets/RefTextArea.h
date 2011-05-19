@@ -34,6 +34,7 @@ class RefTextArea : public QTextBrowser
 public:
     RefTextArea(QWidget* parent, const WarPage& page);
     virtual ~RefTextArea();
+    void clearSelection();
     
 signals:
         void ruleRefClicked(const RuleRef& ref);
