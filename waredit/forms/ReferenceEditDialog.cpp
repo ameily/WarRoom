@@ -54,8 +54,6 @@ void ReferenceEditDialog::setupList()
 {
     setupUi(this);
     m_populateNameField = true;
-    searchButton->setIcon(QIcon::fromTheme("edit-find"));
-    searchButton->setText("Find");
     
     connect(refList, SIGNAL(currentRowChanged(int)), SLOT(selectionChanged(int)));
     connect(searchButton, SIGNAL(clicked()), SLOT(search()));
