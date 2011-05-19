@@ -159,7 +159,6 @@ WarPageViewer::TabPage& WarPageViewer::currentTabPage()
 void WarPageViewer::doSearchNext()
 {
     TabPage& tab = currentTabPage();
-    tab.text->clearSelection();
     QString find = tab.search->text().trimmed();
     
     if(!find.isEmpty())
@@ -173,7 +172,6 @@ void WarPageViewer::doSearchNext()
 void WarPageViewer::doSearchPrevious()
 {
     TabPage& tab = currentTabPage();
-    tab.text->clearSelection();
     QString find = tab.search->text().trimmed();
     
     if(!find.isEmpty())
@@ -186,6 +184,7 @@ void WarPageViewer::doSearchPrevious()
 void WarPageViewer::onSearchTextChanged(const QString& txt)
 {
     TabPage& tab = currentTabPage();
+    tab.text->clearSelection();
     bool enable = !txt.isEmpty();
     
     if(tab.doSearch[0]->isEnabled() != enable)

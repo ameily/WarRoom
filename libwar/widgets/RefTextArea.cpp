@@ -46,8 +46,9 @@ RefTextArea::~RefTextArea()
 
 void RefTextArea::clearSelection()
 {
-    QTextCursor cursor(this->document());
+    QTextCursor cursor = textCursor();
     cursor.clearSelection();
+    setTextCursor(cursor);
 }
 
 
