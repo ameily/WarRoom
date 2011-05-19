@@ -25,6 +25,7 @@
 #include <QDebug>
 #include "RefTextArea.h"
 #include "SearchLineEdit.h"
+#include <QLabel>
 
 WarPageViewer::WarPageViewer(QWidget* parent, WarPage *page) : QTabWidget(parent)
 {
@@ -62,6 +63,7 @@ void WarPageViewer::appendPage(const WarPage& page)
     SearchLineEdit *search = new SearchLineEdit(tab);
     QPushButton *searchNext = new QPushButton(tab);
     QPushButton *searchPrevious = new QPushButton(tab);
+    QLabel *findLabel = new QLabel(tab);
     
     QIcon up, down;
     up.addFile(":/icons/go-up-search.png");
@@ -71,7 +73,9 @@ void WarPageViewer::appendPage(const WarPage& page)
     searchNext->setIcon(down);
     searchPrevious->setText("Previous");
     searchPrevious->setIcon(up);
+    findLabel->setText("Find: ");
     
+    hbox->addWidget(findLabel);
     hbox->addWidget(search);
     hbox->addWidget(searchNext);
     hbox->addWidget(searchPrevious);
@@ -155,6 +159,7 @@ WarPageViewer::TabPage& WarPageViewer::currentTabPage()
 void WarPageViewer::doSearchNext()
 {
     TabPage& tab = currentTabPage();
+    tab.text->clearSelection();
     QString find = tab.search->text().trimmed();
     
     if(!find.isEmpty())
@@ -168,6 +173,7 @@ void WarPageViewer::doSearchNext()
 void WarPageViewer::doSearchPrevious()
 {
     TabPage& tab = currentTabPage();
+    tab.text->clearSelection();
     QString find = tab.search->text().trimmed();
     
     if(!find.isEmpty())
