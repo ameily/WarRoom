@@ -43,12 +43,14 @@ public:
     
     const QString& name() const;
     const QString& id() const;
+    const QString& page() const;
     const UnitProfile& profile() const;
     UnitProfile& profile();
     const Race& race() const;
     
     void name(const QString& nm);
     void id(const QString& uid);
+    void page(const QString& upg);
     void profile(const UnitProfile& pf);
     
     virtual QDomElement& toXml(QDomDocument& doc, QDomElement& parent) const
@@ -62,6 +64,7 @@ private:
     UnitProfile m_profile;
     QString m_id;
     QString m_name;
+    QString m_page;
     const Race *m_race;
 };
 

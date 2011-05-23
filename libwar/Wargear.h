@@ -32,6 +32,7 @@ public:
     virtual const QString& description() const = 0;
     virtual const QString& name() const = 0;
     virtual const QString& id() const = 0;
+    virtual const QString& page() const = 0;
     virtual QList<WargearProfile> profiles() const = 0;
     virtual bool isReference() const = 0;
     virtual const Race& race() const = 0;
@@ -57,6 +58,8 @@ public:
     void description(const QString& desc);
     void name(const QString& nm);
     void id(const QString& wid);
+    void page(const QString& wpg);
+    
     WargearProfile* addProfile(const WargearProfile& profile);
     bool removeProfile(const WargearProfile& profile);
     
@@ -64,6 +67,7 @@ public:
     virtual const QString& description() const;
     virtual const QString& name() const;
     virtual const QString& id() const;
+    virtual const QString& page() const;
     virtual const Race& race() const;
     virtual QList< WargearProfile > profiles() const;
     QList< WargearProfile* > profiles();
@@ -85,6 +89,7 @@ private:
     QString m_description;
     QString m_name;
     QString m_id;
+    QString m_page;
     const Race *m_race;
 };
 
@@ -104,6 +109,7 @@ public:
     virtual const QString& description() const;
     virtual const QString& name() const;
     virtual const QString& id() const;
+    virtual const QString& page() const;
     virtual QList< WargearProfile > profiles() const;
     virtual const Race& race() const;
     const Wargear* wargear() const;

@@ -84,8 +84,8 @@ UnitProfile::UnitProfile(const QDomElement& ele) throw(XmlParseException)
         }
     }
     
-    if(isNull())
-        throw XmlParseException("null unit profile node", ele);
+    //if(isNull())
+    //    throw XmlParseException("null unit profile node", ele);
 }
 
 
@@ -292,8 +292,8 @@ bool UnitProfile::isNull() const
 QDomElement& UnitProfile::toXml(QDomDocument& doc, QDomElement& parent) const
     throw(ValidationException)
 {
-    if(isNull())
-        throw ValidationException("UnitProfile", "*", "is null");
+    //if(isNull())
+    //    throw ValidationException("UnitProfile", "*", "is null");
     
     if(!m_armourSave.isEmpty())
         appendElement(doc, parent, "armour_save", m_armourSave);

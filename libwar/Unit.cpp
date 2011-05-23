@@ -24,7 +24,8 @@
 #include <QDebug>
 
 
-Unit::Unit() : WargearRefList(), RuleRefList(), m_profile(), m_id(), m_name()
+Unit::Unit() : WargearRefList(), RuleRefList(), m_profile(), m_id(), m_name(),
+    m_page()
 {
     m_race = NULL;
 }
@@ -36,13 +37,14 @@ bool Unit::isNull() const
 
 
 Unit::Unit(const Race& race) : WargearRefList(), RuleRefList(), m_profile(),
-    m_id(), m_name()
+    m_id(), m_name(), m_page()
 {
     m_race = &race;
 }
 
 Unit::Unit(const Unit& other) : WargearRefList(other), RuleRefList(other),
-    m_profile(other.m_profile), m_id(other.m_id), m_name(other.m_name)
+    m_profile(other.m_profile), m_id(other.m_id), m_name(other.m_name),
+    m_page(other.m_page)
 {
     m_race = other.m_race;
 }
@@ -63,6 +65,8 @@ Unit::Unit(const QDomElement& ele, const Race& race) : m_profile(), m_id(),
                 m_id = current.text().simplified();
             else if(current.nodeName() == "name")
                 m_name = current.text().simplified();
+            else if(current.nodeName() == "page")
+                m_page = current.text().simplified();
             else if(current.nodeName() == "profile")
                 m_profile = UnitProfile(current);
             else if(current.nodeName() == "rules")
@@ -80,8 +84,11 @@ Unit::Unit(const QDomElement& ele, const Race& race) : m_profile(), m_id(),
     if(m_name.isEmpty())
         throw XmlParseException("missing unit name node", ele);
     
-    if(m_profile.isNull())
-        throw XmlParseException("missing unit profile node", ele);
+    if(m_page.isEmpty())
+        throw XmlParseException("missing unit page node", ele);
+    
+    //if(m_profile.isNull())
+    //    throw XmlParseException("missing unit profile node", ele);
     
     m_race = &race;
 }
@@ -104,6 +111,7 @@ Unit& Unit::operator=(const Unit& other)
     m_name = other.m_name;
     m_id = other.m_id;
     m_race = other.m_race;
+    m_page = other.m_page;
     
     return *this;
 }
@@ -112,7 +120,8 @@ bool Unit::operator==(const Unit& other) const
 {
     return m_profile == other.m_profile && RuleRefList::operator==(other) &&
         WargearRefList::operator==(other) && m_id == other.m_id &&
-        m_name == other.m_name && m_race == other.m_race;
+        m_name == other.m_name && m_race == other.m_race &&
+        m_page == other.m_page;
 }
 
 /*
@@ -181,6 +190,17 @@ void Unit::name(const QString& nm)
     m_name = nm;
 }
 
+const QString& Unit::page() const
+{
+    return m_page;
+}
+
+void Unit::page(const QString& upg)
+{
+    m_page = upg;
+}
+
+
 const Race& Unit::race() const
 {
     return *m_race;
@@ -194,10 +214,13 @@ QDomElement& Unit::toXml(QDomDocument& doc, QDomElement& parent) const
         throw ValidationException("Unit", "id", "is null");
     
     if(m_name.isEmpty())
-        throw ValidationException("Unit", "id", "is null");
+        throw ValidationException("Unit [" + m_id + "]", "name", "is null");
     
-    if(m_profile.isNull())
-        throw ValidationException("Unit", "profile", "is null");
+    if(m_page.isEmpty())
+        throw ValidationException("Unit [" + m_id + "]", "page", "is null");
+    
+    //if(m_profile.isNull())
+    //    throw ValidationException("Unit", "profile", "is null");
     
     QDomElement profileNode = doc.createElement("profile");
     m_profile.toXml(doc, profileNode);
@@ -210,6 +233,7 @@ QDomElement& Unit::toXml(QDomDocument& doc, QDomElement& parent) const
     
     appendElement(doc, parent, "id", m_id);
     appendElement(doc, parent, "name", m_name);
+    appendElement(doc, parent, "page", m_page);
     
     parent.appendChild(profileNode);
     parent.appendChild(wargearsNode);

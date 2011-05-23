@@ -24,7 +24,7 @@
 #include "WarPage.h"
 
 Wargear::Wargear(const Race& race) : m_profiles(), m_brief(), m_description(),
-    m_name(), m_id()
+    m_name(), m_id(), m_page()
 {
     m_race = &race;
 }
@@ -36,7 +36,8 @@ Wargear::Wargear(const Race& race) : m_profiles(), m_brief(), m_description(),
 
 }*/
 
-Wargear::Wargear() : m_profiles(), m_brief(), m_description(), m_name(), m_id()
+Wargear::Wargear() : m_profiles(), m_brief(), m_description(), m_name(), m_id(),
+    m_page()
 {
     m_race = NULL;
 }
@@ -44,7 +45,7 @@ Wargear::Wargear() : m_profiles(), m_brief(), m_description(), m_name(), m_id()
 
 Wargear::Wargear(const Wargear& other) : //m_profiles(other.m_profiles),
     m_brief(other.m_brief), m_description(other.m_description), m_id(other.m_id),
-    m_name(other.m_name)
+    m_name(other.m_name), m_page(other.m_page)
 {
     m_race = other.m_race;
     
@@ -59,7 +60,7 @@ Wargear::Wargear(const Wargear& other) : //m_profiles(other.m_profiles),
 
 Wargear::Wargear(const QDomElement& ele, const Race& race)
     throw(XmlParseException) : m_profiles(), m_brief(), m_description(),
-    m_name(), m_id()
+    m_name(), m_id(), m_page()
 {
     QDomNodeList list = ele.childNodes();
     int len = list.length();
@@ -78,6 +79,8 @@ Wargear::Wargear(const QDomElement& ele, const Race& race)
                 m_name = current.text().simplified();
             else if(current.nodeName() == "id")
                 m_id = current.text().simplified();
+            else if(current.nodeName() == "page")
+                m_page = current.text().simplified();
             else if(current.nodeName() == "profiles")
                 profilesFromXml(current);
             else
@@ -90,6 +93,9 @@ Wargear::Wargear(const QDomElement& ele, const Race& race)
     
     if(m_name.isEmpty())
         throw XmlParseException("missing wargear name node", ele);
+    
+    if(m_page.isEmpty())
+        throw XmlParseException("missing wargear page node", ele);
     
     len = m_profiles.length();
     for(int i = 0; i < len; i++)
@@ -149,6 +155,7 @@ Wargear& Wargear::operator=(const Wargear& other)
     m_description = other.m_description;
     m_name = other.m_name;
     m_id = other.m_id;
+    m_page = other.m_page;
     m_race = other.m_race;
     
     m_profiles.clear();
@@ -169,7 +176,8 @@ bool Wargear::operator==(const Wargear& other) const
 {
     return m_brief == other.m_brief && m_description == other.m_description &&
         m_profiles == other.m_profiles && m_name == other.m_name &&
-        other.m_id == other.m_id && m_race == other.m_race;
+        other.m_id == other.m_id && m_race == other.m_race &&
+        m_page == other.m_page;
 }
 
 const QString& Wargear::brief() const
@@ -211,6 +219,17 @@ const QString& Wargear::name() const
 {
     return m_name;
 }
+
+void Wargear::page(const QString& wpg)
+{
+    m_page = wpg;
+}
+
+const QString& Wargear::page() const
+{
+    return m_page;
+}
+
 
 const Race& Wargear::race() const
 {
@@ -260,10 +279,14 @@ QDomElement& Wargear::toXml(QDomDocument& doc, QDomElement& parent) const
         throw ValidationException("Wargear", "id", "is null");
     
     if(m_name.isEmpty())
-        throw ValidationException("Wargear", "name", "is null");
+        throw ValidationException("Wargear [" + m_id + "]", "name", "is null");
+    
+    if(m_page.isEmpty())
+        throw ValidationException("Wargear [" + m_id + "]", "page", "is null");
     
     appendElement(doc, parent, "id", m_id);
     appendElement(doc, parent, "name", m_name);
+    appendElement(doc, parent, "page", m_page);
     appendElement(doc, parent, "brief", m_brief);
     
     if(!m_description.isEmpty())
