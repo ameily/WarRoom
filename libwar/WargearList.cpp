@@ -121,7 +121,7 @@ Wargear* WargearList::getWargear(const QString& id)
 
 Wargear* WargearList::resetWargearId(const QString& oldId, const QString& newId)
 {
-    if(hasWargear(oldId) || hasWargear(newId))
+    if(!hasWargear(oldId) || hasWargear(newId))
         return 0;
     
     Wargear wargear = m_wargears.take(oldId);

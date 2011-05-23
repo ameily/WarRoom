@@ -125,7 +125,7 @@ QList< Unit* > UnitList::units()
 
 Unit* UnitList::resetUnitId(const QString& oldId, const QString& newId)
 {
-    if(hasUnit(oldId) || hasUnit(newId))
+    if(!hasUnit(oldId) || hasUnit(newId))
         return 0;
     
     Unit unit = m_units.take(oldId);
