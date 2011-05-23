@@ -558,6 +558,29 @@
                 <item row="0" column="1">
                  <widget class="QLineEdit" name="race_wargear_idEdit"/>
                 </item>
+                <item row="3" column="0">
+                 <widget class="QLabel" name="race_wargear_briefLabel">
+                  <property name="text">
+                   <string>Brief</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="1">
+                 <widget class="QLineEdit" name="race_wargear_briefEdit"/>
+                </item>
+                <item row="4" column="0">
+                 <widget class="QLabel" name="race_wargear_fullLabel">
+                  <property name="text">
+                   <string>Full</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="4" column="1">
+                 <widget class="RefPlainTextEdit" name="race_wargear_fullEdit"/>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QLineEdit" name="race_wargear_nameEdit"/>
+                </item>
                 <item row="1" column="0">
                  <widget class="QLabel" name="race_wargear_nameLabel">
                   <property name="text">
@@ -565,28 +588,15 @@
                   </property>
                  </widget>
                 </item>
-                <item row="1" column="1">
-                 <widget class="QLineEdit" name="race_wargear_nameEdit"/>
-                </item>
                 <item row="2" column="0">
-                 <widget class="QLabel" name="race_wargear_briefLabel">
+                 <widget class="QLabel" name="race_wargear_pageLabel">
                   <property name="text">
-                   <string>Brief</string>
+                   <string>Page*</string>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QLineEdit" name="race_wargear_briefEdit"/>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QLabel" name="race_wargear_fullLabel">
-                  <property name="text">
-                   <string>Full</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="RefPlainTextEdit" name="race_wargear_fullEdit"/>
+                 <widget class="QLineEdit" name="race_wargear_pageEdit"/>
                 </item>
                </layout>
               </item>
@@ -727,6 +737,16 @@
                 </item>
                 <item row="1" column="1">
                  <widget class="QLineEdit" name="race_unit_nameEdit"/>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QLabel" name="race_unit_pageLabel">
+                  <property name="text">
+                   <string>Page*</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="race_unit_pageEdit"/>
                 </item>
                </layout>
               </item>
@@ -1357,6 +1377,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>race_ruleRemoveButton</tabstop>
   <tabstop>race_wargear_idEdit</tabstop>
   <tabstop>race_wargear_nameEdit</tabstop>
+  <tabstop>race_wargear_pageEdit</tabstop>
   <tabstop>race_wargear_briefEdit</tabstop>
   <tabstop>race_wargear_fullEdit</tabstop>
   <tabstop>race_wargearSaveBox</tabstop>
@@ -1369,6 +1390,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>race_wargearRemoveButton</tabstop>
   <tabstop>race_unit_idEdit</tabstop>
   <tabstop>race_unit_nameEdit</tabstop>
+  <tabstop>race_unit_pageEdit</tabstop>
   <tabstop>race_unit_wsEdit</tabstop>
   <tabstop>race_unit_bsEdit</tabstop>
   <tabstop>race_unit_sEdit</tabstop>

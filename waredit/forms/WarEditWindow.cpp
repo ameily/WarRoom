@@ -343,6 +343,7 @@ void WarEditWindow::setupConnections()
     
     connect(race_unit_idEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceUnitChanged()));
     connect(race_unit_nameEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceUnitChanged()));
+    connect(race_unit_pageEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceUnitChanged()));
     connect(race_unit_bsEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceUnitChanged()));
     connect(race_unit_wsEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceUnitChanged()));
     connect(race_unit_sEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceUnitChanged()));
@@ -359,6 +360,7 @@ void WarEditWindow::setupConnections()
     
     connect(race_wargear_idEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceWargearChanged()));
     connect(race_wargear_nameEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceWargearChanged()));
+    connect(race_wargear_pageEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceWargearChanged()));
     connect(race_wargear_briefEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceWargearChanged()));
     connect(race_wargear_fullEdit, SIGNAL(textEdited()), SLOT(onRaceWargearChanged()));
 }

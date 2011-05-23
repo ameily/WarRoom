@@ -376,6 +376,7 @@ void WarEditWindow::onRaceUnitSelected(int index, bool reload)
     
     race_unit_idEdit->setText(u.id());
     race_unit_nameEdit->setText(u.name());
+    race_unit_pageEdit->setText(u.page());
     race_unit_wsEdit->setText(u.profile().weaponSkill());
     race_unit_bsEdit->setText(u.profile().ballisticSkill());
     race_unit_sEdit->setText(u.profile().strength());
@@ -400,6 +401,7 @@ void WarEditWindow::onRaceUnitSelected(int index, bool reload)
     {
         race_unit_idEdit->setEnabled(unitFieldsEnabled);
         race_unit_nameEdit->setEnabled(unitFieldsEnabled);
+        race_unit_pageEdit->setEnabled(unitFieldsEnabled);
         race_unit_wsEdit->setEnabled(unitFieldsEnabled);
         race_unit_bsEdit->setEnabled(unitFieldsEnabled);
         race_unit_sEdit->setEnabled(unitFieldsEnabled);
@@ -452,6 +454,7 @@ void WarEditWindow::onRaceWargearSelected(int index, bool reload)
     
     race_wargear_idEdit->setText(w.id());
     race_wargear_briefEdit->setText(w.brief());
+    race_wargear_pageEdit->setText(w.page());
     race_wargear_nameEdit->setText(w.name());
     race_wargear_fullEdit->setPlainText(w.description());
     
@@ -463,6 +466,7 @@ void WarEditWindow::onRaceWargearSelected(int index, bool reload)
     {
         race_wargear_idEdit->setEnabled(wargearFieldsEnabled);
         race_wargear_nameEdit->setEnabled(wargearFieldsEnabled);
+        race_wargear_pageEdit->setEnabled(wargearFieldsEnabled);
         race_wargear_briefEdit->setEnabled(wargearFieldsEnabled);
         race_wargear_fullEdit->setEnabled(wargearFieldsEnabled);
         race_wargear_profileList->setEnabled(wargearFieldsEnabled);
@@ -534,6 +538,7 @@ void WarEditWindow::doCommitOrRollbackRaceUnit(QAbstractButton* button)
             }
             
             m_race_unit->name(race_unit_nameEdit->text());
+            m_race_unit->page(race_unit_pageEdit->text());
             m_race_unit->profile().weaponSkill(race_unit_wsEdit->text());
             m_race_unit->profile().ballisticSkill(race_unit_bsEdit->text());
             m_race_unit->profile().strength(race_unit_sEdit->text());
@@ -568,13 +573,16 @@ void WarEditWindow::doCommitOrRollbackRaceWargear(QAbstractButton* button)
         {
             if(m_race_wargear->id() != race_wargear_idEdit->text())
             {
+                qDebug() << "before reset";
                 m_race_wargear = m_race->resetWargearId(m_race_wargear->id(),
                     race_wargear_idEdit->text());
+                qDebug() << "after reset: " << (m_race_wargear != 0);
                 m_race_wargears[race_wargearList->currentRow()] = m_race_wargear;
             }
             
             m_race_wargear->name(race_wargear_nameEdit->text());
             m_race_wargear->brief(race_wargear_briefEdit->text());
+            m_race_wargear->page(race_wargear_pageEdit->text());
             m_race_wargear->description(race_wargear_fullEdit->toPlainText());
             race_wargearList->currentItem()->setText(m_race_wargear->name());
             
@@ -704,6 +712,7 @@ bool WarEditWindow::validateRaceUnit(bool show)
 {
     trim(race_unit_idEdit);
     trim(race_unit_nameEdit);
+    trim(race_unit_pageEdit);
     trim(race_unit_wsEdit);
     trim(race_unit_bsEdit);
     trim(race_unit_sEdit);
@@ -722,6 +731,8 @@ bool WarEditWindow::validateRaceUnit(bool show)
         fault = "ID";
     else if(race_unit_nameEdit->text().isEmpty())
         fault = "Name";
+    else if(race_unit_pageEdit->text().isEmpty())
+        fault = "Page";
     
     if(!fault.isEmpty())
     {
@@ -754,6 +765,7 @@ bool WarEditWindow::validateRaceWargear(bool show)
 {
     trim(race_wargear_idEdit);
     trim(race_wargear_nameEdit);
+    trim(race_wargear_pageEdit);
     trim(race_wargear_briefEdit);
     trim(race_wargear_fullEdit);
     
@@ -762,6 +774,8 @@ bool WarEditWindow::validateRaceWargear(bool show)
         fault = "ID";
     else if(race_wargear_nameEdit->text().isEmpty())
         fault = "Name";
+    else if(race_wargear_pageEdit->text().isEmpty())
+        fault = "Page";
     
     if(!fault.isEmpty())
     {
@@ -932,6 +946,7 @@ void WarEditWindow::doNewRaceWargear()
     Wargear w(*m_race);
     w.id(id);
     w.name("New Wargear");
+    w.page("N/A");
     m_race->addWargear(w);
     m_race_wargears.append(m_race->getWargear(id));
     race_wargearList->addItem(w.name());
@@ -956,6 +971,7 @@ void WarEditWindow::doNewRaceUnit()
     Unit u(*m_race);
     u.id(id);
     u.name("New Unit");
+    u.page("N/A");
     m_race->addUnit(u);
     m_race_units.append(m_race->getUnit(id));
     race_unitList->addItem(u.name());
@@ -973,6 +989,7 @@ void WarEditWindow::doRemoveRaceRule()
         delete race_ruleList->takeItem(index);
         Rule *rule = m_race_rules.takeAt(index);
         m_race->removeRule(*rule);
+        setFileHasChanges(true);
     }
 }
 
@@ -984,6 +1001,7 @@ void WarEditWindow::doRemoveRaceUnit()
         delete race_unitList->takeItem(index);
         Unit *unit = m_race_units.takeAt(index);
         m_race->removeUnit(*unit);
+        setFileHasChanges(true);
     }
 }
 
@@ -995,6 +1013,7 @@ void WarEditWindow::doRemoveRaceWargear()
         delete race_wargearList->takeItem(index);
         Wargear *w = m_race_wargears.takeAt(index);
         m_race->removeWargear(*w);
+        setFileHasChanges(true);
     }
 }
 

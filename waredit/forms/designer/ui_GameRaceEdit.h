@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'GameRaceEditjC2475.ui'
+** Form generated from reading UI file 'GameRaceEditYm9343.ui'
 **
-** Created: Mon May 16 16:49:31 2011
+** Created: Sun May 22 03:24:55 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef GAMERACEEDITJC2475_H
-#define GAMERACEEDITJC2475_H
+#ifndef GAMERACEEDITYM9343_H
+#define GAMERACEEDITYM9343_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -126,12 +126,14 @@ public:
     QFormLayout *race_wargearForm;
     QLabel *race_wargear_idLabel;
     QLineEdit *race_wargear_idEdit;
-    QLabel *race_wargear_nameLabel;
-    QLineEdit *race_wargear_nameEdit;
     QLabel *race_wargear_briefLabel;
     QLineEdit *race_wargear_briefEdit;
     QLabel *race_wargear_fullLabel;
     RefPlainTextEdit *race_wargear_fullEdit;
+    QLineEdit *race_wargear_nameEdit;
+    QLabel *race_wargear_nameLabel;
+    QLabel *race_wargear_pageLabel;
+    QLineEdit *race_wargear_pageEdit;
     WarButtonBox *race_wargearSaveBox;
     QGroupBox *race_wargear_profilesGroup;
     QVBoxLayout *race_wargear_profileVBox;
@@ -153,6 +155,8 @@ public:
     QLineEdit *race_unit_idEdit;
     QLabel *race_unit_nameLabel;
     QLineEdit *race_unit_nameEdit;
+    QLabel *race_unit_pageLabel;
+    QLineEdit *race_unit_pageEdit;
     QGridLayout *race_unit_profileGrid;
     QLabel *race_unit_wsLabel;
     QLabel *race_unit_bsLabel;
@@ -679,35 +683,45 @@ public:
 
         race_wargearForm->setWidget(0, QFormLayout::FieldRole, race_wargear_idEdit);
 
-        race_wargear_nameLabel = new QLabel(race_wargearsTab);
-        race_wargear_nameLabel->setObjectName(QString::fromUtf8("race_wargear_nameLabel"));
+        race_wargear_briefLabel = new QLabel(race_wargearsTab);
+        race_wargear_briefLabel->setObjectName(QString::fromUtf8("race_wargear_briefLabel"));
 
-        race_wargearForm->setWidget(1, QFormLayout::LabelRole, race_wargear_nameLabel);
+        race_wargearForm->setWidget(3, QFormLayout::LabelRole, race_wargear_briefLabel);
+
+        race_wargear_briefEdit = new QLineEdit(race_wargearsTab);
+        race_wargear_briefEdit->setObjectName(QString::fromUtf8("race_wargear_briefEdit"));
+
+        race_wargearForm->setWidget(3, QFormLayout::FieldRole, race_wargear_briefEdit);
+
+        race_wargear_fullLabel = new QLabel(race_wargearsTab);
+        race_wargear_fullLabel->setObjectName(QString::fromUtf8("race_wargear_fullLabel"));
+
+        race_wargearForm->setWidget(4, QFormLayout::LabelRole, race_wargear_fullLabel);
+
+        race_wargear_fullEdit = new RefPlainTextEdit(race_wargearsTab);
+        race_wargear_fullEdit->setObjectName(QString::fromUtf8("race_wargear_fullEdit"));
+
+        race_wargearForm->setWidget(4, QFormLayout::FieldRole, race_wargear_fullEdit);
 
         race_wargear_nameEdit = new QLineEdit(race_wargearsTab);
         race_wargear_nameEdit->setObjectName(QString::fromUtf8("race_wargear_nameEdit"));
 
         race_wargearForm->setWidget(1, QFormLayout::FieldRole, race_wargear_nameEdit);
 
-        race_wargear_briefLabel = new QLabel(race_wargearsTab);
-        race_wargear_briefLabel->setObjectName(QString::fromUtf8("race_wargear_briefLabel"));
+        race_wargear_nameLabel = new QLabel(race_wargearsTab);
+        race_wargear_nameLabel->setObjectName(QString::fromUtf8("race_wargear_nameLabel"));
 
-        race_wargearForm->setWidget(2, QFormLayout::LabelRole, race_wargear_briefLabel);
+        race_wargearForm->setWidget(1, QFormLayout::LabelRole, race_wargear_nameLabel);
 
-        race_wargear_briefEdit = new QLineEdit(race_wargearsTab);
-        race_wargear_briefEdit->setObjectName(QString::fromUtf8("race_wargear_briefEdit"));
+        race_wargear_pageLabel = new QLabel(race_wargearsTab);
+        race_wargear_pageLabel->setObjectName(QString::fromUtf8("race_wargear_pageLabel"));
 
-        race_wargearForm->setWidget(2, QFormLayout::FieldRole, race_wargear_briefEdit);
+        race_wargearForm->setWidget(2, QFormLayout::LabelRole, race_wargear_pageLabel);
 
-        race_wargear_fullLabel = new QLabel(race_wargearsTab);
-        race_wargear_fullLabel->setObjectName(QString::fromUtf8("race_wargear_fullLabel"));
+        race_wargear_pageEdit = new QLineEdit(race_wargearsTab);
+        race_wargear_pageEdit->setObjectName(QString::fromUtf8("race_wargear_pageEdit"));
 
-        race_wargearForm->setWidget(3, QFormLayout::LabelRole, race_wargear_fullLabel);
-
-        race_wargear_fullEdit = new RefPlainTextEdit(race_wargearsTab);
-        race_wargear_fullEdit->setObjectName(QString::fromUtf8("race_wargear_fullEdit"));
-
-        race_wargearForm->setWidget(3, QFormLayout::FieldRole, race_wargear_fullEdit);
+        race_wargearForm->setWidget(2, QFormLayout::FieldRole, race_wargear_pageEdit);
 
 
         verticalLayout_7->addLayout(race_wargearForm);
@@ -817,6 +831,16 @@ public:
         race_unit_nameEdit->setObjectName(QString::fromUtf8("race_unit_nameEdit"));
 
         race_unitForm->setWidget(1, QFormLayout::FieldRole, race_unit_nameEdit);
+
+        race_unit_pageLabel = new QLabel(race_unitsTab);
+        race_unit_pageLabel->setObjectName(QString::fromUtf8("race_unit_pageLabel"));
+
+        race_unitForm->setWidget(2, QFormLayout::LabelRole, race_unit_pageLabel);
+
+        race_unit_pageEdit = new QLineEdit(race_unitsTab);
+        race_unit_pageEdit->setObjectName(QString::fromUtf8("race_unit_pageEdit"));
+
+        race_unitForm->setWidget(2, QFormLayout::FieldRole, race_unit_pageEdit);
 
 
         verticalLayout_5->addLayout(race_unitForm);
@@ -1149,7 +1173,8 @@ public:
         QWidget::setTabOrder(race_ruleNewButton, race_ruleRemoveButton);
         QWidget::setTabOrder(race_ruleRemoveButton, race_wargear_idEdit);
         QWidget::setTabOrder(race_wargear_idEdit, race_wargear_nameEdit);
-        QWidget::setTabOrder(race_wargear_nameEdit, race_wargear_briefEdit);
+        QWidget::setTabOrder(race_wargear_nameEdit, race_wargear_pageEdit);
+        QWidget::setTabOrder(race_wargear_pageEdit, race_wargear_briefEdit);
         QWidget::setTabOrder(race_wargear_briefEdit, race_wargear_fullEdit);
         QWidget::setTabOrder(race_wargear_fullEdit, race_wargearSaveBox);
         QWidget::setTabOrder(race_wargearSaveBox, race_wargear_profileList);
@@ -1161,7 +1186,8 @@ public:
         QWidget::setTabOrder(race_wargearNewButton, race_wargearRemoveButton);
         QWidget::setTabOrder(race_wargearRemoveButton, race_unit_idEdit);
         QWidget::setTabOrder(race_unit_idEdit, race_unit_nameEdit);
-        QWidget::setTabOrder(race_unit_nameEdit, race_unit_wsEdit);
+        QWidget::setTabOrder(race_unit_nameEdit, race_unit_pageEdit);
+        QWidget::setTabOrder(race_unit_pageEdit, race_unit_wsEdit);
         QWidget::setTabOrder(race_unit_wsEdit, race_unit_bsEdit);
         QWidget::setTabOrder(race_unit_bsEdit, race_unit_sEdit);
         QWidget::setTabOrder(race_unit_sEdit, race_unit_tEdit);
@@ -1248,9 +1274,10 @@ public:
         race_ruleRemoveButton->setText(QApplication::translate("MainWindow", "Remove", 0, QApplication::UnicodeUTF8));
         race_tabWidget->setTabText(race_tabWidget->indexOf(race_rulesTab), QApplication::translate("MainWindow", "Rules", 0, QApplication::UnicodeUTF8));
         race_wargear_idLabel->setText(QApplication::translate("MainWindow", "ID*", 0, QApplication::UnicodeUTF8));
-        race_wargear_nameLabel->setText(QApplication::translate("MainWindow", "Name*", 0, QApplication::UnicodeUTF8));
         race_wargear_briefLabel->setText(QApplication::translate("MainWindow", "Brief", 0, QApplication::UnicodeUTF8));
         race_wargear_fullLabel->setText(QApplication::translate("MainWindow", "Full", 0, QApplication::UnicodeUTF8));
+        race_wargear_nameLabel->setText(QApplication::translate("MainWindow", "Name*", 0, QApplication::UnicodeUTF8));
+        race_wargear_pageLabel->setText(QApplication::translate("MainWindow", "Page*", 0, QApplication::UnicodeUTF8));
         race_wargear_profilesGroup->setTitle(QApplication::translate("MainWindow", "Profiles", 0, QApplication::UnicodeUTF8));
         race_wargear_profileNewButton->setText(QApplication::translate("MainWindow", "New", 0, QApplication::UnicodeUTF8));
         race_wargear_profileEditButton->setText(QApplication::translate("MainWindow", "Edit", 0, QApplication::UnicodeUTF8));
@@ -1260,6 +1287,7 @@ public:
         race_tabWidget->setTabText(race_tabWidget->indexOf(race_wargearsTab), QApplication::translate("MainWindow", "Wargears", 0, QApplication::UnicodeUTF8));
         race_unit_idLabel->setText(QApplication::translate("MainWindow", "ID*", 0, QApplication::UnicodeUTF8));
         race_unit_nameLabel->setText(QApplication::translate("MainWindow", "Name*", 0, QApplication::UnicodeUTF8));
+        race_unit_pageLabel->setText(QApplication::translate("MainWindow", "Page*", 0, QApplication::UnicodeUTF8));
         race_unit_wsLabel->setText(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -1357,4 +1385,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // GAMERACEEDITJC2475_H
+#endif // GAMERACEEDITYM9343_H
