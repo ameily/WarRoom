@@ -76,6 +76,11 @@ const QString& WargearRef::name() const
     return m_refName;
 }
 
+const QString& WargearRef::page() const
+{
+    return m_wargear->page();
+}
+
 QList< WargearProfile > WargearRef::profiles() const
 {
     return m_wargear->profiles();
