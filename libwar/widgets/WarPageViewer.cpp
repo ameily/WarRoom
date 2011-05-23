@@ -26,11 +26,14 @@
 #include "RefTextArea.h"
 #include "SearchLineEdit.h"
 #include <QLabel>
+#include <QToolBar>
+#include <QAction>
 
 WarPageViewer::WarPageViewer(QWidget* parent, WarPage *page) : QTabWidget(parent)
 {
     connect(this, SIGNAL(tabCloseRequested(int)), SLOT(onCloseTab(int)));
     m_doClear = false;
+    m_keepOpenCount = 1;
     this->setTabsClosable(true);
     if(page)
     {
@@ -58,6 +61,7 @@ void WarPageViewer::appendPage(const WarPage& page)
     qDebug() << "begin appendPage()";
     QWidget *tab = new QWidget(this);
     QVBoxLayout *vbox = new QVBoxLayout(tab);
+    QToolBar *bar = new QToolBar(tab);
     RefTextArea *area = new RefTextArea(tab, page);
     QHBoxLayout *hbox = new QHBoxLayout(tab);
     SearchLineEdit *search = new SearchLineEdit(tab);
@@ -75,14 +79,27 @@ void WarPageViewer::appendPage(const WarPage& page)
     searchPrevious->setIcon(up);
     findLabel->setText("Find: ");
     
+    bar->setMovable(false);
+    bar->setFloatable(false);
+    QAction *zoomin = bar->addAction(QIcon(":/icons/toolbar/zoom-in.png"), "Zoom In");
+    QAction *zoomoriginal = bar->addAction(QIcon(":/icons/toolbar/zoom-original.png"), "Zoom Original");
+    QAction *zoomout = bar->addAction(QIcon(":/icons/toolbar/zoom-out.png"), "Zoom Out");
+    
+    connect(zoomin, SIGNAL(triggered()), SLOT(doTabZoomIn()));
+    connect(zoomout, SIGNAL(triggered()), SLOT(doTabZoomOut()));
+    connect(zoomoriginal, SIGNAL(triggered()), SLOT(doTabZoomOriginal()));
+    
+    
     hbox->addWidget(findLabel);
     hbox->addWidget(search);
     hbox->addWidget(searchNext);
     hbox->addWidget(searchPrevious);
+    vbox->addWidget(bar);
     vbox->addWidget(area);
     vbox->addLayout(hbox);
     
     tab->setLayout(vbox);
+    
     
     connect(area, SIGNAL(ruleRefClicked(const RuleRef&)), SLOT(onRuleClicked(const RuleRef&)));
     connect(search, SIGNAL(textChanged(const QString&)), SLOT(onSearchTextChanged(const QString&)));
@@ -98,6 +115,7 @@ void WarPageViewer::appendPage(const WarPage& page)
     tp.search = search;
     tp.text = area;
     tp.id = page.id();
+    tp.zoom = 0;
     m_tabs.append(tp);
     
     setCurrentIndex(m_tabs.length() - 1);
@@ -123,7 +141,7 @@ void WarPageViewer::onRuleClicked(const RuleRef& ref)
 
 void WarPageViewer::onCloseTab(int index)
 {
-    if(index > 0 || m_doClear)
+    if(index >= m_keepOpenCount || m_doClear)
     {
         m_tabs.removeAt(index);
         removeTab(index);
@@ -213,5 +231,33 @@ void WarPageViewer::setSearchBgColor(WarPageViewer::TabPage& tab, int found)
     pal.setColor(QPalette::Active, QPalette::Base, color);
     tab.search->setPalette(pal);
 }
+
+
+void WarPageViewer::doTabZoomIn()
+{
+    TabPage& tab = currentTabPage();
+    tab.text->zoomIn(1);
+    tab.zoom++;
+}
+
+void WarPageViewer::doTabZoomOut()
+{
+    TabPage& tab = currentTabPage();
+    tab.text->zoomOut(1);
+    tab.zoom--;
+}
+
+void WarPageViewer::doTabZoomOriginal()
+{
+    TabPage& tab = currentTabPage();
+    if(tab.zoom < 0)
+        tab.text->zoomIn(-tab.zoom);
+    else if(tab.zoom > 0)
+        tab.text->zoomOut(tab.zoom);
+    
+    tab.zoom = 0;
+}
+
+
 
 

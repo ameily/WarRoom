@@ -18,5 +18,8 @@
     <file>icons/window-close.png</file>
     <file>icons/dialog-ok-apply.png</file>
     <file>icons/dialog-cancel.png</file>
+    <file>icons/toolbar/zoom-in.png</file>
+    <file>icons/toolbar/zoom-out.png</file>
+    <file>icons/toolbar/zoom-original.png</file>
   </qresource>
 </RCC>

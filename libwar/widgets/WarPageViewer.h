@@ -43,6 +43,9 @@ private slots:
     void doSearchNext();
     void doSearchPrevious();
     void onSearchTextChanged(const QString& txt);
+    void doTabZoomIn();
+    void doTabZoomOut();
+    void doTabZoomOriginal();
     
 private:
     struct TabPage
@@ -51,6 +54,7 @@ private:
         SearchLineEdit *search;
         QPushButton *doSearch[2];
         QString id;
+        int zoom;
     };
     
     void appendPage(const WarPage& page);
@@ -61,6 +65,7 @@ private:
     Race *m_race;
     RuleList *m_rules;
     bool m_doClear;
+    int m_keepOpenCount;
 };
 
 #endif // WARPAGEVIEWER_H
