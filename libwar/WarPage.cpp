@@ -53,6 +53,18 @@ WarPage::WarPage(Game& game) : m_id(game.id()), m_name(game.name()), m_root()
     m_root.append(body);
 }
 
+WarPage::WarPage(Race& race) : m_id(race.id()), m_name(race.name()), m_root()
+{
+    m_rules = &race;
+    m_race = &race;
+    
+    initPage(race.name());
+    
+    
+
+}
+
+
 WarPage::WarPage(const IRule& rule, RuleList& list, Race *race) : m_id(rule.id()),
     m_name(rule.name())
 {
