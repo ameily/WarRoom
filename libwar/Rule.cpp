@@ -22,18 +22,21 @@
 #include "Rule.h"
 #include "WarPage.h"
 
-Rule::Rule() : m_brief(), m_description(), m_page(), m_id(), m_name()
+Rule::Rule() : m_brief(), m_description(), m_page(), m_id(), m_name(),
+    m_isAbstractWargear(false)
 {
     
 }
 
 Rule::Rule(const Rule& other) : m_page(other.m_page), m_brief(other.m_brief),
-    m_description(other.m_description), m_id(other.m_id), m_name(other.m_name)
+    m_description(other.m_description), m_id(other.m_id), m_name(other.m_name),
+    m_isAbstractWargear(other.m_isAbstractWargear)
 {
 
 }
 
-Rule::Rule(const QDomElement& ele) throw(XmlParseException)
+Rule::Rule(const QDomElement& ele) throw(XmlParseException) : m_brief(),
+    m_description(), m_id(), m_isAbstractWargear(false), m_name(), m_page()
 {
     QDomNodeList list = ele.childNodes();
     int len = list.length();
@@ -55,6 +58,8 @@ Rule::Rule(const QDomElement& ele) throw(XmlParseException)
                 m_page = current.text().simplified();
             else if(current.nodeName() == "description")
                 m_description = WarPage::wrapWhiteSpaceTags(current);
+            else if(current.nodeName() == "abstract_wargear")
+                m_isAbstractWargear = true;
             else
                 throw XmlParseException("invalid node", current);
         }
@@ -85,6 +90,7 @@ Rule& Rule::operator=(const Rule& other)
     m_page = other.m_page;
     m_name = other.m_name;
     m_id = other.m_id;
+    m_isAbstractWargear = other.m_isAbstractWargear;
     
     return *this;
 }
@@ -93,7 +99,7 @@ bool Rule::operator==(const Rule& other) const
 {
     return (m_brief == other.m_brief) && (m_description == other.m_description)
         && (m_page == other.m_page) && (m_id == other.m_id) &&
-        (m_name == other.m_name);
+        (m_name == other.m_name) && m_isAbstractWargear == other.m_isAbstractWargear;
 }
 
 const QString& Rule::brief() const
@@ -147,6 +153,17 @@ void Rule::name(const QString& nm)
     m_name = nm;
 }
 
+bool Rule::isAbstractWargear() const
+{
+    return m_isAbstractWargear;
+}
+
+void Rule::setAbstractWargear(bool val)
+{
+    m_isAbstractWargear = val;
+}
+
+
 
 
 QDomElement& Rule::toXml(QDomDocument& doc, QDomElement& parent) const
@@ -172,6 +189,9 @@ QDomElement& Rule::toXml(QDomDocument& doc, QDomElement& parent) const
     
     if(!m_description.isEmpty())
         appendElement(doc, parent, "description", m_description);
+    
+    if(m_isAbstractWargear)
+        appendElement(doc, parent, "abstract_wargear", "");
     
     return parent;
 }

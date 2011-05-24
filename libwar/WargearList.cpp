@@ -214,4 +214,14 @@ void WargearList::resolveReferences() throw(UnresolvedReferenceException)
     }
 }
 
+Wargear* WargearList::resolveWargear(const QString& id)
+{
+    Wargear *ret = getWargear(id);
+    if(!ret)
+        ret = const_cast<Game*>(race().game())->getBaseWargear(id);
+    
+    return ret;
+}
+
+
 

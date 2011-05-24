@@ -26,6 +26,7 @@
 #include "RuleSet.h"
 #include "XmlObject.h"
 
+class Wargear;
 class Game : public virtual RuleSet
 {
 
@@ -46,6 +47,10 @@ public:
     void name(const QString& nm);
     void id(const QString& gid);
     
+    void initBaseWargears(const Race& race);
+    QList<Wargear*> baseWargears();
+    Wargear* getBaseWargear(const QString& id);
+    
     const Race& race() const;
     
 protected:
@@ -54,6 +59,7 @@ protected:
 private:
     QString m_name;
     QString m_id;
+    QHash<QString, Wargear> m_baseWargears;
 };
 
 //typedef Reference<Game> GameRef;

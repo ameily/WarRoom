@@ -22,18 +22,19 @@
 #include "Game.h"
 #include "Race.h"
 
-Game::Game() : m_id(), m_name(), RuleSet()
+Game::Game() : m_id(), m_name(), RuleSet(), m_baseWargears()
 {
     
 }
 
 Game::Game(const Game& other) : RuleSet(other), m_id(other.m_id),
-    m_name(other.m_name)
+    m_name(other.m_name), m_baseWargears()
 {
     
 }
 
-Game::Game(QDomDocument& doc) throw(XmlParseException)
+Game::Game(QDomDocument& doc) throw(XmlParseException) : m_id(), m_name(),
+    m_baseWargears(), RuleSet()
 {
     QDomElement root = doc.documentElement();
     if(root.isNull() || root.nodeName() != "game")
@@ -63,7 +64,7 @@ Game& Game::operator=(const Game& other)
 bool Game::operator==(const Game& other) const
 {
     return (m_name == other.m_name) && (m_id == other.m_id) && 
-        RuleSet::operator==(*this);
+        RuleSet::operator==(*this) && m_baseWargears == other.m_baseWargears;
 }
 
 const QString& Game::id() const
@@ -85,6 +86,50 @@ void Game::name(const QString& nm)
 {
     m_name = nm;
 }
+
+void Game::initBaseWargears(const Race& race)
+{
+    QList<Rule*> rs = rules();
+    int len = rs.length();
+    for(int i = 0; i < len; i++)
+    {
+        Rule *r = rs[i];
+        if(r->isAbstractWargear())
+        {
+            Wargear w(race);
+            w.id(r->id());
+            w.name(r->name());
+            w.page(r->page());
+            w.brief(r->brief());
+            w.description(r->description());
+            
+            m_baseWargears.insert(w.id(), w);
+        }
+    }
+}
+
+
+QList< Wargear* > Game::baseWargears()
+{
+    QList<Wargear*> ret;
+    QMutableHashIterator<QString, Wargear> i(m_baseWargears);
+    while(i.hasNext())
+    {
+        i.next();
+        ret.append(&i.value());
+    }
+    
+    return ret;
+}
+
+Wargear* Game::getBaseWargear(const QString& id)
+{
+    if(m_baseWargears.contains(id))
+        return &m_baseWargears[id];
+    
+    return 0;
+}
+
 
 void Game::fromXml(const QDomElement& ele) throw(XmlParseException)
 {
@@ -146,9 +191,4 @@ const Race& Game::race() const
 {
     return *(new Race());
 }
-
-
-
-
-
 

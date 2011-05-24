@@ -1,19 +1,20 @@
 /********************************************************************************
-** Form generated from reading UI file 'GameRaceEditYm9343.ui'
+** Form generated from reading UI file 'GameRaceEditZE5770.ui'
 **
-** Created: Sun May 22 03:24:55 2011
+** Created: Mon May 23 18:53:26 2011
 **      by: Qt User Interface Compiler version 4.7.0
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef GAMERACEEDITYM9343_H
-#define GAMERACEEDITYM9343_H
+#ifndef GAMERACEEDITZE5770_H
+#define GAMERACEEDITZE5770_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
 #include <QtGui/QButtonGroup>
+#include <QtGui/QCheckBox>
 #include <QtGui/QFormLayout>
 #include <QtGui/QGridLayout>
 #include <QtGui/QGroupBox>
@@ -77,8 +78,10 @@ public:
     QLabel *game_rule_briefLabel;
     QLineEdit *game_rule_briefEdit;
     QLabel *game_rule_fullLabel;
-    WarButtonBox *game_ruleSaveBox;
     RefPlainTextEdit *game_rule_fullEdit;
+    WarButtonBox *game_ruleSaveBox;
+    QCheckBox *game_rule_wargearCheckBox;
+    QLabel *game_rule_wargearLabel;
     QVBoxLayout *game_ruleListVBox;
     QListWidget *game_ruleList;
     QHBoxLayout *game_ruleListActionsHBox;
@@ -213,7 +216,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(652, 732);
+        MainWindow->resize(652, 753);
         QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Preferred);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -425,17 +428,27 @@ public:
 
         game_ruleForm->setWidget(4, QFormLayout::LabelRole, game_rule_fullLabel);
 
+        game_rule_fullEdit = new RefPlainTextEdit(game_rulesGroupBox);
+        game_rule_fullEdit->setObjectName(QString::fromUtf8("game_rule_fullEdit"));
+
+        game_ruleForm->setWidget(4, QFormLayout::FieldRole, game_rule_fullEdit);
+
         game_ruleSaveBox = new WarButtonBox(game_rulesGroupBox);
         game_ruleSaveBox->setObjectName(QString::fromUtf8("game_ruleSaveBox"));
         game_ruleSaveBox->setStandardButtons(QDialogButtonBox::Apply|QDialogButtonBox::Discard);
         game_ruleSaveBox->setCenterButtons(false);
 
-        game_ruleForm->setWidget(5, QFormLayout::FieldRole, game_ruleSaveBox);
+        game_ruleForm->setWidget(6, QFormLayout::FieldRole, game_ruleSaveBox);
 
-        game_rule_fullEdit = new RefPlainTextEdit(game_rulesGroupBox);
-        game_rule_fullEdit->setObjectName(QString::fromUtf8("game_rule_fullEdit"));
+        game_rule_wargearCheckBox = new QCheckBox(game_rulesGroupBox);
+        game_rule_wargearCheckBox->setObjectName(QString::fromUtf8("game_rule_wargearCheckBox"));
 
-        game_ruleForm->setWidget(4, QFormLayout::FieldRole, game_rule_fullEdit);
+        game_ruleForm->setWidget(5, QFormLayout::FieldRole, game_rule_wargearCheckBox);
+
+        game_rule_wargearLabel = new QLabel(game_rulesGroupBox);
+        game_rule_wargearLabel->setObjectName(QString::fromUtf8("game_rule_wargearLabel"));
+
+        game_ruleForm->setWidget(5, QFormLayout::LabelRole, game_rule_wargearLabel);
 
 
         game_rulesHBox->addLayout(game_ruleForm);
@@ -1150,7 +1163,8 @@ public:
         QWidget::setTabOrder(game_rule_nameEdit, game_rule_pageEdit);
         QWidget::setTabOrder(game_rule_pageEdit, game_rule_briefEdit);
         QWidget::setTabOrder(game_rule_briefEdit, game_rule_fullEdit);
-        QWidget::setTabOrder(game_rule_fullEdit, game_ruleSaveBox);
+        QWidget::setTabOrder(game_rule_fullEdit, game_rule_wargearCheckBox);
+        QWidget::setTabOrder(game_rule_wargearCheckBox, game_ruleSaveBox);
         QWidget::setTabOrder(game_ruleSaveBox, game_ruleList);
         QWidget::setTabOrder(game_ruleList, game_ruleNewButton);
         QWidget::setTabOrder(game_ruleNewButton, game_ruleRemoveButton);
@@ -1256,6 +1270,7 @@ public:
         game_rule_pageLabel->setText(QApplication::translate("MainWindow", "Page*", 0, QApplication::UnicodeUTF8));
         game_rule_briefLabel->setText(QApplication::translate("MainWindow", "Brief*", 0, QApplication::UnicodeUTF8));
         game_rule_fullLabel->setText(QApplication::translate("MainWindow", "Full", 0, QApplication::UnicodeUTF8));
+        game_rule_wargearLabel->setText(QApplication::translate("MainWindow", "Wargear", 0, QApplication::UnicodeUTF8));
         game_ruleNewButton->setText(QApplication::translate("MainWindow", "New", 0, QApplication::UnicodeUTF8));
         game_ruleRemoveButton->setText(QApplication::translate("MainWindow", "Remove", 0, QApplication::UnicodeUTF8));
         gameRaceTabWidget->setTabText(gameRaceTabWidget->indexOf(gameTab), QApplication::translate("MainWindow", "Game", 0, QApplication::UnicodeUTF8));
@@ -1385,4 +1400,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // GAMERACEEDITYM9343_H
+#endif // GAMERACEEDITZE5770_H

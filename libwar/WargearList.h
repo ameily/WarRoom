@@ -38,6 +38,7 @@ public:
     
     Wargear getWargear(const QString& id) const;
     Wargear* getWargear(const QString& id);
+    Wargear* resolveWargear(const QString& id);
     QList<Wargear> findWargearsByName(const QString& name) const;
     QList<Wargear> wargears() const;
     QList< Wargear* > wargears();

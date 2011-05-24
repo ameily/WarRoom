@@ -174,6 +174,7 @@ void Race::resolveReferences(const Game& game)
         throw UnresolvedReferenceException(m_unresolvedGame, "Game");
     
     m_game = &game;
+    const_cast<Game*>(m_game)->initBaseWargears(*this);
     
     m_unresolvedGame = UnresolvedReference();
     

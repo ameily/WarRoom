@@ -168,6 +168,7 @@ private:
     QList<Rule*> m_game_rules;
     QList<Rule*> m_race_rules;
     QList<Wargear*> m_race_wargears;
+    QList<Wargear*> m_all_wargears;
     QList<Unit*> m_race_units;
     Unit *m_race_unit;
     Wargear *m_race_wargear;

@@ -129,6 +129,7 @@ void WarEditWindow::onGameRuleSelected(int index)
         game_rule_pageEdit->setText(rule->page());
         game_rule_briefEdit->setText(rule->brief());
         game_rule_fullEdit->setPlainText(rule->description());
+        game_rule_wargearCheckBox->setChecked(rule->isAbstractWargear());
     }
     else
     {
@@ -137,6 +138,7 @@ void WarEditWindow::onGameRuleSelected(int index)
         game_rule_pageEdit->clear();
         game_rule_briefEdit->clear();
         game_rule_fullEdit->clear();
+        game_rule_wargearCheckBox->setChecked(false);
         
         game_ruleRemoveButton->setEnabled(false);
     }
@@ -149,6 +151,7 @@ void WarEditWindow::onGameRuleSelected(int index)
         game_rule_pageEdit->setEnabled(ruleFieldsEnabled);
         game_rule_briefEdit->setEnabled(ruleFieldsEnabled);
         game_rule_fullEdit->setEnabled(ruleFieldsEnabled);
+        game_rule_wargearCheckBox->setEnabled(ruleFieldsEnabled && opmode() == GameMode);
     }
     
     game_ruleSaveBox->setEnabled(false);
@@ -163,6 +166,7 @@ void WarEditWindow::doNewGameRule()
     r.name("New Rule");
     r.page("N/A");
     r.brief("A Rule");
+    r.setAbstractWargear(false);
     m_game->addRule(r);
     
     m_game_rules.append(m_game->getRule(id));
@@ -481,6 +485,7 @@ void WarEditWindow::doCommitOrRollbackGameRule(QAbstractButton* button)
             r->page(game_rule_pageEdit->text());
             r->brief(game_rule_briefEdit->text());
             r->description(game_rule_fullEdit->toPlainText());
+            r->setAbstractWargear(game_rule_wargearCheckBox->isChecked());
             
             game_ruleList->currentItem()->setText(r->name());
             setFileHasChanges(true);

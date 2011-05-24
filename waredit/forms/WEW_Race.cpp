@@ -287,10 +287,12 @@ int WarEditWindow::doOpenRace()
         m_race_rules = m_race->rules();
         m_race_units = m_race->units();
         m_race_wargears = m_race->wargears();
+        m_all_wargears = m_race_wargears + m_game->baseWargears();
         
         qSort(m_race_rules.begin(), m_race_rules.end(), compareRule);
         qSort(m_race_units.begin(), m_race_units.end(), compareUnit);
         qSort(m_race_wargears.begin(), m_race_wargears.end(), compareWargear);
+        qSort(m_all_wargears.begin(), m_all_wargears.end(), compareWargear);
         
         return ActionOk;
     }
@@ -937,7 +939,7 @@ void WarEditWindow::doNewRaceWargear()
     while(!done)
     {
         id = "wargear_" + QString::number(diff + start);
-        if(!m_race->getWargear(id))
+        if(!m_race->hasWargear(id))
             done = true;
         else
             diff++;
@@ -947,8 +949,10 @@ void WarEditWindow::doNewRaceWargear()
     w.id(id);
     w.name("New Wargear");
     w.page("N/A");
-    m_race->addWargear(w);
-    m_race_wargears.append(m_race->getWargear(id));
+    Wargear *add = m_race->addWargear(w);
+    
+    m_race_wargears.append(add);
+    m_all_wargears.append(add);
     race_wargearList->addItem(w.name());
     race_wargearList->setCurrentRow(m_race_wargears.length() - 1);
     setFileHasChanges(true);
@@ -1012,6 +1016,7 @@ void WarEditWindow::doRemoveRaceWargear()
     {
         delete race_wargearList->takeItem(index);
         Wargear *w = m_race_wargears.takeAt(index);
+        m_all_wargears.removeOne(w);
         m_race->removeWargear(*w);
         setFileHasChanges(true);
     }
@@ -1082,7 +1087,7 @@ void WarEditWindow::doRemoveRaceUnitRule()
 
 void WarEditWindow::doNewRaceUnitWargear()
 {
-    WargearRef ref = ReferenceEditDialog::getWargearRef(this, m_race_wargears,
+    WargearRef ref = ReferenceEditDialog::getWargearRef(this, m_all_wargears,
         "Add Wargear to Unit");
     
     if(!ref.isNull())
@@ -1105,7 +1110,7 @@ void WarEditWindow::doNewRaceUnitWargear()
 void WarEditWindow::doEditRaceUnitWargear()
 {
     WargearRef *ref = m_race_unit_wargears[race_unit_wargearList->currentRow()];
-    ReferenceEditDialog::getWargearRef(this, m_race_wargears,
+    ReferenceEditDialog::getWargearRef(this, m_all_wargears,
         "Edit Unit Wargear", ref);
     
     race_unit_wargearList->currentItem()->setText(ref->name());

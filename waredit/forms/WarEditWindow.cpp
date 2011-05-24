@@ -202,6 +202,8 @@ void WarEditWindow::enableActiveWidgets()
     game_rule_briefEdit->setReadOnly(gameFieldsReadOnly);
     game_rule_pageEdit->setReadOnly(gameFieldsReadOnly);
     game_rule_fullEdit->setReadOnly(gameFieldsReadOnly);
+    //game_rule_wargearCheckBox->blockSignals(gameFieldsReadOnly);
+    game_rule_wargearCheckBox->setEnabled(false);
     game_ruleNewButton->setEnabled(!gameFieldsReadOnly);
     
     race_idEdit->setReadOnly(raceFieldsReadOnly);
@@ -286,6 +288,7 @@ void WarEditWindow::setupConnections()
     connect(game_rule_briefEdit, SIGNAL(textEdited(const QString&)), SLOT(onGameRuleChanged()));
     connect(game_rule_pageEdit, SIGNAL(textEdited(const QString&)), SLOT(onGameRuleChanged()));
     connect(game_rule_fullEdit, SIGNAL(textEdited()), SLOT(onGameRuleChanged()));
+    connect(game_rule_wargearCheckBox, SIGNAL(toggled(bool)), SLOT(onGameRuleChanged()));
     
     // ----------------
     connect(actionNewRace, SIGNAL(triggered(bool)), SLOT(onMenuNewRace()));

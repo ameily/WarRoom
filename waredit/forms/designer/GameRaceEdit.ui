@@ -8,7 +8,7 @@
     <x>0</x>
     <y>0</y>
     <width>652</width>
-    <height>732</height>
+    <height>753</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -258,7 +258,10 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="5" column="1">
+                 <item row="4" column="1">
+                  <widget class="RefPlainTextEdit" name="game_rule_fullEdit"/>
+                 </item>
+                 <item row="6" column="1">
                   <widget class="WarButtonBox" name="game_ruleSaveBox">
                    <property name="standardButtons">
                     <set>QDialogButtonBox::Apply|QDialogButtonBox::Discard</set>
@@ -268,8 +271,15 @@
                    </property>
                   </widget>
                  </item>
-                 <item row="4" column="1">
-                  <widget class="RefPlainTextEdit" name="game_rule_fullEdit"/>
+                 <item row="5" column="1">
+                  <widget class="QCheckBox" name="game_rule_wargearCheckBox"/>
+                 </item>
+                 <item row="5" column="0">
+                  <widget class="QLabel" name="game_rule_wargearLabel">
+                   <property name="text">
+                    <string>Wargear</string>
+                   </property>
+                  </widget>
                  </item>
                 </layout>
                </item>
@@ -1354,6 +1364,7 @@ p, li { white-space: pre-wrap; }
   <tabstop>game_rule_pageEdit</tabstop>
   <tabstop>game_rule_briefEdit</tabstop>
   <tabstop>game_rule_fullEdit</tabstop>
+  <tabstop>game_rule_wargearCheckBox</tabstop>
   <tabstop>game_ruleSaveBox</tabstop>
   <tabstop>game_ruleList</tabstop>
   <tabstop>game_ruleNewButton</tabstop>

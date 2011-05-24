@@ -58,12 +58,15 @@ public:
     virtual const QString& id() const;
     virtual const QString& name() const;
     virtual bool isReference() const;
+    bool isAbstractWargear() const;
     
     void brief(const QString& brf);
     void description(const QString& desc);
     void page(const QString& pg);
     void id(const QString& rid);
     void name(const QString& nm);
+    void setAbstractWargear(bool val);
+    
     
     virtual QDomElement& toXml(QDomDocument& doc, QDomElement& parent) const
         throw(ValidationException);
@@ -76,6 +79,7 @@ private:
     QString m_page;
     QString m_id;
     QString m_name;
+    bool m_isAbstractWargear;
 };
 
 class RuleList;

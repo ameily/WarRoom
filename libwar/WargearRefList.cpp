@@ -169,7 +169,7 @@ void WargearRefList::resolveReferences() throw(UnresolvedReferenceException)
     
     for(int i = 0; i < len; i++)
     {
-        Wargear *w = race.getWargear(m_unresolvedWargears[i].id());
+        Wargear *w = race.resolveWargear(m_unresolvedWargears[i].id());
         if(!w)
         {
             throw UnresolvedReferenceException(m_unresolvedWargears[i],
