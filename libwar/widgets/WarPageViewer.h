@@ -46,6 +46,7 @@ private slots:
     void doTabZoomIn();
     void doTabZoomOut();
     void doTabZoomOriginal();
+    void doSetFocusFind();
     
 private:
     struct TabPage

@@ -41,6 +41,11 @@ WarPageViewer::WarPageViewer(QWidget* parent, WarPage *page) : QTabWidget(parent
         m_rules = page->ruleList();
         appendPage(*page);
     }
+    
+    QAction *findAction = new QAction(this);
+    findAction->setShortcut(QKeySequence::Find);
+    this->addAction(findAction);
+    connect(findAction, SIGNAL(triggered()), SLOT(doSetFocusFind()));
 }
 
 WarPageViewer::~WarPageViewer()
@@ -257,6 +262,18 @@ void WarPageViewer::doTabZoomOriginal()
     
     tab.zoom = 0;
 }
+
+void WarPageViewer::doSetFocusFind()
+{
+    if(count() > 0)
+    {
+        qDebug() << "here";
+        TabPage& tab = currentTabPage();
+        if(!tab.search->hasFocus())
+            tab.search->setFocus();
+    }
+}
+
 
 
 
