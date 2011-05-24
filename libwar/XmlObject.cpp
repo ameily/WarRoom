@@ -79,8 +79,11 @@ void XmlObject::appendElement(QDomDocument& doc, QDomElement& parent,
 {
     QDomElement ele = doc.createElement(name);
     //ele.setNodeValue(value);
-    QDomText txt = doc.createTextNode(value);
-    ele.appendChild(txt);
+    if(!value.isEmpty())
+    {
+        QDomText txt = doc.createTextNode(value);
+        ele.appendChild(txt);
+    }
     parent.appendChild(ele);
 }
 
