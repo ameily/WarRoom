@@ -284,16 +284,31 @@ void WarEditWindow::onMenuNewGameClicked()
 }
 
 
-int WarEditWindow::doOpenGame()
+int WarEditWindow::doOpenGame(const QString& gameId)
 {
     if(askSaveOpenGame() && askSaveOpenRace())
     {
-        QString filter = "Game Files (*.game)";
-        QString path = QFileDialog::getOpenFileName(this, "Open Game",
-            m_pwd.path(), filter, &filter);
+        QString path;
+        if(!gameId.isEmpty())
+        {
+            if(m_pwd.exists(gameId + ".game"))
+                path = m_pwd.absoluteFilePath(gameId + ".game");
+            else
+            {
+                QMessageBox::information(this, "Load Game", "The loaded Race references game id " +
+                    gameId + ". Please open the needed game file.");
+            }
+        }
         
-        if(path.isNull())
-            return ActionCancelled;
+        if(path.isEmpty())
+        {
+            QString filter = "Game Files (*.game)";
+            path = QFileDialog::getOpenFileName(this, "Open Game",
+                m_pwd.path(), filter, &filter);
+            
+            if(path.isNull())
+                return ActionCancelled;
+        }
         
         closeGame();
         

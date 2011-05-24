@@ -118,7 +118,7 @@ private:
     void setupConnections();
     
     
-    int doOpenGame();
+    int doOpenGame(const QString& gameId = QString());
     
     void trim(QLineEdit *box);
     void trim(QPlainTextEdit *box);

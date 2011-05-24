@@ -241,10 +241,7 @@ int WarEditWindow::doOpenRace()
         
         if(!m_game)
         {
-            QMessageBox::information(this, "Load Game", "The loaded Race references game id " +
-                m_race->parsedGameId() + ". Please open the needed game file.");
-            
-            int status = doOpenGame();
+            int status = doOpenGame(m_race->parsedGameId());
             if(status != ActionOk)
             {
                 closeRace();
