@@ -30,13 +30,20 @@
 class WarPage
 {
 public:
-    enum NodeLevel
+    enum RaceMode
     {
-        Page,
-        Section,
-        SubSection,
-        Inline
+        UnitListMode,
+        RuleListMode,
+        WargearListMode
     };
+    
+    enum NodeOption
+    {
+        ChildrenCutOff = 1,
+        PageEntity = 2,
+        ChildEntity = 4
+    };
+    Q_DECLARE_FLAGS(NodeOptions, NodeOption);
     
     enum ReferencePrefix
     {
@@ -46,7 +53,7 @@ public:
         WargearPrefix
     };
     
-    struct ReferenceString
+    struct MarkupReference
     {
         ReferencePrefix prefix;
         QString name;
@@ -59,18 +66,20 @@ public:
     public:
         HtmlNode(const QString& tag, const QString& body = QString());
         HtmlNode(const HtmlNode& other);
-        HtmlNode(const WarPage::ReferenceString& ref,
+        HtmlNode(const WarPage::MarkupReference& ref,
                  const QString& name = QString());
         HtmlNode();
         
         HtmlNode& operator=(const HtmlNode& other);
         HtmlNode& id(const QString& id);
         HtmlNode& href(const QString& href);
-        HtmlNode& href(const WarPage::ReferenceString& ref);
+        HtmlNode& href(const WarPage::MarkupReference& ref);
         HtmlNode& style(const QString& style);
         HtmlNode& title(const QString& title);
         HtmlNode& append(const HtmlNode& tag);
         HtmlNode& append(const QString& txt, bool escape);
+        HtmlNode& clear();
+        bool isEmpty() const;
         static QString toString(ReferencePrefix prefix);
         
         QString toHtml() const;
@@ -85,7 +94,7 @@ public:
     };
     
     WarPage(Game& game);
-    WarPage(Race& race);
+    WarPage(Race& race, RaceMode mode);
     WarPage(const IRule& rule, RuleList& list, Race *race);
     WarPage(const WarPage& other);
     virtual WarPage& operator=(const WarPage& other);
@@ -96,19 +105,27 @@ public:
     const QString& name() const;
     
     QString toHtml() const;
-    static QString wrapWhiteSpaceTags(const QDomElement& ele);
+    static QString markupFromXml(const QDomElement& ele);
     QString defaultStyleSheet() const;
     int maxDescriptionLength() const;
     
 private:
-    HtmlNode convertToHtmlNode(const IRule& rule, WarPage::NodeLevel level);
+    //HtmlNode convertToHtmlNode(const IRule& rule, WarPage::NodeOptions level);
     void initPage(const QString& title);
-    void cutOff(NodeLevel level, ReferencePrefix prefix, const QString& id, const QString& name,
-                QString& out);
-    HtmlNode wrapTitle(const QString& title, int level) const;
-    void convertToHtml(QString& out, WarPage::HtmlNode& parent);
-    void convertReferences(QString& out);
-    HtmlNode resolveReference(ReferenceString& ref);
+    //void cutOff(NodeLevel level, ReferencePrefix prefix, const QString& id, const QString& name,
+    //            QString& out);
+    
+    void append(HtmlNode& parent, const IRule& rule, NodeOptions opts);
+    void append(HtmlNode& parent, const Unit& unit, NodeOptions opts);
+    void append(HtmlNode& parent, QString& markup, NodeOptions opts);
+    bool tags(QString& markup, WarPage::NodeOptions opts);
+    void refs(QString& markup);
+    void cutoff(QString& markup, const WarPage::MarkupReference& ref, int len);
+    
+    HtmlNode wrapTitle(const QString& title, NodeOptions opts) const;
+    //void convertToHtml(QString& out, HtmlNode& parent);
+    //void convertReferences(QString& out);
+    HtmlNode resolveReference(MarkupReference& ref);
     
     HtmlNode m_root;
     QString m_name;
@@ -116,5 +133,7 @@ private:
     Race *m_race;
     QString m_id;
 };
+
+Q_DECLARE_OPERATORS_FOR_FLAGS(WarPage::NodeOptions);
 
 #endif // WARPAGE_H

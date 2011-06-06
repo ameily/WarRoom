@@ -37,15 +37,16 @@ WarPage::WarPage(Game& game) : m_id(game.id()), m_name(game.name()), m_root()
     
     QList<Rule*> rules = game.rules();
     int len = rules.length();
-    qSort(rules.begin(), rules.end(), compareRule);
+    qSort(rules.begin(), rules.end(), compareRulePtr);
     
     HtmlNode body("body");
-    body.append(wrapTitle(game.name(), Page));
+    body.append(wrapTitle(game.name(), PageEntity));
     
     HtmlNode ruleList("div");
     for(int i = 0; i < len; i++)
     {
-        ruleList.append(convertToHtmlNode(*rules[i], Section));
+        //ruleList.append(convertToHtmlNode(*rules[i], Section));
+        append(ruleList, *rules[i], ChildEntity | ChildrenCutOff);
         //ruleList.append(HtmlNode("br"));
     }
     
@@ -53,15 +54,35 @@ WarPage::WarPage(Game& game) : m_id(game.id()), m_name(game.name()), m_root()
     m_root.append(body);
 }
 
-WarPage::WarPage(Race& race) : m_id(race.id()), m_name(race.name()), m_root()
+WarPage::WarPage(Race& race, RaceMode mode) : m_id(race.id()), m_root(),
+    m_name(race.name())
 {
     m_rules = &race;
     m_race = &race;
+    HtmlNode body("body");
+    QString subtitle;
+    int len;
     
-    initPage(race.name());
+    if(mode == RuleListMode)
+    {
+        
+    }
+    else if(mode == WargearListMode)
+    {
+    }
+    else // Unit List
+    {
+        subtitle = "Unit List";
+        QList<Unit*> units = m_race->units();
+        qSort(units.begin(), units.end(), compareUnit);
+        len = units.length();
+        
+        for(int i = 0; i < len; i++)
+            append(body, *units[i], ChildEntity | ChildrenCutOff);
+    }
     
-    
-
+    initPage(race.name() + " -- " + subtitle);
+    m_root.append(body);
 }
 
 
@@ -72,7 +93,8 @@ WarPage::WarPage(const IRule& rule, RuleList& list, Race *race) : m_id(rule.id()
     m_race = race;
     initPage(rule.name());
     HtmlNode body("body");
-    body.append(convertToHtmlNode(rule, Page));
+    //body.append(convertToHtmlNode(rule, Page));
+    append(body, rule, PageEntity);
     m_root.append(body);
 }
 
@@ -96,8 +118,8 @@ QString WarPage::defaultStyleSheet() const
 {
     return  "h1 { margin-bottom: 20px; }\n"
             "h2 { margin-bottom: 15px; }\n"
-            "h3 { margin-bottom: 10px; }\n"
-            //"p { text-indent: 15px; }\n"
+            "h3 { margin-bottom: 0px; padding-bottom: 0px; }\n"
+            "p { text-indent: 15px; margin-top: 0px; }\n"
             "a { text-decoration: none; }";
 }
 
@@ -128,106 +150,7 @@ int WarPage::maxDescriptionLength() const
     return 512;
 }
 
-
-
-WarPage::HtmlNode WarPage::convertToHtmlNode(const IRule& rule, NodeLevel level)
-{
-    int maxDescLength = 512;
-    HtmlNode ret("div");
-    ret.append(
-        HtmlNode("a").id(rule.id()).append(
-            wrapTitle(rule.name(), level)
-        )
-    );
-    
-    QString desc;
-    
-    if(level != Inline)
-        desc = Qt::escape(rule.description());
-    
-    if(desc.isEmpty())
-        desc = Qt::escape(rule.brief());
-    
-    cutOff(level, RulePrefix, rule.id(), rule.name(), desc);
-    
-    convertToHtml(desc, ret);
-    return ret;
-}
-
-void WarPage::cutOff(NodeLevel level, ReferencePrefix prefix, const QString& id,
-    const QString& name, QString& out)
-{
-    if(level != Inline && level != Page && out.length() > maxDescriptionLength())
-    {
-        ReferenceString ref;
-        ref.prefix = prefix;
-        ref.id = id;
-        ref.name = name;
-        ref.title = "";
-        
-        int cutoff;
-        for(cutoff = maxDescriptionLength(); cutoff > 0 && !out[cutoff].isSpace(); cutoff--);
-        
-        cutoff++;
-        
-        HtmlNode more("a");
-        more.append("[more &rarr;]", false);
-        more.href(ref);
-        out = out.left(cutoff) + more.toHtml();
-    }
-}
-
-
-void WarPage::convertToHtml(QString& out, WarPage::HtmlNode& parent)
-{
-    out.replace("[lb]", "<br/>");
-    //out.replace("[p]", "");
-    
-    out.replace("[b]", "<b>");
-    out.replace("[/b]", "</b>");
-    
-    out.replace("[i]", "<i>");
-    out.replace("[/i]", "</i>");
-    
-    convertReferences(out);
-    
-    QStringList paras = out.split("[p]");
-    int len = paras.length();
-    for(int i = 0; i < len; i++)
-        parent.append(HtmlNode("p").append(paras[i], false));
-}
-
-void WarPage::convertReferences(QString& out)
-{
-    QRegExp re("\\[\\[\\s*(\\w+)\\s*\\|*([^\\|\\]]*)\\]\\]");
-    int pos = 0;
-    
-    while((pos = re.indexIn(out, pos)) >= 0)
-    {
-        ReferenceString r;
-        r.prefix = NullPrefix;
-        r.title = "";
-        
-        if(!re.cap(2).trimmed().isEmpty())
-        {
-            r.id = re.cap(1).trimmed();
-            r.name = re.cap(2).trimmed();
-        }
-        else
-        {
-            r.id = re.cap(1).trimmed();
-            //qDebug() << "matched id: " << r.id;
-            r.name = "";
-        }
-        
-        HtmlNode refnode = resolveReference(r);
-        QString replace = refnode.toHtml();
-        out.replace(pos, re.matchedLength(), replace);
-        pos += replace.length();
-    }
-}
-
-WarPage::HtmlNode WarPage::resolveReference(WarPage::ReferenceString& ref)
+WarPage::HtmlNode WarPage::resolveReference(WarPage::MarkupReference& ref)
 {
     QString name;
     const Rule *rule = m_rules->resolveRuleReference(ref.id);
@@ -270,18 +193,16 @@ WarPage::HtmlNode WarPage::resolveReference(WarPage::ReferenceString& ref)
 
 
 
-WarPage::HtmlNode WarPage::wrapTitle(const QString& title, int level) const
+WarPage::HtmlNode WarPage::wrapTitle(const QString& title, NodeOptions opts) const
 {
     QString tag;
     QString style;
-    if(level == Page)
+    if(opts.testFlag(PageEntity))
         tag = "h1";
-    else if(level == Section)
+    else if(opts.testFlag(ChildEntity))
         tag = "h2";
-    else if(level == SubSection)
-        tag = "h3";
-    else if(level == Inline)
-        tag = "b";
+    else
+        tag = "h2";
     
     HtmlNode node(tag, title);
     
@@ -303,15 +224,189 @@ QString WarPage::toHtml() const
     return m_root.toHtml();
 }
 
-QString WarPage::wrapWhiteSpaceTags(const QDomElement& ele)
+QString WarPage::markupFromXml(const QDomElement& ele)
 {
-    QString ret = ele.text().simplified();
+    /*QString ret = ele.text().simplified();
     ret.replace("[lb]", "[lb]\n");
     ret.replace("[p]", "\n[p]\n");
-    ret.replace("\n ", "\n");
+    ret.replace("\n ", "\n");*/
     
-    return ret;
+    return ele.text().trimmed();
 }
+
+
+
+void WarPage::append(WarPage::HtmlNode& parent, const IRule& rule, WarPage::NodeOptions opts)
+{
+    int max = 512;
+    parent.append(wrapTitle(rule.name(), opts));
+    QString body = Qt::escape(rule.description().isEmpty() ? rule.brief() : rule.description());
+    
+    qDebug() << opts.testFlag(ChildEntity) << " -- " << opts.testFlag(ChildrenCutOff);
+    if(opts.testFlag(ChildEntity) && opts.testFlag(ChildrenCutOff) && body.length() > maxDescriptionLength())
+    {
+        MarkupReference ref;
+        ref.id = rule.id();
+        ref.name = rule.name();
+        ref.title = "";
+        ref.prefix = RulePrefix;
+        cutoff(body, ref, max);
+    }
+    
+    append(parent, body, opts);
+    
+}
+
+void WarPage::append(WarPage::HtmlNode& parent, const Unit& unit, WarPage::NodeOptions opts)
+{
+    QList<WargearRef> wargears = unit.wargearRefs();
+    QList<RuleRef> rules = unit.ruleRefs();
+    qSort(wargears.begin(), wargears.end(), compateWargearRef);
+    qSort(rules.begin(), rules.end(), compareRuleRef);
+}
+
+
+void WarPage::append(WarPage::HtmlNode& parent, QString& markup, NodeOptions opts)
+{
+    QStringList parts = markup.trimmed().split('\n', QString::KeepEmptyParts);
+    int len = parts.length();
+    bool newParagraph = true;
+    bool isBlock = false;
+    HtmlNode paragraph("p");
+    
+    for(int i = 0; i < len; i++)
+    {
+        QString part = parts[i].simplified(); //Qt::escape(parts[i]).simplified();
+        if(part.isEmpty() && !newParagraph)
+            newParagraph = true;
+        else if(!part.isEmpty())
+        {
+            isBlock = tags(part, opts);
+            refs(part);
+            if((isBlock || newParagraph) && !paragraph.isEmpty())
+            {
+                parent.append(paragraph);
+                paragraph.clear();
+            }
+            
+            if(isBlock)
+                parent.append(part, false);
+            else
+            {
+                if(!paragraph.isEmpty())
+                    paragraph.append(HtmlNode("br"));
+                paragraph.append(part, false);
+            }
+            
+            newParagraph = false;
+        }
+    }
+    
+    if(!paragraph.isEmpty())
+        parent.append(paragraph);
+}
+
+void WarPage::cutoff(QString& markup, const MarkupReference& ref, int len)
+{
+    int end;
+    for(end = len; 
+        end > 0 && !markup[end].isSpace();
+        end--);
+    
+    end++;
+    
+    HtmlNode more("a");
+    more.append("[more &rarr;]", false);
+    more.href(ref);
+    markup = markup.left(end) + more.toHtml();
+}
+
+void WarPage::refs(QString& markup)
+{
+    QRegExp re("\\[\\[\\s*(\\w+)\\s*\\|*([^\\|\\]]*)\\]\\]");
+    int pos = 0;
+    
+    while((pos = re.indexIn(markup, pos)) >= 0)
+    {
+        MarkupReference r;
+        r.prefix = NullPrefix;
+        r.title = "";
+        r.name = "";
+        r.id = re.cap(1).trimmed();
+        
+        if(!re.cap(2).trimmed().isEmpty())
+            r.name = re.cap(2).trimmed();
+        
+        HtmlNode refnode = resolveReference(r);
+        QString replace = refnode.toHtml();
+        markup.replace(pos, re.matchedLength(), replace);
+        pos += replace.length();
+    }
+}
+
+bool WarPage::tags(QString& markup, NodeOptions opts)
+{
+    if(markup.isEmpty())
+        return false;
+    
+    if(markup[0] == '#')
+    {
+        if(markup.length() < 2)
+            return false;
+        
+        int level = opts.testFlag(ChildEntity) ? 3 : 2;
+        int count;
+        for(count = 1; level < 6 && markup[count] == '#'; count++)
+            level++;
+        
+        QString htag = 'h' + QString::number(level);
+        HtmlNode tag = HtmlNode(htag);
+        tag.append(markup.remove(0, count).trimmed(), false);
+        markup = tag.toHtml();
+        
+        return true;
+    }
+    
+    QRegExp re;
+    re.setMinimal(true);
+    
+    re.setPattern("\\*\\*(.*)\\*\\*");
+    markup.replace(re, "<b>\\1</b>");
+    
+    re.setPattern("__(.*)__");
+    markup.replace(re, "<i>\\1</i>");
+    
+    markup.replace("--", "&mdash;");
+    //markup.replace(QRegExp("^*"), "&bull;");
+    
+    /*if(markup[0] == ' ')
+    {
+        HtmlNode ret("p");
+        ret.append(markup.trimmed(), false);
+        ret.style("left-margin: 25px");
+        
+        markup = ret.toHtml();
+        return true;
+    }*/
+    
+    
+    return false;
+}
+
+
+WarPage::HtmlNode& WarPage::HtmlNode::clear()
+{
+    m_body.clear();
+}
+
+bool WarPage::HtmlNode::isEmpty() const
+{
+    return m_body.isEmpty();
+}
+
+
+
+
 
 
 
@@ -328,7 +423,7 @@ WarPage::HtmlNode::HtmlNode(const WarPage::HtmlNode& other) :
 
 }
 
-WarPage::HtmlNode::HtmlNode(const WarPage::ReferenceString& ref,
+WarPage::HtmlNode::HtmlNode(const WarPage::MarkupReference& ref,
     const QString& name) : m_body(), m_tag(), m_id(), m_href(), m_style(),
     m_title()
 {
@@ -379,7 +474,7 @@ QString WarPage::HtmlNode::toString(WarPage::ReferencePrefix prefix)
     return str;
 }
 
-WarPage::HtmlNode& WarPage::HtmlNode::href(const WarPage::ReferenceString& ref)
+WarPage::HtmlNode& WarPage::HtmlNode::href(const WarPage::MarkupReference& ref)
 {
     href(toString(ref.prefix) + "://" + ref.id + "?name=" + ref.name);
 }
