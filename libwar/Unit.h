@@ -68,5 +68,6 @@ private:
     const Race *m_race;
 };
 
+bool compareUnit(Unit* const& u1, Unit* const& u2);
 
 #endif // UNIT_H

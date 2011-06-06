@@ -74,7 +74,7 @@ Wargear::Wargear(const QDomElement& ele, const Race& race)
             if(current.nodeName() == "brief")
                 m_brief = current.text().simplified();
             else if(current.nodeName() == "description")
-                m_description = WarPage::wrapWhiteSpaceTags(current);
+                m_description = WarPage::markupFromXml(current);
             else if(current.nodeName() == "name")
                 m_name = current.text().simplified();
             else if(current.nodeName() == "id")
@@ -330,5 +330,14 @@ Wargear Wargear::Null()
     return Wargear();
 }
 
+bool compareWargear(IWargear const* const& w1, IWargear const* const& w2)
+{
+    return QString::localeAwareCompare(w1->name().toLower(),
+                                       w2->name().toLower()) < 0;
+}
 
+bool compateWargearRef(const IWargear& w1, const IWargear& w2)
+{
+    return compareWargear(&w1, &w2);
+}
 

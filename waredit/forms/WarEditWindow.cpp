@@ -384,19 +384,6 @@ void WarEditWindow::trim(QPlainTextEdit* box)
     m_isProgrammaticChange = false;
 }
 
-bool compareUnit(Unit*const& u1, Unit*const& u2)
-{
-    return QString::localeAwareCompare(u1->name().toLower(),
-                                       u2->name().toLower()) < 0;
-}
-
-bool compareWargear(Wargear*const& w1, Wargear*const& w2)
-{
-    return QString::localeAwareCompare(w1->name().toLower(),
-                                       w2->name().toLower()) < 0;
-}
-
-
 void WarEditWindow::setEnabledList(QListWidget* list, QPushButton* add,
                                    QPushButton* remove, bool val)
 {

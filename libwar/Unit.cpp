@@ -248,3 +248,8 @@ void Unit::resolveReferences() throw(UnresolvedReferenceException)
     RuleRefList::resolveReferences();
 }
 
+bool compareUnit(Unit*const& u1, Unit*const& u2)
+{
+    return QString::localeAwareCompare(u1->name().toLower(),
+                                       u2->name().toLower()) < 0;
+}

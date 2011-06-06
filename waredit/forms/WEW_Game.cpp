@@ -359,7 +359,7 @@ int WarEditWindow::doOpenGame(const QString& gameId)
         
         m_gameFile->close();
         m_game_rules = m_game->rules();
-        qSort(m_game_rules.begin(), m_game_rules.end(), compareRule);
+        qSort(m_game_rules.begin(), m_game_rules.end(), compareRulePtr);
         
         setPwd(path);
         

@@ -126,4 +126,6 @@ private:
     QString m_refName;
 };
 
+bool compareWargear(IWargear const* const& w1, IWargear const* const& w2);
+bool compateWargearRef(const IWargear& w1, const IWargear& w2);
 #endif // WARGEAR_H

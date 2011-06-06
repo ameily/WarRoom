@@ -114,6 +114,7 @@ private:
     const Rule *m_rule;
 };
 
-bool compareRule(Rule* const& r1, Rule* const& r2);
+bool compareRulePtr(IRule const* const& r1, IRule const* const& r2);
+bool compareRuleRef(const IRule& r1, const IRule& r2);
 
 #endif // RULE_H

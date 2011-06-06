@@ -286,7 +286,7 @@ int WarEditWindow::doOpenRace()
         m_race_wargears = m_race->wargears();
         m_all_wargears = m_race_wargears + m_game->baseWargears();
         
-        qSort(m_race_rules.begin(), m_race_rules.end(), compareRule);
+        qSort(m_race_rules.begin(), m_race_rules.end(), compareRulePtr);
         qSort(m_race_units.begin(), m_race_units.end(), compareUnit);
         qSort(m_race_wargears.begin(), m_race_wargears.end(), compareWargear);
         qSort(m_all_wargears.begin(), m_all_wargears.end(), compareWargear);

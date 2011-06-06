@@ -57,7 +57,7 @@ Rule::Rule(const QDomElement& ele) throw(XmlParseException) : m_brief(),
             else if(current.nodeName() == "page")
                 m_page = current.text().simplified();
             else if(current.nodeName() == "description")
-                m_description = WarPage::wrapWhiteSpaceTags(current);
+                m_description = WarPage::markupFromXml(current);
             else if(current.nodeName() == "abstract_wargear")
                 m_isAbstractWargear = true;
             else
@@ -207,10 +207,14 @@ bool Rule::isNull() const
         m_name.isEmpty() && m_page.isEmpty();
 }
 
-bool compareRule(Rule*const& r1, Rule*const& r2)
+bool compareRulePtr(IRule const* const& r1, IRule const* const& r2)
 {
     return QString::localeAwareCompare(r1->name().toLower(),
                                        r2->name().toLower()) < 0;
 }
 
+bool compareRuleRef(const IRule& r1, const IRule& r2)
+{
+    return compareRulePtr(&r1, &r2);
+}
 

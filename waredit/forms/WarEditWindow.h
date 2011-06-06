@@ -184,7 +184,4 @@ private:
     QDir m_pwd;
 };
 
-bool compareUnit(Unit* const& u1, Unit* const& u2);
-bool compareWargear(Wargear* const& w1, Wargear* const& w2);
-
 #endif // WAREDITWINDOW_H
