@@ -86,6 +86,12 @@ const QString& RuleRef::brief() const
     return m_rule->brief();
 }
 
+QString RuleRef::title() const
+{
+    return m_refName != m_rule->name() ?
+        m_refName + " (" + m_rule->name() + ")" : m_refName;
+}
+
 QDomElement& RuleRef::toXml(QDomDocument& doc, QDomElement& parent) const
     throw(ValidationException)
 {

@@ -34,6 +34,7 @@ public:
     virtual const QString& page() const = 0;
     virtual const QString& id() const = 0;
     virtual const QString& name() const = 0;
+    virtual QString title() const = 0;
     virtual bool isReference() const = 0;
     
     //virtual void fromXml(const QDomElement& ele) throw(XmlParseException) = 0;
@@ -57,6 +58,7 @@ public:
     virtual const QString& page() const;
     virtual const QString& id() const;
     virtual const QString& name() const;
+    virtual QString title() const;
     virtual bool isReference() const;
     bool isAbstractWargear() const;
     
@@ -102,6 +104,7 @@ public:
     virtual const QString& page() const;
     virtual const QString& id() const;
     virtual const QString& name() const;
+    virtual QString title() const;
     virtual bool isReference() const;
     const Rule *rule();
     bool isNull() const;

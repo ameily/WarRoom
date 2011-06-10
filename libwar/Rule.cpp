@@ -153,6 +153,12 @@ void Rule::name(const QString& nm)
     m_name = nm;
 }
 
+QString Rule::title() const
+{
+    return m_name;
+}
+
+
 bool Rule::isAbstractWargear() const
 {
     return m_isAbstractWargear;
