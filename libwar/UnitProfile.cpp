@@ -278,6 +278,41 @@ void UnitProfile::initiative(const QString& other)
     m_initiative = other;
 }
 
+UnitProfile::Characteristics UnitProfile::characteristics() const
+{
+    Characteristics ret;
+    if(!weaponSkill().isEmpty())
+        ret.unit.append(Characteristic("WS", m_weaponSkill));
+    if(!ballisticSkill().isEmpty())
+        ret.unit.append(Characteristic("BS", m_ballisticSkill));
+    if(!strength().isEmpty())
+        ret.unit.append(Characteristic("S", m_strength));
+    if(!toughness().isEmpty())
+        ret.unit.append(Characteristic("T", m_toughness));
+    if(!wounds().isEmpty())
+        ret.unit.append(Characteristic("W", m_wounds));
+    if(!initiative().isEmpty())
+        ret.unit.append(Characteristic("I", m_initiative));
+    if(!attacks().isEmpty())
+        ret.unit.append(Characteristic("A", m_attacks));
+    if(!leadership().isEmpty())
+        ret.unit.append(Characteristic("Ld", m_leadership));
+    if(!armourSave().isEmpty())
+        ret.unit.append(Characteristic("Sv", m_armourSave));
+    if(!invulnerableSave().isEmpty())
+        ret.unit.append(Characteristic("iSv", m_invulnerableSave));
+    if(!frontArmour().isEmpty())
+        ret.vehicle.append(Characteristic("F", m_frontArmour));
+    if(!sideArmour().isEmpty())
+        ret.vehicle.append(Characteristic("S", m_sideArmour));
+    if(!rearArmour().isEmpty())
+        ret.vehicle.append(Characteristic("R", m_rearArmour));
+    
+    return ret;
+}
+
+
+
 
 bool UnitProfile::isNull() const
 {
@@ -336,4 +371,37 @@ QDomElement& UnitProfile::toXml(QDomDocument& doc, QDomElement& parent) const
     
     return parent;
 }
+
+UnitProfile::Characteristic::Characteristic(const QString& key,
+    const QString& value) : key(key), value(value)
+{
+}
+
+UnitProfile::Characteristic::Characteristic(const UnitProfile::Characteristic& other) :
+    key(other.key), value(other.value)
+{
+}
+
+UnitProfile::Characteristic& UnitProfile::Characteristic::operator=(const UnitProfile::Characteristic& other)
+{
+    key = other.key;
+    value = other.value;
+}
+
+
+UnitProfile::Characteristics::Characteristics() : unit(), vehicle()
+{
+}
+
+UnitProfile::Characteristics::Characteristics(const UnitProfile::Characteristics& other) :
+    unit(other.unit), vehicle(other.vehicle)
+{
+}
+
+UnitProfile::Characteristics& UnitProfile::Characteristics::operator=(const UnitProfile::Characteristics& other)
+{
+    unit = other.unit;
+    vehicle = other.vehicle;
+}
+
 

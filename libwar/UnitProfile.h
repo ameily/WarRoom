@@ -23,10 +23,30 @@
 #define UNITPROFILE_H
 
 #include "XmlObject.h"
+#include <QList>
 
 class UnitProfile : public virtual XmlObject
 {
 public:
+    class Characteristic
+    {
+    public:
+        Characteristic(const QString& key, const QString& value);
+        Characteristic(const Characteristic& other);
+        Characteristic& operator=(const Characteristic& other);
+        QString key, value;
+    };
+    
+    class Characteristics
+    {
+    public:
+        QList<Characteristic> unit;
+        QList<Characteristic> vehicle;
+        Characteristics();
+        Characteristics(const Characteristics& other);
+        Characteristics& operator=(const Characteristics& other);
+    };
+    
     UnitProfile();
     UnitProfile(const UnitProfile& other);
     UnitProfile(const QDomElement& ele) throw(XmlParseException);
@@ -48,6 +68,8 @@ public:
     const QString& frontArmour() const;
     const QString& rearArmour() const;
     const QString& sideArmour() const;
+    
+    Characteristics characteristics() const;
     
     //void name(const QString& other);
     void weaponSkill(const QString& other);
