@@ -26,6 +26,7 @@
 #include "RuleList.h"
 #include "Game.h"
 #include "Race.h"
+#include <qmap.h>
 
 class WarPage
 {
@@ -39,11 +40,14 @@ public:
     
     enum NodeOption
     {
-        ChildrenCutOff = 1,
-        PageEntity = 2,
-        ChildEntity = 4
+        PageNode = 1,
+        EntityNode = 2,
+        InlineNode = 4,
+        BriefDescription = 8,
+        FullDescription = 16
     };
     Q_DECLARE_FLAGS(NodeOptions, NodeOption);
+    
     
     enum ReferencePrefix
     {
@@ -72,10 +76,13 @@ public:
         
         HtmlNode& operator=(const HtmlNode& other);
         HtmlNode& id(const QString& id);
+        HtmlNode& colspan(const QString& span);
+        HtmlNode& rowspan(const QString& span);
         HtmlNode& href(const QString& href);
         HtmlNode& href(const WarPage::MarkupReference& ref);
         HtmlNode& style(const QString& style);
         HtmlNode& title(const QString& title);
+        HtmlNode& attr(const QString& atr, const QString& val);
         HtmlNode& append(const HtmlNode& tag);
         HtmlNode& append(const QString& txt, bool escape);
         HtmlNode& clear();
@@ -87,10 +94,7 @@ public:
     private:
         QString m_body;
         QString m_tag;
-        QString m_id;
-        QString m_href;
-        QString m_style;
-        QString m_title;
+        QMap<QString, QString> m_attributes;
     };
     
     WarPage(Game& game);
@@ -118,11 +122,15 @@ private:
     void append(HtmlNode& parent, const IRule& rule, NodeOptions opts);
     void append(HtmlNode& parent, const Unit& unit, NodeOptions opts);
     void append(HtmlNode& parent, QString& markup, NodeOptions opts);
+    void append(HtmlNode& parent, const UnitProfile& profile);
     bool tags(QString& markup, WarPage::NodeOptions opts);
     void refs(QString& markup);
     void cutoff(QString& markup, const WarPage::MarkupReference& ref, int len);
     
+    MarkupReference toRef(const IRule& rule);
+    
     HtmlNode wrapTitle(const QString& title, NodeOptions opts) const;
+    NodeOptions childOptions(NodeOptions opts);
     //void convertToHtml(QString& out, HtmlNode& parent);
     //void convertReferences(QString& out);
     HtmlNode resolveReference(MarkupReference& ref);
