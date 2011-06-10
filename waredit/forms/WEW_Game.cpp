@@ -173,6 +173,8 @@ void WarEditWindow::doNewGameRule()
     game_ruleList->addItem(r.name());
     game_ruleList->setCurrentRow(m_game_rules.length() - 1);
     setFileHasChanges(true);
+    game_rule_idEdit->setFocus();
+    game_rule_idEdit->selectAll();
 }
 
 void WarEditWindow::doRemoveGameRule()

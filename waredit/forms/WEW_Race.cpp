@@ -924,6 +924,8 @@ void WarEditWindow::doNewRaceRule()
     race_ruleList->addItem(r.name());
     race_ruleList->setCurrentRow(m_race_rules.length() - 1);
     setFileHasChanges(true);
+    race_rule_idEdit->setFocus();
+    race_rule_idEdit->selectAll();
 }
 
 
@@ -953,6 +955,8 @@ void WarEditWindow::doNewRaceWargear()
     race_wargearList->addItem(w.name());
     race_wargearList->setCurrentRow(m_race_wargears.length() - 1);
     setFileHasChanges(true);
+    race_wargear_idEdit->setFocus();
+    race_wargear_idEdit->selectAll();
 }
 
 void WarEditWindow::doNewRaceUnit()
@@ -978,6 +982,8 @@ void WarEditWindow::doNewRaceUnit()
     race_unitList->addItem(u.name());
     race_unitList->setCurrentRow(m_race_units.length() - 1);
     setFileHasChanges(true);
+    race_unit_idEdit->setFocus();
+    race_unit_idEdit->selectAll();
 }
 
 
@@ -1164,4 +1170,33 @@ void WarEditWindow::doRemoveRaceWargearProfile()
     delete race_wargear_profileList->takeItem(index);
     
     setFileHasChanges(true);
+}
+
+void WarEditWindow::doShowUnitContextMenu(const QPoint& p)
+{
+    //qDebug() << m_race_unit->id();
+    //int index = race_unitList->indexAt(p).row();
+    
+    if(m_race_unit) //index >= 0)
+    {
+        QPoint globalPoint = race_unitList->mapToGlobal(p);
+        QMenu menu;
+        
+        QIcon copyIcon;
+        copyIcon.addFile(":/icons/edit-copy.png");
+        QAction *copyAction = new QAction(copyIcon, "Copy Unit", &menu);
+        menu.addAction(copyAction);
+        
+        QAction *action = menu.exec(globalPoint);
+        if(action == copyAction)
+        {
+            Unit u(*m_race_unit);
+            u.id(genUniqueUnitId());
+            u.name(u.name() + " Copy");
+            m_race_units.append(m_race->addUnit(u));
+            race_unitList->addItem(u.name());
+            race_unitList->setCurrentRow(m_race_units.length() - 1);
+            setFileHasChanges(true);
+        }
+    }
 }

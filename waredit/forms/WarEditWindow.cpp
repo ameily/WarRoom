@@ -366,6 +366,9 @@ void WarEditWindow::setupConnections()
     connect(race_wargear_pageEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceWargearChanged()));
     connect(race_wargear_briefEdit, SIGNAL(textEdited(const QString&)), SLOT(onRaceWargearChanged()));
     connect(race_wargear_fullEdit, SIGNAL(textEdited()), SLOT(onRaceWargearChanged()));
+    
+    race_unitList->setContextMenuPolicy(Qt::CustomContextMenu);
+    connect(race_unitList, SIGNAL(customContextMenuRequested(const QPoint&)), SLOT(doShowUnitContextMenu(const QPoint&)));
 }
 
 
@@ -480,6 +483,27 @@ int WarEditWindow::opmode() const
 {
     return m_opMode;
 }
+
+QString WarEditWindow::genUniqueUnitId()
+{
+    if(!m_race)
+        return QString();
+    
+    int num = m_race_units.length() + 1;
+    QString id;
+    bool done = false;
+    while(!done)
+    {
+        id = "unit_" + QString::number(num);
+        if(!m_race->getUnit(id))
+            done = true;
+        else
+            num++;
+    }
+    
+    return id;
+}
+
 
 
 

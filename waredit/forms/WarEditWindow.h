@@ -100,6 +100,8 @@ private slots:
     void doCommitOrRollbackRaceRule(QAbstractButton *button);
     void doCommitOrRollbackRaceWargear(QAbstractButton *button);
     
+    void doShowUnitContextMenu(const QPoint& p);
+    
 private:
     enum OpMode { GameMode, RaceMode, NoMode };
     enum UserAction { ActionFailed, ActionCancelled, ActionOk };
@@ -112,6 +114,7 @@ private:
     bool validateGame(bool show = true);
     bool validateGameRule(bool show = true);
     QString genUniqueRuleId(const RuleList& list, int start);
+    QString genUniqueUnitId();
     void opmode(int mode);
     int opmode() const;
     
