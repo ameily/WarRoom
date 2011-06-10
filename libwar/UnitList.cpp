@@ -98,7 +98,7 @@ Unit UnitList::getUnit(const QString& id) const
 
 bool UnitList::removeUnit(const Unit& unit)
 {
-    bool ret = !m_units.contains(unit.id());
+    bool ret = m_units.contains(unit.id());
     if(ret)
         m_units.remove(unit.id());
     
