@@ -123,31 +123,32 @@ WarPage::HtmlNode& WarPage::HtmlNode::href(const QString& href)
 
 WarPage::HtmlNode& WarPage::HtmlNode::id(const QString& id)
 {
-    m_attributes["id"] = Qt::escape(id);
-    return *this;
+    return attr("id", id);
 }
 
 WarPage::HtmlNode& WarPage::HtmlNode::style(const QString& style)
 {
-    m_attributes["style"] = Qt::escape(style);
-    return *this;
+    return attr("style", style);
 }
 
 WarPage::HtmlNode& WarPage::HtmlNode::title(const QString& title)
 {
-    m_attributes["title"] = Qt::escape(title);
-    return *this;
+    return attr("title", title);
 }
 
 WarPage::HtmlNode& WarPage::HtmlNode::colspan(const QString& span)
 {
-    m_attributes["colspan"] = span;
-    return *this;
+    return attr("colspan", span);
 }
 
 WarPage::HtmlNode& WarPage::HtmlNode::rowspan(const QString& span)
 {
-    m_attributes["rowspan"] = span;
+    return attr("rowspan", span);
+}
+
+WarPage::HtmlNode& WarPage::HtmlNode::attr(const QString& key, const QString& val)
+{
+    m_attributes[key] = Qt::escape(val).replace("\"", "&quot;");
     return *this;
 }
 
