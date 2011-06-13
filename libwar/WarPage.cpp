@@ -488,18 +488,7 @@ WarPage::MarkupLine WarPage::tags(QString& markup, WarPage::NodeOptions opts)
     markup.replace(re, "<i>\\1</i>");
     
     markup.replace("--", "&mdash;");
-    //markup.replace(QRegExp("^*"), "&bull;");
-    
-    /*if(markup[0] == ' ')
-    {
-        HtmlNode ret("p");
-        ret.append(markup.trimmed(), false);
-        ret.style("left-margin: 25px");
-        
-        markup = ret.toHtml();
-        return true;
-    }*/
-    
+    markup.replace(QRegExp("^\\*"), "&bull;");
     
     return ret;
 }
