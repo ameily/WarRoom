@@ -48,6 +48,13 @@ public:
     };
     Q_DECLARE_FLAGS(NodeOptions, NodeOption);
     
+    enum MarkupLine
+    {
+        HeaderLine,
+        IndentedLine,
+        BreakLine
+    };
+    
     
     enum ReferencePrefix
     {
@@ -83,7 +90,7 @@ public:
         HtmlNode& style(const QString& style);
         HtmlNode& title(const QString& title);
         HtmlNode& attr(const QString& atr, const QString& val);
-        HtmlNode& append(const HtmlNode& tag);
+        HtmlNode& append(const WarPage::HtmlNode& tag);
         HtmlNode& append(const QString& txt, bool escape);
         HtmlNode& clear();
         bool isEmpty() const;
@@ -123,7 +130,8 @@ private:
     void append(HtmlNode& parent, const Unit& unit, NodeOptions opts);
     void append(HtmlNode& parent, QString& markup, NodeOptions opts);
     void append(HtmlNode& parent, const UnitProfile& profile);
-    bool tags(QString& markup, WarPage::NodeOptions opts);
+    MarkupLine tags(QString& markup, WarPage::NodeOptions opts);
+    int beginingCount(const QString& txt, char c) const;
     void refs(QString& markup);
     void cutoff(QString& markup, const WarPage::MarkupReference& ref, int len);
     

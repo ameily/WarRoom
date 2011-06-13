@@ -333,46 +333,84 @@ void WarPage::append(WarPage::HtmlNode& parent, const UnitProfile& profile)
     parent.append(table);
 }
 
-
-
-void WarPage::append(WarPage::HtmlNode& parent, QString& markup, NodeOptions opts)
+/*
+ * status = tags(part)
+ * if status == header
+ *     begin new paragraph (p)
+ *     body.append(part)
+ * else if status == indent
+ *     if previous == indent
+ *         paragraph.append(part)
+ *     else
+ *         begin new paragraph (div)
+ *         paragraph.append(part)
+ * else if status == inline
+ *     if previous == indent
+ *         begin new paragraph (p)
+ *     paragraph.append(part)
+ * 
+ * begin(HtmlNode parent)
+ *     if !parent.isEmpty()
+ */
+void WarPage::append(HtmlNode& parent, QString& markup, NodeOptions opts)
 {
     QStringList parts = markup.trimmed().split('\n', QString::KeepEmptyParts);
     int len = parts.length();
-    bool newParagraph = true;
-    bool isBlock = false;
-    HtmlNode paragraph("p");
-    
+    HtmlNode block("p");
+    MarkupLine previous = BreakLine, current;
     for(int i = 0; i < len; i++)
     {
-        QString part = parts[i].simplified(); //Qt::escape(parts[i]).simplified();
-        if(part.isEmpty() && !newParagraph)
-            newParagraph = true;
+        QString part = parts[i].simplified();
+        if(part.isEmpty() && !block.isEmpty())
+        {
+            parent.append(block);
+            block = HtmlNode("p");
+            current = BreakLine;
+        }
         else if(!part.isEmpty())
         {
-            isBlock = tags(part, opts);
+            current = tags(part, opts);
             refs(part);
-            if((isBlock || newParagraph) && !paragraph.isEmpty())
+            if(current == HeaderLine)
             {
-                parent.append(paragraph);
-                paragraph.clear();
-            }
-            
-            if(isBlock)
+                if(!block.isEmpty())
+                    parent.append(block);
                 parent.append(part, false);
-            else
-            {
-                if(!paragraph.isEmpty())
-                    paragraph.append(HtmlNode("br"));
-                paragraph.append(part, false);
+                block = HtmlNode("p");
             }
-            
-            newParagraph = false;
+            else if(current == IndentedLine)
+            {
+                if(previous != IndentedLine)
+                {
+                    if(!block.isEmpty())
+                        parent.append(block);
+                    
+                    block = HtmlNode("blockquote");
+                }
+                
+                if(!block.isEmpty())
+                    block.append(HtmlNode("br"));
+                block.append(part, false);
+            }
+            else if(current == BreakLine)
+            {
+                if(previous == IndentedLine)
+                {
+                    if(!block.isEmpty())
+                        parent.append(block);
+                    block = HtmlNode("p");
+                }
+                
+                if(!block.isEmpty())
+                    block.append(HtmlNode("br"));
+                block.append(part, false);
+            }
         }
+        previous = current;
     }
     
-    if(!paragraph.isEmpty())
-        parent.append(paragraph);
+    if(!block.isEmpty())
+        parent.append(block);
 }
 
 void WarPage::cutoff(QString& markup, const MarkupReference& ref, int len)
@@ -413,27 +451,31 @@ void WarPage::refs(QString& markup)
     }
 }
 
-bool WarPage::tags(QString& markup, NodeOptions opts)
+WarPage::MarkupLine WarPage::tags(QString& markup, WarPage::NodeOptions opts)
 {
     if(markup.isEmpty())
-        return false;
+        return BreakLine;
     
+    MarkupLine ret = BreakLine;
     if(markup[0] == '#')
     {
         if(markup.length() < 2)
-            return false;
+            return BreakLine;
         
-        int level = opts.testFlag(EntityNode) ? 3 : 2;
-        int count;
-        for(count = 1; level < 6 && markup[count] == '#'; count++)
-            level++;
+        int level = opts.testFlag(EntityNode) ? 2 : 1;
+        int count = beginingCount(markup, '#');
         
-        QString htag = 'h' + QString::number(level);
+        QString htag = 'h' + QString::number(count + level);
         HtmlNode tag = HtmlNode(htag);
         tag.append(markup.remove(0, count).trimmed(), false);
         markup = tag.toHtml();
         
-        return true;
+        return HeaderLine;
+    }
+    else if(markup.startsWith("&gt;"))
+    {
+        markup = markup.remove(0, 4).trimmed();
+        ret = IndentedLine;
     }
     
     QRegExp re;
@@ -459,5 +501,14 @@ bool WarPage::tags(QString& markup, NodeOptions opts)
     }*/
     
     
-    return false;
+    return ret;
+}
+
+int WarPage::beginingCount(const QString& txt, char c) const
+{
+    int len = txt.length(), ret = 0;
+    for(int i = 0; i < len && txt[i] == c; i++)
+        ret++;
+    
+    return ret;
 }
