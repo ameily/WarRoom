@@ -107,6 +107,8 @@ void WarPageViewer::appendPage(const WarPage& page)
     
     
     connect(area, SIGNAL(ruleRefClicked(const RuleRef&)), SLOT(onRuleClicked(const RuleRef&)));
+    connect(area, SIGNAL(unitRefClicked(const Unit&)), SLOT(onUnitClicked(const Unit&)));
+    connect(area, SIGNAL(wargearRefClicked(const WargearRef&)), SLOT(onWargearClicked(const WargearRef&)));
     connect(search, SIGNAL(textChanged(const QString&)), SLOT(onSearchTextChanged(const QString&)));
     connect(search, SIGNAL(returnPressed()), SLOT(doSearchNext()));
     connect(searchNext, SIGNAL(clicked()), SLOT(doSearchNext()));
@@ -143,6 +145,31 @@ void WarPageViewer::onRuleClicked(const RuleRef& ref)
     }
     qDebug() << "end onRuleClicked()";
 }
+
+void WarPageViewer::onUnitClicked(const Unit& ref)
+{
+    int index = indexOf(ref.id());
+    if(index >= 0)
+        setCurrentIndex(index);
+    else
+    {
+        WarPage page(ref, *m_race);
+        appendPage(page);
+    }
+}
+
+void WarPageViewer::onWargearClicked(const WargearRef& ref)
+{
+    int index = indexOf(ref.id());
+    if(index >= 0)
+        setCurrentIndex(index);
+    else
+    {
+        WarPage page(ref, *m_race);
+        appendPage(page);
+    }
+}
+
 
 void WarPageViewer::onCloseTab(int index)
 {

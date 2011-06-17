@@ -39,6 +39,9 @@ public:
     
 private slots:
     void onRuleClicked(const RuleRef& ref);
+    void onWargearClicked(const WargearRef& ref);
+    void onUnitClicked(const Unit& ref);
+    
     void onCloseTab(int index);
     void doSearchNext();
     void doSearchPrevious();
