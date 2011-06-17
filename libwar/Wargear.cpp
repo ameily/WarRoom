@@ -236,6 +236,11 @@ const Race& Wargear::race() const
     return *m_race;
 }
 
+QString Wargear::title() const
+{
+    return m_name;
+}
+
 
 
 QList<WargearProfile*> Wargear::profiles()
@@ -303,6 +308,7 @@ QDomElement& Wargear::toXml(QDomDocument& doc, QDomElement& parent) const
             m_profiles[i].toXml(doc, ele);
             profiles.appendChild(ele);
         }
+        parent.appendChild(profiles);
     }
     
     return parent;
