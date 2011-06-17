@@ -22,10 +22,13 @@
 #include <QTextDocument>
 #include <QUrl>
 
-WarPage::HtmlNode::HtmlNode(const QString& tag, const QString& body) : m_body(),
+WarPage::HtmlNode::HtmlNode(const QString& tag, const QString& body, const QString& empty) : m_body(),
     m_tag(tag)
 {
-    m_body = Qt::escape(body);
+    if(body.isEmpty() && !empty.isEmpty())
+        m_body = Qt::escape(empty);
+    else
+        m_body = Qt::escape(body);
 }
 
 WarPage::HtmlNode::HtmlNode(const WarPage::HtmlNode& other) : 
@@ -144,6 +147,11 @@ WarPage::HtmlNode& WarPage::HtmlNode::colspan(const QString& span)
 WarPage::HtmlNode& WarPage::HtmlNode::rowspan(const QString& span)
 {
     return attr("rowspan", span);
+}
+
+WarPage::HtmlNode& WarPage::HtmlNode::align(const QString& align)
+{
+    return attr("align", align);
 }
 
 WarPage::HtmlNode& WarPage::HtmlNode::attr(const QString& key, const QString& val)
