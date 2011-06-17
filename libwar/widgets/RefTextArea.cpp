@@ -65,7 +65,7 @@ void RefTextArea::linkClicked(const QUrl& url)
     }
     else if(url.scheme() == "wargear")
     {
-        Wargear *w = m_page.race()->getWargear(id);
+        Wargear *w = m_page.race()->resolveWargear(id);
         WargearRef ref(*w, name);
         emit wargearRefClicked(ref);
     }
