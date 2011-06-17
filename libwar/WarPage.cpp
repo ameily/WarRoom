@@ -50,16 +50,17 @@ WarPage::WarPage(Game& game) : m_id(game.id()), m_name(game.name()), m_root()
     m_root.append(body);
 }
 
-WarPage::WarPage(Race& race, RaceMode mode) : m_id(race.id()), m_root(),
+WarPage::WarPage(Race& race) : m_id(race.id()), m_root(),
     m_name(race.name())
 {
     m_rules = &race;
     m_race = &race;
     HtmlNode body("body");
+    initPage(race.name() + " -- Unit List");
     QString subtitle;
     int len;
     
-    if(mode == RuleListMode)
+    /*if(mode == RuleListMode)
     {
         
     }
@@ -67,17 +68,18 @@ WarPage::WarPage(Race& race, RaceMode mode) : m_id(race.id()), m_root(),
     {
     }
     else // Unit List
-    {
-        subtitle = "Unit List";
+    {*/
+        //subtitle = "Unit List";
+        body.append(wrapTitle(race.name(), PageNode));
         QList<Unit*> units = m_race->units();
         qSort(units.begin(), units.end(), compareUnit);
         len = units.length();
         
         for(int i = 0; i < len; i++)
             append(body, *units[i], EntityNode | BriefDescription);
-    }
+    //}
     
-    initPage(race.name() + " -- " + subtitle);
+    
     m_root.append(body);
 }
 
@@ -92,6 +94,29 @@ WarPage::WarPage(const IRule& rule, RuleList& list, Race *race) : m_id(rule.id()
     append(body, rule, PageNode);
     m_root.append(body);
 }
+
+WarPage::WarPage(const IWargear& wargear, Race& race) : m_id(wargear.id()),
+    m_name(wargear.name())
+{
+    m_rules = &race;
+    m_race = &race;
+    initPage(wargear.title());
+    HtmlNode body("body");
+    append(body, wargear, PageNode);
+    m_root.append(body);
+    qDebug() << "end of WarPage()";
+}
+
+WarPage::WarPage(const Unit& unit, Race& race) : m_id(unit.id()), m_name(unit.name())
+{
+    m_rules = &race;
+    m_race = &race;
+    initPage(unit.name());
+    HtmlNode body("body");
+    append(body, unit, PageNode);
+    m_root.append(body);
+}
+
 
 WarPage::WarPage(const WarPage& other) : m_root(other.m_root),
     m_name(other.m_name), m_id(other.m_id)
@@ -115,7 +140,8 @@ QString WarPage::defaultStyleSheet() const
             "h2 { margin-bottom: 15px; }\n"
             "h3 { margin-bottom: 0px; padding-bottom: 0px; }\n"
             "p { text-indent: 15px; margin-top: 0px; }\n"
-            "a { text-decoration: none; }";
+            "a { text-decoration: none; }\n"
+            "td, th { padding-left: 0.5em; padding-right: 0.5em; }";
 }
 
 
@@ -235,6 +261,28 @@ WarPage::MarkupReference WarPage::toRef(const IRule& rule)
     return ref;
 }
 
+WarPage::MarkupReference WarPage::toRef(const IWargear& wargear)
+{
+    MarkupReference ref;
+    ref.id = wargear.id();
+    ref.name = wargear.name();
+    ref.title = wargear.title();
+    ref.prefix = WargearPrefix;
+    return ref;
+}
+
+WarPage::MarkupReference WarPage::toRef(const Unit& unit)
+{
+    MarkupReference ref;
+    ref.id = unit.id();
+    ref.name = unit.name();
+    ref.title = "Page " + unit.page();
+    ref.prefix = UnitPrefix;
+    return ref;
+}
+
+
+
 
 WarPage::NodeOptions WarPage::childOptions(WarPage::NodeOptions opts)
 {
@@ -283,13 +331,54 @@ void WarPage::append(WarPage::HtmlNode& parent, const IRule& rule, NodeOptions o
 
 void WarPage::append(WarPage::HtmlNode& parent, const Unit& unit, WarPage::NodeOptions opts)
 {
-    QList<WargearRef> wargears = unit.wargearRefs();
-    QList<RuleRef> rules = unit.ruleRefs();
-    qSort(wargears.begin(), wargears.end(), compateWargearRef);
-    qSort(rules.begin(), rules.end(), compareRuleRef);
+    if(opts.testFlag(InlineNode))
+    {
+        parent.append(
+            HtmlNode(toRef(unit))
+        );
+    }
+    else
+    {
+        QList<WargearRef> wargears = unit.wargearRefs();
+        QList<RuleRef> rules = unit.ruleRefs();
+        qSort(wargears.begin(), wargears.end(), compateWargearRef);
+        qSort(rules.begin(), rules.end(), compareRuleRef);
+        
+        NodeOptions children = childOptions(opts);
+        NodeOptions attachments = childOptions(children);
+        parent.append(wrapTitle(unit.name(), opts));
+        append(parent, unit.profile());
+        
+        int len = wargears.length();
+        if(len > 0)
+        {
+            HtmlNode list("ul");
+            parent.append(wrapTitle("Wargears", children));
+            for(int i = 0; i < len; i++)
+            {
+                HtmlNode node("li");
+                append(node, wargears[i], attachments);
+                list.append(node);
+            }
+            parent.append(list);
+        }
+        
+        len = rules.length();
+        if(len > 0)
+        {
+            HtmlNode list("ul");
+            parent.append(wrapTitle("Rules", children));
+            for(int i = 0; i < len; i++)
+            {
+                HtmlNode node("li");
+                append(node, rules[i], attachments);
+                list.append(node);
+            }
+            parent.append(list);
+        }
+        
+    }
     
-    NodeOptions childopts = childOptions(opts);
-    append(parent, unit.profile());
 }
 
 void WarPage::append(WarPage::HtmlNode& parent, const UnitProfile& profile)
@@ -312,20 +401,20 @@ void WarPage::append(WarPage::HtmlNode& parent, const UnitProfile& profile)
             if(row == 0)
             {
                 if(col < unitCount)
-                    tr.append(HtmlNode("td").append("&nbsp;", false));
+                    tr.append(HtmlNode("th").align("center").append("&nbsp;", false));
                 else if(col == unitCount)
                 {
                     tr.append(
-                        HtmlNode("td").colspan(QString::number(vehicleCount)).append(
-                            HtmlNode("b", "ARMOUR")
-                        )
+                        HtmlNode("th", "ARMOUR").colspan(
+                            QString::number(vehicleCount)
+                        ).align("center")
                     );
                 }
             }
             else if(row == 1)
-                tr.append(HtmlNode("td").append(HtmlNode("b", current.key)));
+                tr.append(HtmlNode("th", current.key).align("center"));
             else if(row == 2)
-                tr.append(HtmlNode("td", current.value));
+                tr.append(HtmlNode("td", current.value).align("center"));
         }
         table.append(tr);
     }
@@ -333,25 +422,85 @@ void WarPage::append(WarPage::HtmlNode& parent, const UnitProfile& profile)
     parent.append(table);
 }
 
-/*
- * status = tags(part)
- * if status == header
- *     begin new paragraph (p)
- *     body.append(part)
- * else if status == indent
- *     if previous == indent
- *         paragraph.append(part)
- *     else
- *         begin new paragraph (div)
- *         paragraph.append(part)
- * else if status == inline
- *     if previous == indent
- *         begin new paragraph (p)
- *     paragraph.append(part)
- * 
- * begin(HtmlNode parent)
- *     if !parent.isEmpty()
- */
+void WarPage::append(WarPage::HtmlNode& parent, const IWargear& wargear, NodeOptions opts)
+{
+    if(opts.testFlag(InlineNode))
+    {
+        parent.append(
+            HtmlNode(toRef(wargear))
+        );
+    }
+    else
+    {
+        NodeOptions children = childOptions(opts);
+        QList<WargearProfile> profiles = wargear.profiles();
+        parent.append(wrapTitle(wargear.title(), opts));
+        int len = profiles.length();
+        
+        // profile
+        if(len > 0)
+        {
+            HtmlNode table("table");
+            table.append(
+                HtmlNode("tr").append(
+                    HtmlNode("th").append("&nbsp;", false)
+                ).append(
+                    HtmlNode("th", "Range")
+                ).append(
+                    HtmlNode("th", "Strength")
+                ).append(
+                    HtmlNode("th", "AP")
+                ).append(
+                    HtmlNode("th", "Type")
+                ).append(
+                    HtmlNode("th", "Page")
+                )
+            );
+            for (int i = 0 ; i < len; i++)
+            {
+                QList<RuleRef*> rules = profiles[i].ruleRefs();
+                qSort(rules.begin(), rules.end(), compareRulePtr);
+                HtmlNode types("td");
+                int rlen = rules.length();
+                for(int j = 0; j < rlen; j++)
+                {
+                    append(types, *rules[j], InlineNode);
+                    if((j+1) < rlen)
+                        types.append(", ", true);
+                }
+                
+                table.append(
+                    HtmlNode("tr").append(
+                        HtmlNode("td", profiles[i].name(), wargear.name())
+                    ).append(
+                        HtmlNode("td", profiles[i].range(), "-")
+                    ).append(
+                        HtmlNode("td", profiles[i].strength(), "-")
+                    ).append(
+                        HtmlNode("td", profiles[i].armourPenetration(), "-")
+                    ).append(
+                        types
+                    )
+                );
+            }
+            parent.append(table);
+        }
+        
+        if(!wargear.description().isEmpty())
+        {
+            QString body = Qt::escape(wargear.description());
+            //qDebug() << body;
+            append(parent, body, children);
+        }
+        else if(!wargear.brief().isEmpty())
+            parent.append(Qt::escape(wargear.brief()));
+    }
+}
+
+
+
+
+
 void WarPage::append(HtmlNode& parent, QString& markup, NodeOptions opts)
 {
     QStringList parts = markup.trimmed().split('\n', QString::KeepEmptyParts);

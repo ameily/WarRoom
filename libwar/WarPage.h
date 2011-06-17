@@ -75,7 +75,7 @@ public:
     class HtmlNode
     {
     public:
-        HtmlNode(const QString& tag, const QString& body = QString());
+        HtmlNode(const QString& tag, const QString& body = QString(), const QString& empty = QString());
         HtmlNode(const HtmlNode& other);
         HtmlNode(const WarPage::MarkupReference& ref,
                  const QString& name = QString());
@@ -89,6 +89,7 @@ public:
         HtmlNode& href(const WarPage::MarkupReference& ref);
         HtmlNode& style(const QString& style);
         HtmlNode& title(const QString& title);
+        HtmlNode& align(const QString& align);
         HtmlNode& attr(const QString& atr, const QString& val);
         HtmlNode& append(const WarPage::HtmlNode& tag);
         HtmlNode& append(const QString& txt, bool escape);
@@ -105,8 +106,11 @@ public:
     };
     
     WarPage(Game& game);
-    WarPage(Race& race, RaceMode mode);
+    WarPage(Race& race);
     WarPage(const IRule& rule, RuleList& list, Race *race);
+    WarPage(const IWargear& wargear, Race& race);
+    WarPage(const Unit& unit, Race& race);
+    
     WarPage(const WarPage& other);
     virtual WarPage& operator=(const WarPage& other);
     
@@ -130,12 +134,15 @@ private:
     void append(HtmlNode& parent, const Unit& unit, NodeOptions opts);
     void append(HtmlNode& parent, QString& markup, NodeOptions opts);
     void append(HtmlNode& parent, const UnitProfile& profile);
+    void append(HtmlNode& parent, const IWargear& wargear, NodeOptions opts);
     MarkupLine tags(QString& markup, WarPage::NodeOptions opts);
     int beginingCount(const QString& txt, char c) const;
     void refs(QString& markup);
     void cutoff(QString& markup, const WarPage::MarkupReference& ref, int len);
     
     MarkupReference toRef(const IRule& rule);
+    MarkupReference toRef(const IWargear& wargear);
+    MarkupReference toRef(const Unit& unit);
     
     HtmlNode wrapTitle(const QString& title, NodeOptions opts) const;
     NodeOptions childOptions(NodeOptions opts);
