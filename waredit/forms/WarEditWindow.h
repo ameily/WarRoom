@@ -89,6 +89,7 @@ private slots:
     
     
     void onMenuNewRace();
+    void onMenuPreviewRaceClicked();
     void doMenuOpenRace();
     void doMenuSaveRace();
     void doMenuSaveRaceAs();
