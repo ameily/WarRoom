@@ -1253,6 +1253,7 @@ p, li { white-space: pre-wrap; }
     <addaction name="actionNewRace"/>
     <addaction name="actionSaveRace"/>
     <addaction name="actionSaveRaceAs"/>
+    <addaction name="actionPreviewRace"/>
    </widget>
    <addaction name="menuGame"/>
    <addaction name="menuRace"/>
@@ -1336,6 +1337,15 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="text">
     <string>Preview Game</string>
+   </property>
+  </action>
+  <action name="actionPreviewRace">
+   <property name="icon">
+    <iconset resource="../../../libwar/resources/images.qrc">
+     <normaloff>:/icons/document-preview.png</normaloff>:/icons/document-preview.png</iconset>
+   </property>
+   <property name="text">
+    <string>Preview Race</string>
    </property>
   </action>
  </widget>

@@ -153,6 +153,7 @@ void WarEditWindow::enableActiveWidgets()
         
         actionSaveRace->setEnabled(false);
         actionSaveRaceAs->setEnabled(false);
+        actionPreviewRace->setEnabled(false);
         raceTab->setEnabled(false);
         gameFieldsReadOnly = false;
         raceFieldsReadOnly = false;
@@ -168,6 +169,7 @@ void WarEditWindow::enableActiveWidgets()
         
         actionSaveRace->setEnabled(true);
         actionSaveRaceAs->setEnabled(true);
+        actionPreviewRace->setEnabled(true);
         raceTab->setEnabled(true);
         
         race_gameEdit->setEnabled(false);
@@ -184,6 +186,7 @@ void WarEditWindow::enableActiveWidgets()
         
         actionSaveRace->setEnabled(false);
         actionSaveRaceAs->setEnabled(false);
+        actionPreviewRace->setEnabled(false);
         raceTab->setEnabled(false);
         gameFieldsReadOnly = false;
         raceFieldsReadOnly = false;
@@ -295,6 +298,7 @@ void WarEditWindow::setupConnections()
     connect(actionOpenRace, SIGNAL(triggered(bool)), SLOT(doMenuOpenRace()));
     connect(actionSaveRace, SIGNAL(triggered(bool)), SLOT(doMenuSaveRace()));
     connect(actionSaveRaceAs, SIGNAL(triggered(bool)), SLOT(doMenuSaveRaceAs()));
+    connect(actionPreviewRace, SIGNAL(triggered(bool)), SLOT(onMenuPreviewRaceClicked()));
     
     connect(raceSaveBox, SIGNAL(clicked(QAbstractButton*)),
             SLOT(doCommitOrRollbackRace(QAbstractButton*)));

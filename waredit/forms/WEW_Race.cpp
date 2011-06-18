@@ -26,6 +26,8 @@
 #include "ReferenceEditDialog.h"
 #include <WargearProfile.h>
 #include "WargearProfileEditDialog.h"
+#include <WarPage.h>
+#include "WarPageViewerDialog.h"
 
 void WarEditWindow::onMenuNewRace()
 {
@@ -188,6 +190,14 @@ void WarEditWindow::doMenuSaveRace()
 void WarEditWindow::doMenuSaveRaceAs()
 {
     doSaveRace(true);
+}
+
+void WarEditWindow::onMenuPreviewRaceClicked()
+{
+    WarPage page(*m_race);
+    WarPageViewerDialog *dia = new WarPageViewerDialog(this, page);
+    dia->exec();
+    delete dia;
 }
 
 int WarEditWindow::doOpenRace()

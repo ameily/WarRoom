@@ -1,14 +1,14 @@
 /********************************************************************************
-** Form generated from reading UI file 'GameRaceEditZE5770.ui'
+** Form generated from reading UI file 'GameRaceEditrc2399.ui'
 **
-** Created: Mon May 23 18:53:26 2011
-**      by: Qt User Interface Compiler version 4.7.0
+** Created: Fri Jun 17 16:40:00 2011
+**      by: Qt User Interface Compiler version 4.7.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
 ********************************************************************************/
 
-#ifndef GAMERACEEDITZE5770_H
-#define GAMERACEEDITZE5770_H
+#ifndef GAMERACEEDITRC2399_H
+#define GAMERACEEDITRC2399_H
 
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
@@ -47,6 +47,7 @@ public:
     QAction *actionSaveGameAs;
     QAction *actionSaveRaceAs;
     QAction *actionPreviewGame;
+    QAction *actionPreviewRace;
     QWidget *centralwidget;
     QHBoxLayout *horizontalLayout;
     QTabWidget *gameRaceTabWidget;
@@ -264,6 +265,9 @@ public:
         QIcon icon5;
         icon5.addFile(QString::fromUtf8(":/icons/document-preview.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionPreviewGame->setIcon(icon5);
+        actionPreviewRace = new QAction(MainWindow);
+        actionPreviewRace->setObjectName(QString::fromUtf8("actionPreviewRace"));
+        actionPreviewRace->setIcon(icon5);
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         horizontalLayout = new QHBoxLayout(centralwidget);
@@ -1238,6 +1242,7 @@ public:
         menuRace->addAction(actionNewRace);
         menuRace->addAction(actionSaveRace);
         menuRace->addAction(actionSaveRaceAs);
+        menuRace->addAction(actionPreviewRace);
 
         retranslateUi(MainWindow);
 
@@ -1259,6 +1264,7 @@ public:
         actionSaveGameAs->setText(QApplication::translate("MainWindow", "Save Game As", 0, QApplication::UnicodeUTF8));
         actionSaveRaceAs->setText(QApplication::translate("MainWindow", "Save Race As", 0, QApplication::UnicodeUTF8));
         actionPreviewGame->setText(QApplication::translate("MainWindow", "Preview Game", 0, QApplication::UnicodeUTF8));
+        actionPreviewRace->setText(QApplication::translate("MainWindow", "Preview Race", 0, QApplication::UnicodeUTF8));
         game_idLabel->setText(QApplication::translate("MainWindow", "ID*", 0, QApplication::UnicodeUTF8));
         game_nameLabel->setText(QApplication::translate("MainWindow", "Name*", 0, QApplication::UnicodeUTF8));
         game_bookLabel->setText(QApplication::translate("MainWindow", "Book*", 0, QApplication::UnicodeUTF8));
@@ -1400,4 +1406,4 @@ namespace Ui {
 
 QT_END_NAMESPACE
 
-#endif // GAMERACEEDITZE5770_H
+#endif // GAMERACEEDITRC2399_H
