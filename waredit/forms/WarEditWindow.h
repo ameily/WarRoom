@@ -31,15 +31,16 @@
 #include <QCloseEvent>
 #include <QDir>
 #include <QDomDocument>
+#include <helpers/WarLoaderHelper.h>
 
 class WarEditWindow : public QMainWindow, public Ui::MainWindow
 {
     Q_OBJECT
     
 public:
-    WarEditWindow(QWidget *parent = 0);
+    WarEditWindow(const QString& pwd, QWidget *parent = 0);
     virtual ~WarEditWindow();
-    void setPwd(const QString& dir);
+    //void setPwd(const QString& dir);
     
     
     
@@ -185,7 +186,7 @@ private:
     bool m_gameHasChanges;
     bool m_raceHasChanges;
     bool m_fileHasChanges;
-    QDir m_pwd;
+    WarLoaderHelper *m_loader;
 };
 
 #endif // WAREDITWINDOW_H

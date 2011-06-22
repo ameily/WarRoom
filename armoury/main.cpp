@@ -27,7 +27,6 @@ int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
     app.setApplicationName("Armoury");
-    ArmouryWindow window;
     
     QString docs = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
     QDir dir(docs);
@@ -35,7 +34,7 @@ int main(int argc, char **argv)
     if(dir.exists(warDir))
         dir.cd(warDir);
     
-    window.setPwd(dir.absolutePath());
+    ArmouryWindow window(0, dir.absolutePath());
     
     window.show();
     return app.exec();

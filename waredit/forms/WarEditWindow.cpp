@@ -84,46 +84,12 @@
  *      disable race
  */ 
 
-WarEditWindow::WarEditWindow(QWidget *parent) : QMainWindow(parent), m_pwd(QDir::currentPath())
+WarEditWindow::WarEditWindow(const QString& pwd, QWidget* parent) : QMainWindow(parent)
 {
+    m_loader = new WarLoaderHelper(this, pwd);
     setupUi(this);
     opmode(NoMode);
-    /*
-    QIcon newIcon = QIcon::fromTheme("document-new");
-    QIcon openIcon = QIcon::fromTheme("document-open");
-    QIcon saveIcon = QIcon::fromTheme("document-save");
-    QIcon saveAsIcon = QIcon::fromTheme("document-save-as");
-    QIcon addIcon = QIcon::fromTheme("list-add");
-    QIcon removeIcon = QIcon::fromTheme("list-remove");
-    QIcon editIcon = QIcon::fromTheme("document-properties");
     
-    actionOpenGame->setIcon(openIcon);
-    actionSaveGame->setIcon(saveIcon);
-    actionNewGame->setIcon(newIcon);
-    actionSaveGameAs->setIcon(saveAsIcon);
-    game_ruleNewButton->setIcon(addIcon);
-    game_ruleRemoveButton->setIcon(removeIcon);
-    
-    actionNewRace->setIcon(newIcon);
-    actionOpenRace->setIcon(openIcon);
-    actionSaveRace->setIcon(saveIcon);
-    actionSaveRaceAs->setIcon(saveAsIcon);
-    race_ruleNewButton->setIcon(addIcon);
-    race_ruleRemoveButton->setIcon(removeIcon);
-    race_unitNewButton->setIcon(addIcon);
-    race_unitRemoveButton->setIcon(removeIcon);
-    race_wargearNewButton->setIcon(addIcon);
-    race_wargearRemoveButton->setIcon(removeIcon);
-    race_wargear_profileNewButton->setIcon(addIcon);
-    race_wargear_profileRemoveButton->setIcon(removeIcon);
-    race_wargear_profileEditButton->setIcon(editIcon);
-    race_unit_wargearAddButton->setIcon(addIcon);
-    race_unit_wargearRemoveButton->setIcon(removeIcon);
-    race_unit_wargearEditButton->setIcon(editIcon);
-    race_unit_ruleAddButton->setIcon(addIcon);
-    race_unit_ruleRemoveButton->setIcon(removeIcon);
-    race_unit_ruleEditButton->setIcon(editIcon);
-    */
     m_isProgrammaticChange = false;
     m_game = NULL;
     m_race = NULL;
@@ -233,14 +199,14 @@ void WarEditWindow::closeEvent(QCloseEvent* event)
         event->ignore();
 }
 
-void WarEditWindow::setPwd(const QString& dir)
+/*void WarEditWindow::setPwd(const QString& dir)
 {
     QFileInfo info(dir);
     if(info.isDir())
         m_pwd = QDir(dir);
     else
         m_pwd = info.dir();
-}
+}*/
 
 
 WarEditWindow::~WarEditWindow()
@@ -419,7 +385,7 @@ QString WarEditWindow::genUniqueRuleId(const RuleList& list, int start)
     return id;
 }
 
-bool WarEditWindow::openXml(QDomDocument& doc, QFile* file)
+/*bool WarEditWindow::openXml(QDomDocument& doc, QFile* file)
 {
     QString err;
     int line;
@@ -433,7 +399,7 @@ bool WarEditWindow::openXml(QDomDocument& doc, QFile* file)
     }
     
     return true;
-}
+}*/
 
 QString WarEditWindow::strippedFileName(const QString& file)
 {

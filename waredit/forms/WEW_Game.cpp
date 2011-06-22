@@ -290,7 +290,28 @@ int WarEditWindow::doOpenGame(const QString& gameId)
 {
     if(askSaveOpenGame() && askSaveOpenRace())
     {
-        QString path;
+        try
+        {
+            QString path = gameId;
+            Game *game = m_loader->loadGame(path);
+            if(game)
+            {
+                closeGame();
+                m_gameFile = new QFile(path);
+                m_game = game;
+                m_game_rules = m_game->rules();
+                qSort(m_game_rules.begin(), m_game_rules.end(), compareRulePtr);
+                return ActionOk;
+            }
+            else
+                return ActionCancelled;
+        }
+        catch(WarLoaderHelper::LoadException e)
+        {
+            QMessageBox::warning(this, "Load Error", e.message());
+            return ActionFailed;
+        }
+        /*QString path;
         if(!gameId.isEmpty())
         {
             if(m_pwd.exists(gameId + ".game"))
@@ -365,7 +386,7 @@ int WarEditWindow::doOpenGame(const QString& gameId)
         
         setPwd(path);
         
-        return ActionOk;
+        return ActionOk;*/
     }
     
     return ActionCancelled;
@@ -422,7 +443,7 @@ bool WarEditWindow::doSaveGame(bool override)
     {
         QString filter = "Game Files (*.game)";
         QString path = QFileDialog::getSaveFileName(this, "Save Game",
-            m_pwd.path(), filter, &filter);
+            m_loader->pwdString(), filter, &filter);
         
         if(path.isNull()) // user cancelled
             return false;
@@ -431,7 +452,7 @@ bool WarEditWindow::doSaveGame(bool override)
             delete m_gameFile;
         
         m_gameFile = new QFile(path);
-        setPwd(path);
+        m_loader->setPwd(path);
     }
     
     if(!m_gameFile->open(QIODevice::WriteOnly))

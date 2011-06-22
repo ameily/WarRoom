@@ -25,13 +25,14 @@
 #include <QDomDocument>
 #include <QFile>
 #include "designer/ui_ArmouryWindow.h"
+#include <helpers/WarLoaderHelper.h>
 
 class ArmouryWindow : public QMainWindow, public Ui::MainArmouryWindow
 {
     Q_OBJECT
     
 public:
-    ArmouryWindow(QWidget *parent = 0);
+    ArmouryWindow(QWidget *parent, const QString& pwd);
     virtual ~ArmouryWindow();
     void setPwd(const QString& dir);
     
@@ -42,9 +43,11 @@ private:
     QString m_pwd;
     void cleanup();
     void closeOpenFile();
-    bool openXml(QDomDocument& doc, QFile* file);
+    //bool openXml(QDomDocument& doc, QFile* file);
+    WarLoaderHelper *m_loader;
     bool m_viewingFile;
     Game *m_game;
+    Race *m_race;
     //Race *m_race;
 };
 

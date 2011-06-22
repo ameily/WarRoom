@@ -28,14 +28,13 @@ int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
     app.setApplicationName("War Edit");
-    WarEditWindow window;
     
     QString docs = QDesktopServices::storageLocation(QDesktopServices::DocumentsLocation);
     QDir dir(docs);
     QString warDir = "War Library";
     if(!dir.exists(warDir))
     {
-        int status = QMessageBox::question(&window, "Create Directory?",
+        int status = QMessageBox::question(0, "Create Directory?",
             "This directory " + dir.filePath(warDir) +
             " does not exist. Create the directory?",
             QMessageBox::No | QMessageBox::Yes, QMessageBox::No);
@@ -44,7 +43,7 @@ int main(int argc, char **argv)
         {
             if(!dir.mkdir(warDir))
             {
-                QMessageBox::information(&window, "Error",
+                QMessageBox::information(0, "Error",
                     "Could not create the directory " + dir.filePath(warDir) +
                     ".");
             }
@@ -54,7 +53,7 @@ int main(int argc, char **argv)
     if(dir.exists(warDir))
         dir.cd(warDir);
     
-    window.setPwd(dir.absolutePath());
+    WarEditWindow window(dir.absolutePath());
     
     window.show();
     int status = app.exec();

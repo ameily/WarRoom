@@ -157,6 +157,9 @@ void WarEditWindow::doMenuOpenRace()
         
         if(loadedGame)
         {
+            m_game_rules = m_game->rules();
+            qSort(m_game_rules.begin(), m_game_rules.end(), compareRulePtr);
+            
             populateGame();
             onGameRuleSelected(-1);
             populateGameRuleList();
@@ -204,7 +207,36 @@ int WarEditWindow::doOpenRace()
 {
     if(askSaveOpenGame() && askSaveOpenRace())
     {
-        QString filter = "Race Files (*.race)";
+        try
+        {
+            QString path;
+            Race *race = m_loader->loadRace(path, &m_game);
+            if(race)
+            {
+                closeRace();
+                m_race = race;
+                m_raceFile = new QFile(path);
+                m_race_rules = m_race->rules();
+                m_race_units = m_race->units();
+                m_race_wargears = m_race->wargears();
+                m_all_wargears = m_race_wargears + m_game->baseWargears();
+                
+                qSort(m_race_rules.begin(), m_race_rules.end(), compareRulePtr);
+                qSort(m_race_units.begin(), m_race_units.end(), compareUnit);
+                qSort(m_race_wargears.begin(), m_race_wargears.end(), compareWargear);
+                qSort(m_all_wargears.begin(), m_all_wargears.end(), compareWargear);
+                
+                return ActionOk;
+            }
+            else
+                return ActionCancelled;
+        }
+        catch(WarLoaderHelper::LoadException e)
+        {
+            QMessageBox::warning(this, "Load Error", e.message());
+            return ActionFailed;
+        }
+        /*QString filter = "Race Files (*.race)";
         QString path = QFileDialog::getOpenFileName(this, "Open Race",
             m_pwd.path(), filter, &filter);
         
@@ -301,7 +333,7 @@ int WarEditWindow::doOpenRace()
         qSort(m_race_wargears.begin(), m_race_wargears.end(), compareWargear);
         qSort(m_all_wargears.begin(), m_all_wargears.end(), compareWargear);
         
-        return ActionOk;
+        return ActionOk;*/
     }
     
     return ActionCancelled;
@@ -847,7 +879,7 @@ bool WarEditWindow::doSaveRace(bool override)
     {
         QString filter = "Race Files (*.race)";
         QString path = QFileDialog::getSaveFileName(this, "Save Race",
-            m_pwd.path(), filter, &filter);
+            m_loader->pwdString(), filter, &filter);
         
         if(path.isNull()) // user cancelled
             return false;
@@ -856,7 +888,7 @@ bool WarEditWindow::doSaveRace(bool override)
             delete m_raceFile;
         
         m_raceFile = new QFile(path);
-        setPwd(path);
+        m_loader->setPwd(path);
     }
     
     QDomDocument doc;

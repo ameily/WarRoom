@@ -24,13 +24,14 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
-ArmouryWindow::ArmouryWindow(QWidget* parent) : QMainWindow(parent),
-    m_pwd(QDir::currentPath())
+ArmouryWindow::ArmouryWindow(QWidget* parent, const QString& pwd) : QMainWindow(parent)
 {
     setupUi(this);
     m_viewingFile = false;
     setWindowFilePath("No File");
     m_game = 0;
+    m_race = 0;
+    m_loader = new WarLoaderHelper(this, pwd);
     connect(actionOpenFile, SIGNAL(triggered()), SLOT(onMenuOpenFile()));
     connect(actionQuit, SIGNAL(triggered()), SLOT(close()));
 }
@@ -38,10 +39,7 @@ ArmouryWindow::ArmouryWindow(QWidget* parent) : QMainWindow(parent),
 void ArmouryWindow::onMenuOpenFile()
 {
     closeOpenFile();
-    
-    QString filter = "War Files (*.game *.race)";
-    QString path = QFileDialog::getOpenFileName(this, "Open File",
-        m_pwd, filter, &filter);
+    /*QString path = fileDialog(false);
     
     if(!path.isEmpty())
     {
@@ -62,11 +60,23 @@ void ArmouryWindow::onMenuOpenFile()
         QString root = doc.documentElement().tagName();
         try
         {
+            if(root == "race")
+            {
+                m_race = new Race(doc);
+                WarPage page(*m_race);
+                pageViewer->setFirstPage(page);
+            }
+            
             if(root == "game")
             {
                 m_game = new Game(doc);
                 WarPage page(*m_game);
                 pageViewer->setFirstPage(page);
+            }
+            else
+            {
+                QMessageBox::information(this, "Error",
+                    "The file is not a valid Game or Race file.");
             }
         }
         catch(XmlParseException e)
@@ -81,10 +91,43 @@ void ArmouryWindow::onMenuOpenFile()
         setWindowFilePath(fp.fileName());
         
         fp.close();
+    }*/
+    try
+    {
+        QString filename;
+        if(m_loader->loadFile(filename, &m_race, &m_game,
+            WarLoaderHelper::GameFilter | WarLoaderHelper::RaceFilter))
+        {
+            if(m_race)
+            {
+                WarPage page(*m_race);
+                pageViewer->setFirstPage(page);
+            }
+            else
+            {
+                WarPage page(*m_game);
+                pageViewer->setFirstPage(page);
+            }
+            setWindowFilePath(filename);
+        }
+    }
+    catch(WarLoaderHelper::LoadException e)
+    {
+        QMessageBox::warning(this, "Load Error", e.message());
     }
 }
 
-bool ArmouryWindow::openXml(QDomDocument& doc, QFile* file)
+/*QString ArmouryWindow::fileDialog(bool gameOnly)
+{
+    QString filter = gameOnly ? "Game File (*.game)" : "War Files (*.game *.race)";
+    QString path = QFileDialog::getOpenFileName(this, "Open File",
+        m_pwd, filter, &filter);
+    
+    return path;
+}*/
+
+
+/*bool ArmouryWindow::openXml(QDomDocument& doc, QFile* file)
 {
     QString err;
     int line;
@@ -98,14 +141,18 @@ bool ArmouryWindow::openXml(QDomDocument& doc, QFile* file)
     }
     
     return true;
-}
+}*/
 
 void ArmouryWindow::cleanup()
 {
     if(m_game)
         delete m_game;
     
+    if(m_race)
+        delete m_race;
+    
     m_game = 0;
+    m_race = 0;
 }
 
 void ArmouryWindow::closeOpenFile()
@@ -116,15 +163,17 @@ void ArmouryWindow::closeOpenFile()
     setWindowFilePath("No File");
 }
 
-void ArmouryWindow::setPwd(const QString& dir)
+/*void ArmouryWindow::setPwd(const QString& dir)
 {
     m_pwd = dir;
-}
+}*/
 
 
 
 ArmouryWindow::~ArmouryWindow()
 {
     cleanup();
+    if(m_loader)
+        delete m_loader;
 }
 
